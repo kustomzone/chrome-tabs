@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>IFrames | Chrome Tabz Test</title>
+
+  <style>
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    .chrome-tab-toolz {
+      top: 10px;
+      right: 15px;
+      position: absolute;
+    }
+  </style>
+
+  <link rel="stylesheet" href="../../../../src/css/base.min.css" />
+  <link rel="stylesheet" href="../../../../src/css/dark.min.css" />
+
+  <script src="../../../../node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="../../../../node_modules/draggabilly/dist/draggabilly.pkgd.min.js"></script>
+  <script src="../../../../src/js/main.js"></script>
+
+  <script>
+    // jshint esversion: 6
+
+    jQuery(document).ready($ => {
+
+      let settings = {
+        minWidth: 45,
+        maxWidth: 243,
+        rightMargin: 300,
+        overlapDistance: 14,
+
+        viewz: 'iframes', // or `webviews`.
+        // `webviews` = Electron compatibility.
+        // Or leave empty to disable viewz entirely.
+
+        defaultProps: {
+          title: 'New Tab',
+          favicon: '../../../../src/images/default-favicon.png',
+          url: 'https://duckduckgo.com/?kae=b&kak=-1&kao=-1&k1=-1&kt=p&kj=f5f5f5&ka=p&kf=1&kam=google-maps&km=l&ko=1',
+
+          unknownUrlTitle: 'Web Page', // e.g., cross-domain.
+          loadingFavicon: '../../../../src/images/loading-favicon.gif',
+
+          viewAttrs: {} // Optional `<iframe>` or `<webview>` attrs.
+          // These are simply `key: value` pairs representing HTML attrs.
+        },
+        debug: 1, // Set as `false` in production please.
+        // The `debug` setting enables console logging, for debugging.
+      };
+
+      $('.chrome-tabz').chromeTabz(settings).each((i, obj) => {
+
+        let $chromeTabz = $(obj);
+        let instance = $chromeTabz.data('instance');
+
+        let $tabz = instance.addTabs([
+          { url: '../../../demos/viewz/assets/frames/1.html' },
+          { url: '../../../demos/viewz/assets/frames/2.html' },
+          { url: '../../../demos/viewz/assets/frames/3.html' },
+          { url: '../../../demos/viewz/assets/frames/4.html' },
+          { url: '../../../demos/viewz/assets/frames/5.html' },
+          { url: '../../../demos/viewz/assets/frames/6.html' },
+          { url: '../../../demos/viewz/assets/frames/7.html' },
+          { url: '../../../demos/viewz/assets/frames/8.html' },
+          { url: '../../../demos/viewz/assets/frames/9.html' },
+          {
+            title: 'Dogpile.com',
+            url: 'http://www.dogpile.com/',
+            favicon: 'http://www.dogpile.com/favicon.ico'
+          }, {
+            title: 'Ask.com',
+            url: 'http://www.ask.com/',
+            favicon: 'http://www.ask.com/favicon.ico'
+          }, {
+            title: 'DuckDuckGo.com',
+            favicon: 'https://duckduckgo.com/favicon.ico',
+            url: 'https://duckduckgo.com/?kae=b&kak=-1&kao=-1&k1=-1&kt=p&kj=f5f5f5&ka=p&kf=1&kam=google-maps&km=l&ko=1&kn=1'
+          }
+        ]);
+        instance.setCurrentTab($tabz.eq(0));
+
+        $('.chrome-tab-toolz > .-add-tab').on('click', (e) => {
+          let url = prompt('URL (empty = default tab):');
+          if (url !== null) instance.addTab(url ? { url } : {});
+        });
+        $('.chrome-tab-toolz > .-remove-tab').on('click', (e) => {
+          instance.removeTab(instance.currentTab);
+        });
+        $('.chrome-tab-toolz > .-toggle-dark-theme').on('click', (e) => {
+          $chromeTabz.toggleClass('-dark-theme');
+        });
+
+        if (instance.settings.debug >= 2) { // For debugging purposes.
+          $chromeTabz.on('constructed', (e, instance) => console.log('Tabs constructed.', instance));
+          $chromeTabz.on('initialized', (e, instance) => console.log('Tabs initialized.', instance));
+          $chromeTabz.on('destroyed', (e, instance) => console.log('Tabs destroyed.', instance));
+
+          $chromeTabz.on('tabAdded', (e, tab) => console.log('Tab added.', tab));
+          $chromeTabz.on('tabUpdated', (e, tab, props, via) => console.log('Tab props updated.', tab, props, via));
+          $chromeTabz.on('currentTabChanged', (e, tab) => console.log('Current tab changed to.', tab));
+
+          $chromeTabz.on('tabDragStarted', (e, tab) => console.log('Tab drag started.', tab));
+          $chromeTabz.on('tabDragMoved', (e, tab, locations) => console.log('Tab dragged to a new location.', tab, locations));
+          $chromeTabz.on('tabDragStopped', (e, tab) => console.log('Tab drag stopped.', tab));
+
+          $chromeTabz.on('tabBeingRemoved', (e, tab) => console.log('Tab will be removed.', tab));
+          $chromeTabz.on('tabRemoved', (e, tab) => console.log('Tab removed.', tab));
+
+          if (instance.settings.debug >= 3 && instance.settings.viewz) {
+            let $chromeTabViewz = instance.$viewz;
+            let viewzInstance = $chromeTabViewz.data('instance');
+
+            $chromeTabViewz.on('constructed', (e, instance) => console.log('Viewz constructed.', instance));
+            $chromeTabViewz.on('initialized', (e, instance) => console.log('Viewz initialized.', instance));
+            $chromeTabViewz.on('destroyed', (e, instance) => console.log('Viewz destroyed.', instance));
+
+            $chromeTabViewz.on('viewIndexed', (e, view, locations) => console.log('View indexed.', view, locations));
+            $chromeTabViewz.on('viewAdded', (e, view) => console.log('View added.', view));
+            $chromeTabViewz.on('viewUpdated', (e, view, props, via) => console.log('View props updated.', view, props, via));
+            $chromeTabViewz.on('currentViewChanged', (e, view) => console.log('Current view changed to.', view));
+
+            $chromeTabViewz.on('viewBeingRemoved', (e, view) => console.log('View will be removed.', view));
+            $chromeTabViewz.on('viewRemoved', (e, view) => console.log('View removed.', view));
+
+            $chromeTabViewz.on('viewStartedLoading', (e, view) => console.log('View started loading.', view));
+            $chromeTabViewz.on('viewFaviconUpdated', (e, view, favicon) => console.log('View favicon updated.', view, favicon));
+            $chromeTabViewz.on('viewTitleUpdated', (e, view, title) => console.log('View title updated.', view, title));
+            $chromeTabViewz.on('viewStoppedLoading', (e, view) => console.log('View stopped loading.', view));
+          }
+        }
+      });
+    });
+  </script>
+</head>
+
+<body>
+  <div class="chrome-tabz"></div>
+
+  <div class="chrome-tab-toolz">
+    <button class="-add-tab">Add Tab</button>
+    <button class="-remove-tab">Remove Tab</button>
+    <button class="-toggle-dark-theme">Toggle Theme</button>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,20 @@
+{
+  "version": "1.0.0",
+  "name": "chrome-tabz",
+  "description": "Enhanced Chrome tabs.",
+
+  "license": "GPL-3.0",
+  "author": "jaswsinc",
+  "keywords": ["electron", "chrome", "tabs"],
+  "repository": "https://github.com/jaswsinc/chrome-tabz",
+
+  "main": "./src/js/main.js",
+
+  "dependencies": {
+    "jquery": "^2.2.4 || ^3.0.0",
+    "draggabilly": "^2.1.1"
+  },
+  "devDependencies": {
+    "bourbon": "^4.2.7"
+  }
+}

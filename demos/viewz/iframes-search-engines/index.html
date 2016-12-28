@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>Search Engine IFrames | Chrome Tabz Demo</title>
+
+  <!-- For demo only. -->
+  <style>
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    .demo-tip {
+      top: 12px;
+      right: 15px;
+      position: absolute;
+      font: 13px/1 sans-serif;
+      pointer-events: none;
+      user-select: none;
+    }
+  </style>
+
+  <!-- Required styles. -->
+  <link rel="stylesheet" href="../../../../src/css/base.min.css" />
+  <link rel="stylesheet" href="../../../../src/css/dark.min.css" />
+</head>
+
+<body>
+
+  <!-- Required markup. -->
+  <div class="chrome-tabz"></div>
+
+  <!-- For demo only. -->
+  <div class="demo-tip">
+    <strong>Tips:</strong> double-click = new tab, drag to arrange.
+  </div>
+
+  <!-- Required scripts. -->
+  <script src="../../../../node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="../../../../node_modules/draggabilly/dist/draggabilly.pkgd.min.js"></script>
+  <script src="../../../../src/js/main.js"></script>
+
+  <!-- Required snippet. -->
+  <script>
+    // jshint esversion: 6
+
+    jQuery(document).ready($ => {
+      $('.chrome-tabz').chromeTabz({
+        initialTabs: [{
+          title: 'DuckDuckGo.com',
+          favicon: 'https://duckduckgo.com/favicon.ico',
+          url: 'https://duckduckgo.com/?kae=b&kak=-1&kao=-1&k1=-1&kt=p&kj=f5f5f5&ka=p&kf=1&kam=google-maps&km=l&ko=1&kn=1'
+        }, {
+          title: 'Dogpile.com',
+          url: 'http://www.dogpile.com/',
+          favicon: 'http://www.dogpile.com/favicon.ico'
+        }, {
+          title: 'Ask.com',
+          url: 'http://www.ask.com/',
+          favicon: 'http://www.ask.com/favicon.ico'
+        }]
+      });
+      // TIP: For URLs on the same domain as your tabs, you only need the URL.
+      // i.e., Favicons/titles are automatic, and navigation changes are detected also.
+    });
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>Same-Domain IFrames | Chrome Tabz Demo</title>
+
+  <!-- For demo only. -->
+  <style>
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+
+  <!-- Required styles. -->
+  <link rel="stylesheet" href="../../../../src/css/base.min.css" />
+  <link rel="stylesheet" href="../../../../src/css/dark.min.css" />
+</head>
+
+<body>
+
+  <!-- Required markup. -->
+  <div class="chrome-tabz"></div>
+
+  <!-- Required scripts. -->
+  <script src="../../../../node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="../../../../node_modules/draggabilly/dist/draggabilly.pkgd.min.js"></script>
+  <script src="../../../../src/js/main.js"></script>
+
+  <!-- Required snippet. -->
+  <script>
+    // jshint esversion: 6
+
+    jQuery(document).ready($ => {
+      $('.chrome-tabz').chromeTabz({
+        initialTabs: [
+          { url: '../assets/frames/1.html' },
+          { url: '../assets/frames/2.html' },
+          { url: '../assets/frames/3.html' },
+          { url: '../assets/frames/4.html' },
+          { url: '../assets/frames/5.html' },
+          { url: '../assets/frames/6.html' },
+          { url: '../assets/frames/7.html' },
+          { url: '../assets/frames/8.html' },
+          { url: '../assets/frames/9.html' }
+        ]
+      });
+      // TIP: For URLs on the same domain as your tabs, you only need the URL.
+      // i.e., Favicons/titles are automatic, and navigation changes are detected also.
+    });
+  </script>
+
+</body>
+
+</html>
