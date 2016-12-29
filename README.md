@@ -2,6 +2,8 @@
 
 [Electron](http://electron.atom.io/) and/or browser compatible HTML/CSS and JS chrome tabs — with a jQuery wrapper.
 
+_~ Inspired by and based on the [original Chrome Tabs](https://github.com/alanshaw/br-chrome-tabs) by [@alanshaw](https://github.com/alanshaw)._
+
 This is an ES6 project that I started for Electron [`<webview>`](http://electron.atom.io/docs/api/web-view-tag/) tags. However, it also supports [`<iframe>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe) tags in modern web browsers that support ES5+, i.e., _`dists/js/bundle.min.js` is transpiled into traditional JS for browser compat._
 
 ![Demo](https://jaswsinc.github.io/chrome-tabz/demos/images/demo.gif)
