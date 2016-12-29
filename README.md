@@ -23,7 +23,7 @@ This is an ES6 project that I started for Electron [`<webview>`](http://electron
 
 ### Live Demos
 
-_**Tip:** In these demos you can 'View Source' of the top-level frame for additional insight._
+_**Tip:** In these demos you can 'View Page Source' for additional insight._
 
 - [Same-Domain IFrames](https://jaswsinc.github.io/chrome-tabz/demos/viewz/iframes-same-domain/index.html)
 - [Search Engine IFrames](https://jaswsinc.github.io/chrome-tabz/demos/viewz/iframes-search-engines/index.html)
