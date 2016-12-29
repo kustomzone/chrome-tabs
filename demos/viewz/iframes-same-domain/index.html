@@ -25,17 +25,16 @@
   <div class="chrome-tabz"></div>
 
   <!-- Required scripts. -->
-  <script src="../../../../node_modules/jquery/dist/jquery.min.js"></script>
-  <script src="../../../../node_modules/draggabilly/dist/draggabilly.pkgd.min.js"></script>
-  <script src="../../../../src/js/main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="../../../../dists/js/bundle.min.js"></script>
 
   <!-- Required snippet. -->
   <script>
     // jshint esversion: 6
 
-    jQuery(document).ready($ => {
+    jQuery(document).ready(function($) {
       $('.chrome-tabz').chromeTabz({
-        initialTabs: [
+        initialTabz: [
           { url: '../assets/frames/1.html' },
           { url: '../assets/frames/2.html' },
           { url: '../assets/frames/3.html' },
@@ -47,8 +46,8 @@
           { url: '../assets/frames/9.html' }
         ]
       });
-      // TIP: For URLs on the same domain as your tabs, you only need the URL.
-      // i.e., Favicons/titles are automatic, and navigation changes are detected also.
+      // TIP: For URLs on the same domain as your tabs (like those above), you only need the URL.
+      // i.e., Favicons/titles are automatic for same-domain iframes, and navigation changes are detected also.
     });
   </script>
 

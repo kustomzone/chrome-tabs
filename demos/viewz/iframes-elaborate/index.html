@@ -38,19 +38,18 @@
   </div>
 
   <!-- Required scripts. -->
-  <script src="../../../../node_modules/jquery/dist/jquery.min.js"></script>
-  <script src="../../../../node_modules/draggabilly/dist/draggabilly.pkgd.min.js"></script>
-  <script src="../../../../src/js/main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="../../../../dists/js/bundle.min.js"></script>
 
   <!-- Begin example snippet. -->
   <script>
     // jshint esversion: 6
 
-    jQuery(document).ready($ => {
+    jQuery(document).ready(function($) {
 
       // Settings (all optional).
 
-      let settings = {
+      var settings = {
         minWidth: 45,
         maxWidth: 243,
         rightMargin: 300,
@@ -76,14 +75,14 @@
       // ... $('.chrome-tabz').chromeTabz(settings);
 
       // A more elaborate example w/ bells & whistles.
-      $('.chrome-tabz').chromeTabz(settings).each((i, obj) => {
+      $('.chrome-tabz').chromeTabz(settings).each(function(i, obj) {
 
         // References we'll work with below.
-        let $chromeTabz = $(obj); // DOM object w/ jQuery wrapper.
-        let instance = $chromeTabz.data('instance'); // Class instance.
+        var $chromeTabz = $(obj); // DOM object w/ jQuery wrapper.
+        $chromeTabz._ = $chromeTabz.data('chromeTabz'); // Class instance.
 
         // Optional initial tabs.
-        let $tabz = instance.addTabs([
+        var $tabz = $chromeTabz._.addTabz([
           { url: '../assets/frames/1.html' },
           { url: '../assets/frames/2.html' },
           { url: '../assets/frames/3.html' },
@@ -99,42 +98,45 @@
             url: 'https://duckduckgo.com/?kae=b&kak=-1&kao=-1&k1=-1&kt=p&kj=f5f5f5&ka=p&kf=1&kam=google-maps&km=l&ko=1',
           }
         ]);
+        // TIP: For URLs on the same domain as your tabs (like many of those above), you only need the URL.
+        // i.e., Favicons/titles are automatic for same-domain iframes, and navigation changes are detected also.
+
         // Optionally set active tab.
-        instance.setCurrentTab($tabz.eq(0));
+        $chromeTabz._.setCurrentTab($tabz.eq(0));
 
         // Optional tools setup (for demo only).
-        $('.demo-tools > .-add-tab').on('click', (e) => {
-          let url = prompt('URL (empty = default tab):');
-          if (url !== null) instance.addTab(url ? { url } : {});
+        $('.demo-tools > .-add-tab').on('click', function(e) {
+          var url = prompt('URL (empty = default tab):');
+          if (url !== null) $chromeTabz._.addTab(url ? { url: url } : {});
           // Note: the prompt cancel button = `null`.
         });
-        $('.demo-tools > .-remove-tab').on('click', (e) => {
-          instance.removeTab(instance.currentTab);
+        $('.demo-tools > .-remove-tab').on('click', function(e) {
+          $chromeTabz._.removeTab($chromeTabz._.$currentTab);
         });
-        $('.demo-tools > .-toggle-dark-theme').on('click', (e) => {
+        $('.demo-tools > .-toggle-dark-theme').on('click', function(e) {
           $chromeTabz.toggleClass('-dark-theme');
         });
 
         // Optional events that you can attach via jQuery.
-        $chromeTabz.on('constructed', (e, instance) => console.log('Tabs constructed.', instance));
-        $chromeTabz.on('initialized', (e, instance) => console.log('Tabs initialized.', instance));
-        $chromeTabz.on('destroyed', (e, instance) => console.log('Tabs destroyed.', instance));
+        $chromeTabz.on('constructed', function(e, instance) { console.log('Tabs constructed.', instance); });
+        $chromeTabz.on('initialized', function(e, instance) { console.log('Tabs initialized.', instance); });
+        $chromeTabz.on('destroyed', function(e, instance) { console.log('Tabs destroyed.', instance); });
 
-        $chromeTabz.on('tabAdded', (e, tab) => console.log('Tab added.', tab));
-        $chromeTabz.on('tabUpdated', (e, tab, props, via) => console.log('Tab props updated.', tab, props, via));
-        $chromeTabz.on('currentTabChanged', (e, tab) => console.log('Current tab changed to.', tab));
+        $chromeTabz.on('tabAdded', function(e, tab) { console.log('Tab added.', tab); });
+        $chromeTabz.on('tabUpdated', function(e, tab, props, via) { console.log('Tab props updated.', tab, props, via); });
+        $chromeTabz.on('currentTabChanged', function(e, tab) { console.log('Current tab changed to.', tab); });
 
-        $chromeTabz.on('tabDragStarted', (e, tab) => console.log('Tab drag started.', tab));
-        $chromeTabz.on('tabDragMoved', (e, tab, locations) => console.log('Tab dragged to a new location.', tab, locations));
-        $chromeTabz.on('tabDragStopped', (e, tab) => console.log('Tab drag stopped.', tab));
+        $chromeTabz.on('tabDragStarted', function(e, tab) { console.log('Tab drag started.', tab); });
+        $chromeTabz.on('tabDragMoved', function(e, tab, locations) { console.log('Tab dragged to a new location.', tab, locations); });
+        $chromeTabz.on('tabDragStopped', function(e, tab) { console.log('Tab drag stopped.', tab); });
 
-        $chromeTabz.on('tabBeingRemoved', (e, tab) => console.log('Tab will be removed.', tab));
-        $chromeTabz.on('tabRemoved', (e, tab) => console.log('Tab removed.', tab));
+        $chromeTabz.on('tabBeingRemoved', function(e, tab) { console.log('Tab will be removed.', tab); });
+        $chromeTabz.on('tabRemoved', function(e, tab) { console.log('Tab removed.', tab); });
       });
 
       // Optionally destroy.
-      $('.chrome-tabz').each((i, obj) => {
-        // $(obj).data('instance').destroy();
+      $('.chrome-tabz').each(function(i, obj) {
+        // $(obj).data('chromeTabz').destroy();
       });
     });
   </script>

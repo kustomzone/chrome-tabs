@@ -21,10 +21,19 @@
 
   <link rel="stylesheet" href="../../../../src/css/base.min.css" />
   <link rel="stylesheet" href="../../../../src/css/dark.min.css" />
+</head>
 
-  <script src="../../../../node_modules/jquery/dist/jquery.min.js"></script>
-  <script src="../../../../node_modules/draggabilly/dist/draggabilly.pkgd.min.js"></script>
-  <script src="../../../../src/js/main.js"></script>
+<body>
+  <div class="chrome-tabz"></div>
+
+  <div class="chrome-tab-toolz">
+    <button class="-add-tab">Add Tab</button>
+    <button class="-remove-tab">Remove Tab</button>
+    <button class="-toggle-dark-theme">Toggle Theme</button>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="../../../../dists/js/bundle.min.js"></script>
 
   <script>
     // jshint esversion: 6
@@ -58,10 +67,10 @@
 
       $('.chrome-tabz').chromeTabz(settings).each((i, obj) => {
 
-        let $chromeTabz = $(obj);
-        let instance = $chromeTabz.data('instance');
+        let $chromeTabz = $(obj); // jQuery & class.
+        $chromeTabz._ = $chromeTabz.data('chromeTabz');
 
-        let $tabz = instance.addTabs([
+        let $tabz = $chromeTabz._.addTabz([
           { url: '../../../demos/viewz/assets/frames/1.html' },
           { url: '../../../demos/viewz/assets/frames/2.html' },
           { url: '../../../demos/viewz/assets/frames/3.html' },
@@ -85,20 +94,20 @@
             url: 'https://duckduckgo.com/?kae=b&kak=-1&kao=-1&k1=-1&kt=p&kj=f5f5f5&ka=p&kf=1&kam=google-maps&km=l&ko=1&kn=1'
           }
         ]);
-        instance.setCurrentTab($tabz.eq(0));
+        $chromeTabz._.setCurrentTab($tabz.eq(0));
 
         $('.chrome-tab-toolz > .-add-tab').on('click', (e) => {
           let url = prompt('URL (empty = default tab):');
-          if (url !== null) instance.addTab(url ? { url } : {});
+          if (url !== null) $chromeTabz._.addTab(url ? { url } : {});
         });
         $('.chrome-tab-toolz > .-remove-tab').on('click', (e) => {
-          instance.removeTab(instance.currentTab);
+          $chromeTabz._.removeTab($chromeTabz._.$currentTab);
         });
         $('.chrome-tab-toolz > .-toggle-dark-theme').on('click', (e) => {
           $chromeTabz.toggleClass('-dark-theme');
         });
 
-        if (instance.settings.debug >= 2) { // For debugging purposes.
+        if ($chromeTabz._.settings.debug >= 2) { // For debugging purposes.
           $chromeTabz.on('constructed', (e, instance) => console.log('Tabs constructed.', instance));
           $chromeTabz.on('initialized', (e, instance) => console.log('Tabs initialized.', instance));
           $chromeTabz.on('destroyed', (e, instance) => console.log('Tabs destroyed.', instance));
@@ -114,9 +123,9 @@
           $chromeTabz.on('tabBeingRemoved', (e, tab) => console.log('Tab will be removed.', tab));
           $chromeTabz.on('tabRemoved', (e, tab) => console.log('Tab removed.', tab));
 
-          if (instance.settings.debug >= 3 && instance.settings.viewz) {
-            let $chromeTabViewz = instance.$viewz;
-            let viewzInstance = $chromeTabViewz.data('instance');
+          if ($chromeTabz._.settings.debug >= 3 && $chromeTabz._.settings.viewz) {
+            let $chromeTabViewz = $chromeTabz._.$viewz; // jQuery & class.
+            $chromeTabViewz._ = $chromeTabViewz.data('chromeTabViewz');
 
             $chromeTabViewz.on('constructed', (e, instance) => console.log('Viewz constructed.', instance));
             $chromeTabViewz.on('initialized', (e, instance) => console.log('Viewz initialized.', instance));
@@ -139,16 +148,7 @@
       });
     });
   </script>
-</head>
 
-<body>
-  <div class="chrome-tabz"></div>
-
-  <div class="chrome-tab-toolz">
-    <button class="-add-tab">Add Tab</button>
-    <button class="-remove-tab">Remove Tab</button>
-    <button class="-toggle-dark-theme">Toggle Theme</button>
-  </div>
 </body>
 
 </html>

@@ -1,7 +1,27 @@
 // jshint esversion: 6
 
-($ => {
-  'use strict;';
+(function (root, factory) { // Universal module definition.
+  // See: <https://github.com/umdjs/umd/tree/master/templates>
+
+  if (typeof define === 'function' && define.amd) {
+
+    // AMD / RequireJS (anonymous module).
+    define(['jquery', 'draggabilly/draggabilly'],
+      (jQuery, Draggabilly) => factory(root, jQuery, Draggabilly));
+
+  } else if (typeof module === 'object' && module.exports) {
+
+    // NodeJS, Browserify, CommonJS-like, etc.
+    let jQuery = root.jQuery || require('jquery');
+    let Draggabilly = root.Draggabilly || require('draggabilly');
+    module.exports = factory(root, jQuery, Draggabilly);
+
+  } else { // Anything else.
+    factory(root, jQuery, Draggabilly);
+  }
+  // -------------------------------------------------------------------------------------------------------------------
+})( /* root = */ window, /* factory = */ (window, $, Draggabilly) => {
+  'use strict';
 
   // Begin statics.
 
@@ -10,24 +30,24 @@
       <div class="-background">
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg">
           <defs>
-            <symbol id="topleft" viewBox="0 0 214 29" >
-              <path d="M14.3 0.1L214 0.1 214 29 0 29C0 29 12.2 2.6 13.2 1.1 14.3-0.4 14.3 0.1 14.3 0.1Z"/>
+            <symbol id="topleft" viewBox="0 0 214 29">
+              <path d="M14.3 0.1L214 0.1 214 29 0 29C0 29 12.2 2.6 13.2 1.1 14.3-0.4 14.3 0.1 14.3 0.1Z" />
             </symbol>
             <symbol id="topright" viewBox="0 0 214 29">
-              <use xlink:href="#topleft"/>
+              <use xlink:href="#topleft" />
             </symbol>
             <clipPath id="crop">
-              <rect class="mask" width="100%" height="100%" x="0"/>
+              <rect class="mask" width="100%" height="100%" x="0" />
             </clipPath>
           </defs>
           <svg width="50%" height="100%" transfrom="scale(-1, 1)">
-            <use xlink:href="#topleft" width="214" height="29" class="-background"/>
-            <use xlink:href="#topleft" width="214" height="29" class="-shadow"/>
+            <use xlink:href="#topleft" width="214" height="29" class="-background" />
+            <use xlink:href="#topleft" width="214" height="29" class="-shadow" />
           </svg>
           <g transform="scale(-1, 1)">
             <svg width="50%" height="100%" x="-100%" y="0">
-              <use xlink:href="#topright" width="214" height="29" class="-background"/>
-              <use xlink:href="#topright" width="214" height="29" class="-shadow"/>
+              <use xlink:href="#topright" width="214" height="29" class="-background" />
+              <use xlink:href="#topright" width="214" height="29" class="-shadow" />
             </svg>
           </g>
         </svg>
@@ -56,16 +76,8 @@
   // Begin `ChromeTabz{}` class.
 
   class ChromeTabz {
-    get tabz() {
-      return this.$tabz;
-    }
-
     get $tabz() {
       return this.$content.find('> .-tab');
-    }
-
-    get currentTab() {
-      return this.$currentTab;
     }
 
     get $currentTab() {
@@ -107,7 +119,7 @@
         // `webviews` = Electron compatibility.
         // Or leave empty to disable viewz entirely.
 
-        initialTabs: [], // Array of props.
+        initialTabz: [], // Array of props.
 
         defaultProps: {
           url: defaultTabUrl,
@@ -125,15 +137,15 @@
       };
       this.settings = $.extend({}, this.defaultSettings, settings || {});
 
-      this.$obj = this.obj = $(this.settings.obj);
-      this.$obj.data('instance', this);
+      this.$obj = $(this.settings.obj);
+      this.$obj.data('chromeTabz', this);
 
-      this.$bar = this.bar = $('<div class="-bar"></div>');
-      this.$content = this.content = $('<div class="-content"></div>');
-      this.$bottomLine = this.bottomLine = $('<div class="-bottom-line"></div>');
+      this.$bar = $('<div class="-bar"></div>');
+      this.$content = $('<div class="-content"></div>');
+      this.$bottomLine = $('<div class="-bottom-line"></div>');
 
-      this.$viewz = this.viewz = $('<div class="-viewz"></div>');
-      this.$styles = this.styles = $('<style></style>');
+      this.$viewz = $('<div class="-viewz"></div>');
+      this.$styles = $('<style></style>');
 
       this.id = ++totalInstances; // Increment and assign an ID.
       this.draggabillyInstances = []; // Initialize instances.
@@ -161,8 +173,8 @@
       this.fixStackingOrder();
       this.addDraggabilly();
 
-      if (this.settings.initialTabs) {
-        this.addTabs(this.settings.initialTabs);
+      if (this.settings.initialTabz) {
+        this.addTabz(this.settings.initialTabz);
       }
       this.$obj.trigger('initialized', [this]);
     }
@@ -181,7 +193,7 @@
 
       this.removeClasses();
 
-      this.$obj.removeData('instance');
+      this.$obj.removeData('chromeTabz');
       this.$obj.trigger('destroyed', [this]);
       this.$obj.off('.chrome-tabz');
     }
@@ -234,6 +246,7 @@
         return; // Not applicable.
       }
       this.$obj.append(this.$viewz);
+
       new ChromeTabViewz($.extend({}, {
         parentObj: this.$obj,
         type: this.settings.viewz,
@@ -243,7 +256,7 @@
 
     removeViewz() {
       if (this.settings.viewz) {
-        this.$viewz.data('instance').destroy();
+        this.$viewz.data('chromeTabViewz').destroy();
         this.$viewz.remove();
       }
     }
@@ -283,21 +296,21 @@
           styles += `.chrome-tabz.-id-${this.id} > .-bar > .-content > .-tab:nth-child(${i + 1}) {
             transform: translate3d(${x}px, 0, 0);
           }`;
-        }); // This adds an X offset layout for all tabs.
+        }); // This adds an X offset layout for all tabz.
         this.$styles.html(this.alwaysOnStyles + styles); // Set styles.
       });
     }
 
     fixStackingOrder() {
-      let totalTabs = this.$tabz.length;
+      let totalTabz = this.$tabz.length;
 
       this.$tabz.each((i, tab) => {
         let $tab = $(tab);
-        let zindex = totalTabs - i;
+        let zindex = totalTabz - i;
 
         if ($tab.hasClass('-current')) {
-          zindex = totalTabs + 2;
-          this.$bottomLine.css({ zindex: totalTabs + 1 });
+          zindex = totalTabz + 2;
+          this.$bottomLine.css({ zindex: totalTabz + 1 });
         }
         $tab.css({ zindex: zindex });
       });
@@ -371,10 +384,10 @@
     }
 
     addTab(props) {
-      return this.addTabs([props]).eq(0);
+      return this.addTabz([props]).eq(0);
     }
 
-    addTabs(propSets) {
+    addTabz(propSets) {
       let $tabz = $(); // Initialize.
 
       $.each(propSets, (i, props) => {
@@ -403,6 +416,8 @@
       if (!$tab || !$tab.length) {
         throw 'Missing $tab.';
       }
+      $tab = $tab.first(); // One tab only.
+
       if ($tab.hasClass('-current')) {
         if ($tab.prev('.-tab').length) {
           this.setCurrentTab($tab.prev('.-tab'));
@@ -427,6 +442,8 @@
       if (!$tab || !$tab.length) {
         throw 'Missing $tab.';
       }
+      $tab = $tab.first(); // One tab only.
+
       let existingProps = $tab.data('props');
       props = $.extend({}, this.settings.defaultProps, existingProps || {}, props || {});
       $tab.data('props', props); // Update to new props.
@@ -444,6 +461,7 @@
       this.$tabz.removeClass('-current');
 
       if ($tab && $tab.length) {
+        $tab = $tab.first();
         $tab.addClass('-current');
         this.fixStackingOrder();
       }
@@ -454,16 +472,8 @@
   // Begin `ChromeTabViewz{}` class.
 
   class ChromeTabViewz {
-    get viewz() {
-      return this.$viewz;
-    }
-
     get $viewz() {
       return this.$content.find('> .-view');
-    }
-
-    get currentView() {
-      return this.$currentView;
     }
 
     get $currentView() {
@@ -495,11 +505,11 @@
       if ($.inArray(this.settings.type, ['iframes', 'webviews']) === -1)
         this.settings.type = this.defaultSettings.type;
 
-      this.$parentObj = this.parentObj = $(this.settings.parentObj);
-      this.$parentObj.instance = this.$parentObj.data('instance');
+      this.$parentObj = $(this.settings.parentObj);
+      this.$parentObj._ = this.$parentObj.data('chromeTabz');
 
-      this.$obj = this.obj = this.$parentObj.find('> .-viewz');
-      this.$obj.data('instance', this); // Class reference.
+      this.$obj = this.$parentObj.find('> .-viewz');
+      this.$obj.data('chromeTabViewz', this);
 
       this.viewIndex = []; // Initialize index array.
       this.$content = $('<div class="-content"></div>');
@@ -522,7 +532,7 @@
       this.removeEvents();
       this.removeContent();
 
-      this.$obj.removeData('instance');
+      this.$obj.removeData('chromeTabViewz');
       this.$obj.trigger('destroyed', [this]);
       this.$obj.off('.chrome-tabz');
     }
@@ -666,7 +676,7 @@
         }; // True if the first URL, based on counter.
 
         let $getTab = (require = true) => { // Tab matching view.
-          let $tab = this.$parentObj.instance.$tabz.eq(this.mapViewIndex($view, require));
+          let $tab = this.$parentObj._.$tabz.eq(this.mapViewIndex($view, require));
           if (require && (!$tab || !$tab.length)) throw 'Missing $tab.';
           return $tab; // Otherwise, return the tab now.
         }; // Gets tab dynamically in case it was moved by a user.
@@ -690,7 +700,7 @@
               title = !title ? /* Loading dots. */ '...' : title;
 
               // Update the tab favicon and title.
-              this.$parentObj.instance.updateTab($tab, { favicon, title }, 'view::state-change');
+              this.$parentObj._.updateTab($tab, { favicon, title }, 'view::state-change');
 
               // Trigger event after updating tab.
               this.$obj.trigger('viewStartedLoading', [$view]);
@@ -706,7 +716,7 @@
               favicon = !favicon ? this.settings.defaultProps.favicon : favicon;
 
               // Updating tab favicon.
-              this.$parentObj.instance.updateTab($tab, { favicon }, 'view::state-change');
+              this.$parentObj._.updateTab($tab, { favicon }, 'view::state-change');
 
               // Trigger event after updating tab.
               this.$obj.trigger('viewStoppedLoading', [$view]);
@@ -724,7 +734,7 @@
 
               // If not loading, go ahead and update the favicon.
               if (!webContents.isLoading()) { // Update; done loading.
-                this.$parentObj.instance.updateTab($tab, { favicon }, 'view::state-change');
+                this.$parentObj._.updateTab($tab, { favicon }, 'view::state-change');
               }
               // Trigger event after updating tab.
               this.$obj.trigger('viewFaviconUpdated', [$view, favicon]);
@@ -742,7 +752,7 @@
 
               // Title can be updated immediately.
               if (webContents.isLoading() !== 'nil') {
-                this.$parentObj.instance.updateTab($tab, { title }, 'view::state-change');
+                this.$parentObj._.updateTab($tab, { title }, 'view::state-change');
               }
               // Trigger event after updating tab.
               this.$obj.trigger('viewTitleUpdated', [$view, title]);
@@ -798,7 +808,7 @@
               title = !title ? /* Loading dots. */ '...' : title;
 
               // Update the tab favicon and title. Unloaded = now loading.
-              this.$parentObj.instance.updateTab($tab, { favicon, title }, 'view::state-change');
+              this.$parentObj._.updateTab($tab, { favicon, title }, 'view::state-change');
 
               // Trigger event after updating tab.
               this.$obj.trigger('viewStartedLoading', [$view]);
@@ -828,7 +838,7 @@
             title = !title ? this.settings.defaultProps.unknownUrlTitle : title;
 
             // Update the favicon and title.
-            this.$parentObj.instance.updateTab($tab, { favicon, title }, 'view::state-change');
+            this.$parentObj._.updateTab($tab, { favicon, title }, 'view::state-change');
 
             // Trigger these events for iframes too.
             this.$obj.trigger('viewFaviconUpdated', [$view, favicon]);
@@ -861,9 +871,12 @@
 
   $.fn.chromeTabz = function (settings) {
     return this.each((i, obj) => {
-      if (!$(obj).data('instance')) {
+      if (!$(obj).data('chromeTabz')) {
         new ChromeTabz($.extend({}, settings || {}, { obj }));
       }
     });
   };
-})(jQuery);
+  // Handle factory return value.
+
+  return $.fn.chromeTabz; // Extension reference.
+});
