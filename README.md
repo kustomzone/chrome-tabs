@@ -1,6 +1,10 @@
 ## Chrome Tabz
 
-[Electron](http://electron.atom.io/) and/or browser compatible HTML/CSS and JS chrome tabs — with a jQuery wrapper for easy implementation. This is an ES6 project for Electron [`<webview>`](http://electron.atom.io/docs/api/web-view-tag/) tags. It also supports [`<iframe>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe) tags in modern web browsers that support ES5+; i.e., `dists/js/bundle.min.js` is transpiled into traditional JS for web browser compatibility.
+[Electron](http://electron.atom.io/) and/or browser compatible HTML/CSS and JS chrome tabs — with a jQuery wrapper.
+
+This is an ES6 project that I started for Electron [`<webview>`](http://electron.atom.io/docs/api/web-view-tag/) tags. However, it also supports [`<iframe>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe) tags in modern web browsers that support ES5+.
+
+_`dists/js/bundle.min.js` is transpiled into traditional JS for web browser compatibility._
 
 ![Demo](https://jaswsinc.github.io/chrome-tabz/demos/images/demo.gif)
 
@@ -299,7 +303,7 @@ var $tab0 = $('.chrome-tabz .-tab').eq(0);
 $chromeTabz._.removeTab($tab0);
 ```
 
-Removing all tabs.
+#### Removing all tabs.
 
 ```js
 $('.chrome-tabz .-tab').each(function(i, obj) {
@@ -308,7 +312,7 @@ $('.chrome-tabz .-tab').each(function(i, obj) {
 });
 ```
 
-Removing the current active tab.
+#### Removing the current active tab.
 
 ```js
 $chromeTabz._.removeTab($chromeTabz._.$currentTab);
