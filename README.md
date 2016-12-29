@@ -84,7 +84,9 @@ _**Note:** Any version of jQuery >= v2.2.4 will do fine._
 
 ### [Electron](http://electron.atom.io/) Tabbed Interface Implementation
 
-**Note:** ChromeTabz requires a `window.document` object. Generally speaking, most NodeJS projects do not incorporate a web browser. However, there are some exceptions, and Electron apps are one of those. **ChromeTabz works great as a tabbed interface for Electron apps!**
+**Note:** ChromeTabz requires a `window.document` object. Generally speaking, most NodeJS projects do not incorporate a web browser. However, there are some exceptions, and Electron apps are one of those. 👍
+
+😎 **ChromeTabz works great as a tabbed interface for Electron apps!**
 
 #### Required CSS/Styles
 
