@@ -1,25 +1,24 @@
 {
-  "version": "1.0.0",
+  "version": "1.0.1",
   "name": "chrome-tabz",
   "description": "Electron and/or browser compatible HTML/CSS and JS chrome tabs — with a jQuery wrapper.",
-
   "license": "GPL-3.0",
   "author": "jaswsinc",
-  "keywords": ["electron", "chrome", "tabs"],
+  "keywords": [
+    "electron",
+    "chrome",
+    "tabs"
+  ],
   "repository": "https://github.com/jaswsinc/chrome-tabz",
-
   "main": "./src/js/main.js",
-
   "dependencies": {
     "jquery": "^2.2.4 || ^3.0.0",
     "draggabilly": "^2.1.1"
   },
   "devDependencies": {
     "bourbon": "^4.2.7",
-
     "gulp": "^3.9.1",
     "vinyl-source-stream": "^1.1.0",
-
     "browserify": "^13.1.1",
     "google-closure-compiler": "^20161201.0.0",
     "gulp-strip-comments": "^2.4.3"
