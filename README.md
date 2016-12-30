@@ -7,7 +7,7 @@
 
 _~ Inspired by and based on the original [Chrome Tabs](https://github.com/alanshaw/br-chrome-tabs) by [@alanshaw](https://github.com/alanshaw)._
 
-This is an ES6 project for Electron [`<webview>`](http://electron.atom.io/docs/api/web-view-tag/) tags. However, it also supports [`<iframe>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe) tags in modern web browsers that support ES5+. _Note: `dists/js/bundle.min.js` is transpiled into traditional JS for web browser compatibility._
+This is an ES6 project for Electron [`<webview>`](http://electron.atom.io/docs/api/web-view-tag/) tags. However, it also supports [`<iframe>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe) tags in modern web browsers that support ES5+. _Note: `dists/js/bundle.min.js` is transpiled into traditional JS for web browser compatibility. Tested in Google Chrome, Firefox, and Safari._
 
 ![Demo](https://jaswsinc.github.io/chrome-tabz/demos/images/demo.gif)
 
