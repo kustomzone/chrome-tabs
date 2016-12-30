@@ -1,6 +1,7 @@
 ## Chrome Tabz
 
 <img src="https://media.githubusercontent.com/media/jaswsinc/chrome-tabz/dev/assets/images/electron-icon.png" width="128" align="right" />
+<img src="https://media.githubusercontent.com/media/jaswsinc/chrome-tabz/dev/assets/images/chrome-icon.png" width="64" align="right" />
 
 [Electron](http://electron.atom.io/) and/or browser compatible HTML/CSS and JS chrome tabs — with a jQuery wrapper.
 
@@ -92,6 +93,8 @@ Again, this goes in an Electron Renderer Process.
 ---
 
 ### Web Browser Implementation (i.e., Outside of Electron)
+
+<img src="https://media.githubusercontent.com/media/jaswsinc/chrome-tabz/dev/assets/images/chrome-icon.png" width="128" align="right" />
 
 #### Required CSS/Styles
 
