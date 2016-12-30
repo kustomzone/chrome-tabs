@@ -271,7 +271,7 @@ viewAttrs: {}
 
 ---
 
-### Class Property Documentation
+### `ChromeTabz` Class Property Documentation
 
 #### Underlying Class Instance via jQuery
 
@@ -281,7 +281,7 @@ Point `$chromeTabz._` to the underlying class instance.
 ```js
 // References we'll work with below.
 var $chromeTabz = $('.chrome-tabz'); // DOM object w/ jQuery wrapper.
-$chromeTabz._ = $chromeTabz.data('chromeTabz'); // Class instance.
+$chromeTabz._ = $chromeTabz.data('chromeTabz'); // ChromeTabz class instance.
 ```
 
 ---
@@ -352,9 +352,9 @@ var tabPositions = $chromeTabz._.tabPositions;
 
 #### `settings` Property (Read-Only)
 
-_Object_: The currently configured settings for the chromeTabz instance.
+_Object_: The currently configured settings for the ChromeTabz instance.
 
-_**Note:** While not enforced, this should be considered a read-only object. Please do not attempt to change settings after the chromeTabz instance as already been initialized via jQuery._
+_**Note:** While not enforced, this should be considered a read-only object. Please do not attempt to change settings after the ChromeTabz instance as already been initialized via jQuery._
 
 
 ```js
@@ -365,9 +365,9 @@ var settings = $chromeTabz._.settings;
 
 #### `id` Property (Read-Only)
 
-_Number_: The auto-assigned ID for the chromeTabz instance; e.g., `0`.
+_Number_: The auto-assigned ID for the ChromeTabz instance; e.g., `0`.
 
-_**Note:** This is simply a numeric counter, starting from `0`. If you have more than a single instance of chromeTabz in any given DOM, each new instance will then have IDs: `1`, `2`, `3`, etc._
+_**Note:** This is simply a numeric counter, starting from `0`. If you have more than a single instance of ChromeTabz in any given DOM, each new instance will then have IDs: `1`, `2`, `3`, etc._
 
 
 ```js
@@ -376,7 +376,7 @@ var id = $chromeTabz._.id;
 
 ---
 
-### Class Method Documentation
+### `ChromeTabz` Class Method Documentation
 
 #### Underlying Class Instance via jQuery
 
@@ -386,7 +386,7 @@ Point `$chromeTabz._` to the underlying class instance.
 ```js
 // References we'll work with below.
 var $chromeTabz = $('.chrome-tabz'); // DOM object w/ jQuery wrapper.
-$chromeTabz._ = $chromeTabz.data('chromeTabz'); // Class instance.
+$chromeTabz._ = $chromeTabz.data('chromeTabz'); // ChromeTabz class instance.
 ```
 
 ---
@@ -517,7 +517,7 @@ $chromeTabz._ = null; // Also kills your own instance reference.
 
 ---
 
-### jQuery Events Documentation
+### `ChromeTabz`: jQuery Events Documentation
 
 #### `constructed()` Event
 
@@ -720,13 +720,13 @@ $chromeTabz.on('tabRemoved', function (event, $tab, instance) {
 
 ---
 
-### TODO: Document `ChromeTabViewz` Class
+### TODO: `ChromeTabViewz` Documentation
 
 There are some other low-level properties, methods, and events associated with Viewz being altered in response to Tabz being altered. For the most part, these are for internal use only, but eventually I'd like to document everything. For now, here is a quick look at the View events that are available.
 
 ```js
-var $chromeTabViewz = $chromeTabz._.$viewz; // jQuery & class.
-$chromeTabViewz._ = $chromeTabViewz.data('chromeTabViewz');
+var $chromeTabViewz = $chromeTabz._.$viewz; // jQuery wrapper for object `.chrome-tabz > .-viewz` in DOM.
+$chromeTabViewz._ = $chromeTabViewz.data('chromeTabViewz'); // ChromeTabViewz class instance.
 
 $chromeTabViewz.on('constructed', function (event, instance){ console.log('Viewz constructed.'); });
 $chromeTabViewz.on('initialized', function (event, instance){ console.log('Viewz initialized.'); });

@@ -83,7 +83,7 @@
 
         // References we'll work with below.
         var $chromeTabz = $(obj); // DOM object w/ jQuery wrapper.
-        $chromeTabz._ = $chromeTabz.data('chromeTabz'); // Class instance.
+        $chromeTabz._ = $chromeTabz.data('chromeTabz'); // ChromeTabz class instance.
 
         // Optional initial tabs.
         var $tabz = $chromeTabz._.addTabz([
@@ -106,7 +106,7 @@
         // i.e., Favicons/titles are automatic for same-domain iframes, and navigation changes are detected also.
 
         // Optionally set active tab.
-        $chromeTabz._.setCurrentTab($tabz.eq(0));
+        $chromeTabz._.setCurrentTab($tabz.eq(1)); // Index `1` is `2.html` from above.
 
         // Optional tools setup (for demo only).
         $('.demo-tools > .-add-tab').on('click', function(e) {
@@ -120,27 +120,6 @@
         $('.demo-tools > .-toggle-dark-theme').on('click', function(e) {
           $chromeTabz.toggleClass('-dark-theme');
         });
-
-        // Optional events that you can attach via jQuery.
-        $chromeTabz.on('constructed', function(e, instance) { console.log('Tabs constructed.', instance); });
-        $chromeTabz.on('initialized', function(e, instance) { console.log('Tabs initialized.', instance); });
-        $chromeTabz.on('destroyed', function(e, instance) { console.log('Tabs destroyed.', instance); });
-
-        $chromeTabz.on('tabAdded', function(e, tab) { console.log('Tab added.', tab); });
-        $chromeTabz.on('tabUpdated', function(e, tab, props, via) { console.log('Tab props updated.', tab, props, via); });
-        $chromeTabz.on('currentTabChanged', function(e, tab) { console.log('Current tab changed to.', tab); });
-
-        $chromeTabz.on('tabDragStarted', function(e, tab) { console.log('Tab drag started.', tab); });
-        $chromeTabz.on('tabDragMoved', function(e, tab, locations) { console.log('Tab dragged to a new location.', tab, locations); });
-        $chromeTabz.on('tabDragStopped', function(e, tab) { console.log('Tab drag stopped.', tab); });
-
-        $chromeTabz.on('tabBeingRemoved', function(e, tab) { console.log('Tab will be removed.', tab); });
-        $chromeTabz.on('tabRemoved', function(e, tab) { console.log('Tab removed.', tab); });
-      });
-
-      // Optionally destroy.
-      $('.chrome-tabz').each(function(i, obj) {
-        // $(obj).data('chromeTabz').destroy();
       });
     });
   </script>
