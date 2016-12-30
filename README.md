@@ -153,11 +153,11 @@ $('.chrome-tabz').chromeTabz({
 
   defaultProps: {
     title: 'New Tab',
-    favicon: 'src/images/default-favicon.png',
+    favicon: 'src/images/default-favicon.svg',
     url: 'https://duckduckgo.com/?kae=b&kak=-1&kao=-1&k1=-1&kt=p&kj=f5f5f5&ka=p&kf=1&kam=google-maps&km=l&ko=1',
 
     unknownUrlTitle: 'Web Page',
-    loadingFavicon: 'src/images/loading-favicon.gif',
+    loadingFavicon: 'src/images/loading-favicon.svg',
 
     viewAttrs: {}
   },
@@ -204,7 +204,7 @@ $('.chrome-tabz').chromeTabz({
 
     {
       title: 'New Tab',
-      favicon: 'src/images/default-favicon.png',
+      favicon: 'src/images/default-favicon.svg',
       url: 'https://duckduckgo.com/?kae=b&kak=-1&kao=-1&k1=-1&kt=p&kj=f5f5f5&ka=p&kf=1&kam=google-maps&km=l&ko=1',
     }
   ]
@@ -215,11 +215,11 @@ $('.chrome-tabz').chromeTabz({
   ```js
   defaultProps: {
     title: 'New Tab',
-    favicon: 'src/images/default-favicon.png',
+    favicon: 'src/images/default-favicon.svg',
     url: 'https://duckduckgo.com/?kae=b&kak=-1&kao=-1&k1=-1&kt=p&kj=f5f5f5&ka=p&kf=1&kam=google-maps&km=l&ko=1',
 
     unknownUrlTitle: 'Web Page',
-    loadingFavicon: 'src/images/loading-favicon.gif',
+    loadingFavicon: 'src/images/loading-favicon.svg',
 
     viewAttrs: {}
   }
@@ -236,11 +236,11 @@ $('.chrome-tabz').chromeTabz({
 
 ```js
 title: 'New Tab',
-favicon: 'src/images/default-favicon.png',
+favicon: 'src/images/default-favicon.svg',
 url: 'https://duckduckgo.com/?kae=b&kak=-1&kao=-1&k1=-1&kt=p&kj=f5f5f5&ka=p&kf=1&kam=google-maps&km=l&ko=1',
 
 unknownUrlTitle: 'Web Page',
-loadingFavicon: 'src/images/loading-favicon.gif',
+loadingFavicon: 'src/images/loading-favicon.svg',
 
 viewAttrs: {}
 ```
@@ -257,7 +257,7 @@ viewAttrs: {}
 
 - `unknownUrlTitle: ''` In the case of URL loading failure, or when cross-domain restrictions prohibit automatic title detection (based on URL), this default title will be displayed instead.
 
-- `loadingFavicon: ''` Establishes the loading favicon. This can be a `data:` URI, a relative image path (svg,png,gif,ico), or a full URL leading to an image. An animated gif image is strongly recommended, which helps to convey that a tab is loading.
+- `loadingFavicon: ''` Establishes the loading favicon. This can be a `data:` URI, a relative image path (svg,png,gif,ico), or a full URL leading to an image. An animated svg image is strongly recommended, which helps to convey that a tab is loading in both the lite and dark themes.
 
 - `viewAttrs: {}` A 'view' is the underlying `<iframe>` or `<webview>` tag. If you'd like to set HTML attributes on the auto-generated view for any given tab, you can use this property to do that. These are simply `key: value` pairs representing HTML attrs. Here is an example of some attributes supported by the [`<webview>`](http://electron.atom.io/docs/api/web-view-tag/) tag in Electron apps.
 
@@ -502,7 +502,7 @@ Another quick example:
 var $tab = $('.chrome-tabz .-tab').eq(1);
 $chromeTabz._.updateTab($tab, {
   title: 'Currently Loading...',
-  favicon: 'src/images/loading-favicon.gif'
+  favicon: 'src/images/loading-favicon.svg'
 }); // Second tab (index 1) gets a new favicon & title.
 ```
 

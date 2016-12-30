@@ -27,10 +27,6 @@ $views-bg-color: #151515;
 
     > .-content {
       > .-tab {
-        > .-favicon {
-          @include filter(brightness(1.5));
-        }
-
         > .-title {
           color:              $tab-title-color;
         }
