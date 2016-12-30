@@ -91,7 +91,7 @@ Again, this goes in an Electron Renderer Process.
 
 ---
 
-### Web Browser Implementation (Outside of Electron)
+### Web Browser Implementation (i.e., Outside of Electron)
 
 #### Required CSS/Styles
 
