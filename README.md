@@ -5,7 +5,7 @@
 
 [Electron](http://electron.atom.io/) tabs and/or browser compatible HTML/CSS and JS chrome tabs, with a jQuery wrapper. Perfect for Electron Webviews and/or IFrames.
 
-_~ Inspired by and based on the original [Chrome Tabs](https://github.com/alanshaw/br-chrome-tabs) by [@alanshaw](https://github.com/alanshaw)._
+_~ Inspired by and based on the original [Chrome Tabs](https://github.com/adamschwartz/chrome-tabs) by [@adamschwartz](https://github.com/adamschwartz)._
 
 This is an ES6 project for Electron [`<webview>`](http://electron.atom.io/docs/api/web-view-tag/) tags. However, it also supports [`<iframe>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe) tags in modern web browsers that support ES5+. _Note: `dists/js/bundle.min.js` is transpiled into traditional JS for web browser compatibility. Tested in modern versions of Google Chrome, Firefox, and Safari._
 
@@ -398,7 +398,7 @@ $chromeTabz._ = $chromeTabz.data('chromeTabz'); // ChromeTabz class instance.
 
 ##### Parameters
 
-- `props` _Object_: See: [Tab Properties Documentation](https://github.com/jaswsinc/chrome-tabz#tab-properties-documentation).
+- `props` _Object_: See: [Tab Properties Documentation](#tab-properties-documentation).
 - `setAsCurrent` _Boolean_: Set the new tab as the current active tab? Default: `true`.
 
 ##### Returns
@@ -415,7 +415,7 @@ var $tab = $chromeTabz._.addTab({ url: '1.html' });
 
 ##### Parameters
 
-- `propSets` _Array_: e.g., `[{}, {}, {}]`. See: [Tab Properties Documentation](https://github.com/jaswsinc/chrome-tabz#tab-properties-documentation).
+- `propSets` _Array_: e.g., `[{}, {}, {}]`. See: [Tab Properties Documentation](#tab-properties-documentation).
 - `setAsCurrent` _Boolean_: Set the first new tab as the current active tab? Default: `true`.
 
 ##### Returns
@@ -485,7 +485,7 @@ $chromeTabz._.setCurrentTab($tab); // Third tab (index 2) is now active.
 ##### Parameters
 
 - `$tab` _jQuery_: i.e., A jQuery object representing a single tab in the DOM.
-- `props` _Object_: Properties to update. See: [Tab Properties Documentation](https://github.com/jaswsinc/chrome-tabz#tab-properties-documentation).
+- `props` _Object_: Properties to update. See: [Tab Properties Documentation](#tab-properties-documentation).
 - `via` _String_: Optional. This is passed to event callback handlers when the `tabUpdated` event is triggered as a result of calling this method. It certain scenarios, this can help developers decide whether to respond to the update event, or ignore it.
 
 _**Note:** If the jQuery object contains more than a single tab, only the first tab will be updated; via `$tab.first()`. If you need to update multiple tabs, build an iteration of your own._
@@ -599,7 +599,7 @@ Triggered when a new tab (or any tab) is updated in some way; e.g., when things 
 
 - `event` _Object_: The event object properties passed by jQuery.
 - `$tab` _jQuery_: A jQuery object representing the tab in the DOM.
-- `props` _Object_: See: [Tab Properties Documentation](https://github.com/jaswsinc/chrome-tabz#tab-properties-documentation). This is a full & complete tab properties object representing the current state of the tab; i.e., after the update occurred. Any properties that were not updated, will have already been set to either their original/previous value, or to the default value in accordance with `setttings.defaultProps`. Again, this represents the current state of the tab in a full & complete way.
+- `props` _Object_: See: [Tab Properties Documentation](#tab-properties-documentation). This is a full & complete tab properties object representing the current state of the tab; i.e., after the update occurred. Any properties that were not updated, will have already been set to either their original/previous value, or to the default value in accordance with `setttings.defaultProps`. Again, this represents the current state of the tab in a full & complete way.
 - `via` _String_ (or `undefined`): This is an optional identifier passed to the underlying `updateTab()` method. If the original caller defined this variable, it is passed in the event to help listeners recognize who/what originated the call to `updateTab()`. For example, if you call `updateTab()` yourself, and you are _also_ listening to the `tabUpdated` event, you can pass the `via` parameter to `updateTab()`, and then look for it in your own listener — choosing to respond or ignore.
 - `prevProps` _Object_: The previous tab properties, before the update. This is either the full & complete tab properties object prior to the update, or an empty object in the case of a new tab having its properties set/updated for the first time.
 - `newProps` _Object_: The new tab properties that were set by this update. This is not a full & complete tab properties object. It will only contain properties that were updated.
