@@ -1,5 +1,7 @@
 ## Chrome Tabz
 
+<img src="https://media.githubusercontent.com/media/jaswsinc/chrome-tabz/dev/assets/images/electron-icon.png" width="128" align="right" />
+
 [Electron](http://electron.atom.io/) and/or browser compatible HTML/CSS and JS chrome tabs — with a jQuery wrapper.
 
 _~ Inspired by and based on the [original](https://github.com/alanshaw/br-chrome-tabs) Chrome Tabs by [@alanshaw](https://github.com/alanshaw)._
@@ -86,9 +88,9 @@ _**Note:** Any version of jQuery >= v2.2.4 will do fine._
 
 ### [Electron](http://electron.atom.io/) Tabbed Interface Implementation
 
-**Note:** ChromeTabz requires a `window.document` object. Generally speaking, most NodeJS projects do not incorporate a web browser. However, there are some exceptions, and Electron apps are one of those. 👍
+<img src="https://media.githubusercontent.com/media/jaswsinc/chrome-tabz/dev/assets/images/electron-icon.png" width="128" align="right" />
 
-😎 **ChromeTabz works great as a tabbed interface for Electron apps!**
+ChromeTabz requires a `window.document` object. Generally speaking, most NodeJS projects do not incorporate a web browser. However, there are some exceptions, and Electron apps are one of those. **ChromeTabz works great as a tabbed interface for Electron apps!**
 
 #### Required CSS/Styles
 
