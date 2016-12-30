@@ -48,41 +48,6 @@ $ npm install chrome-tabz
 ```
 $ composer require jaswsinc/chrome-tabz
 ```
----
-
-### Web Browser Implementation
-
-#### Required CSS/Styles
-
-```html
-<link rel="stylesheet" href="src/css/base.min.css" />
-<link rel="stylesheet" href="src/css/dark.min.css" />
-```
-
-#### Required JavaScript Files
-
-_**Note:** Any version of jQuery >= v2.2.4 will do fine._
-
-```html
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src="dists/js/bundle.min.js"></script>
-```
-
-#### Required HTML Markup
-
-```html
-<div class="chrome-tabz"></div>
-```
-
-#### Required JavaScript Snippet
-
-```html
-<script>
-  jQuery(document).ready(function($) {
-    $('.chrome-tabz').chromeTabz();
-  });
-</script>
-```
 
 ---
 
@@ -126,7 +91,43 @@ Again, this goes in an Electron Renderer Process.
 
 ---
 
-### jQuery Configuration Options
+### Web Browser Implementation (Outside of Electron)
+
+#### Required CSS/Styles
+
+```html
+<link rel="stylesheet" href="src/css/base.min.css" />
+<link rel="stylesheet" href="src/css/dark.min.css" />
+```
+
+#### Required JavaScript Files
+
+_**Note:** Any version of jQuery >= v2.2.4 will do fine._
+
+```html
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="dists/js/bundle.min.js"></script>
+```
+
+#### Required HTML Markup
+
+```html
+<div class="chrome-tabz"></div>
+```
+
+#### Required JavaScript Snippet
+
+```html
+<script>
+  jQuery(document).ready(function($) {
+    $('.chrome-tabz').chromeTabz();
+  });
+</script>
+```
+
+---
+
+### jQuery Configuration Options (Browser or Electron)
 
 _**Note:** This example represents the default option values._
 
@@ -138,6 +139,9 @@ $('.chrome-tabz').chromeTabz({
   overlapDistance: 14,
 
   viewz: 'iframes',
+  // `iframes` or `webviews`.
+  // `webviews` = Electron compatibility.
+  // Or leave empty to disable viewz entirely.
 
   initialTabz: [],
 
