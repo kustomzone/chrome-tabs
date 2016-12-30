@@ -724,11 +724,6 @@ $chromeTabz.on('tabRemoved', function (event, $tab, instance) {
 
 There are some other low-level properties, methods, and events associated with Viewz being altered in response to Tabz being altered. For the most part, these are for internal use only, but eventually I'd like to document everything. For now, here is a quick look at the View events that are available.
 
-#### Underlying Class Instance via jQuery
-
-The class instance can be obtained via jQuery.
-Point `$chromeTabz._` to the underlying class instance.
-
 ```js
 // References we'll work with below.
 var $chromeTabz = $('.chrome-tabz').chromeTabz(); // w/ jQuery wrapper.
