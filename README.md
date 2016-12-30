@@ -170,12 +170,12 @@ $('.chrome-tabz').chromeTabz({
 
 - `viewz: 'iframes'` This controls the underlying Chrome Tab Viewz class. In short, Viewz make Tabz function like they would in a typical web browser.
 
-  - `'iframes'` If you set this to `iframes`, when a tab is selected, the `url:` tab property is loaded automatically in an [`<iframe>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe).
+  - `'iframes'` If you set this to `iframes`, when a tab is selected, the `url:` tab property is loaded automatically in an [`<iframe>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe). This makes Chrome Tabz compatible with regular web browsers.
 
-  - `'webviews'` In Electron, you can set this to `webviews`. When a tab is selected, the `url:` tab property is loaded in a [`<webview>`](http://electron.atom.io/docs/api/web-view-tag/) tag automatically.
+  - `'webviews'` In Electron, you can set this to `webviews`. When a tab is selected, the `url:` tab property is loaded in a [`<webview>`](http://electron.atom.io/docs/api/web-view-tag/) tag automatically. The `<webview>` tag only works in Electron apps.
 
   - `''` If you set this to an empty string, all you get are the tabs; i.e., you can attach your own event handlers that load whatever content is associated with a given tab; e.g., via AJAX, custom iframes, etc.
-  
+
 - `initialTabz: []` When you want to begin with a specific set of tabs, this option comes in handy, as a convenience. Add a set of properties for each tab that you want to initialize. _**Tip:** Any properties that you don't set, for any given tab, will automatically inherit from the list of `defaultProps: {}`, which is also a configurable option_
 
   ```js
