@@ -168,6 +168,10 @@ $('.chrome-tabz').chromeTabz({
 
 - `overlapDistance: 14` This is the amount of tab overlap, in pixels. Each tab overlaps the previous tab by this number of pixels in order to mimic Google Chrome's interface design.
 
+- `viewz: 'iframes'` This controls the underlying sub-class for Chrome Tab Viewz. If you set this to an empty string, all you get are the tabs; i.e., you can then attach your own event handlers that load whatever content is associated with a given tab. If you set this to `iframes`, when a tab is selected a `url:` tab property is loaded automatically in an [`<iframe>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe). Or, in Electron, you can set this to `webviews`. When a tab is selected, the `url:` tab property is loaded in a [`<webview>`](http://electron.atom.io/docs/api/web-view-tag/) tag automatically.
+
+  In short, Viewz make Tabz function like they would in a typical web browser. If you disable viewz by setting this to an empty string, then you'll need your own event handlers that load content in one way or another; e.g., via AJAX, iframes of your choosing, etc.
+
 - `initialTabz: []` When you want to begin with a specific set of tabs, this option comes in handy, as a convenience. Add a set of properties for each tab that you want to initialize. _**Tip:** Any properties that you don't set, for any given tab, will automatically inherit from the list of `defaultProps: {}`, which is also a configurable option_
 
   ```js
