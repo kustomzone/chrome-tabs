@@ -280,7 +280,7 @@ Point `$chromeTabz._` to the underlying class instance.
 
 ```js
 // References we'll work with below.
-var $chromeTabz = $('.chrome-tabz'); // DOM object w/ jQuery wrapper.
+var $chromeTabz = $('.chrome-tabz').chromeTabz(); // w/ jQuery wrapper.
 $chromeTabz._ = $chromeTabz.data('chromeTabz'); // ChromeTabz class instance.
 ```
 
@@ -385,7 +385,7 @@ Point `$chromeTabz._` to the underlying class instance.
 
 ```js
 // References we'll work with below.
-var $chromeTabz = $('.chrome-tabz'); // DOM object w/ jQuery wrapper.
+var $chromeTabz = $('.chrome-tabz').chromeTabz(); // w/ jQuery wrapper.
 $chromeTabz._ = $chromeTabz.data('chromeTabz'); // ChromeTabz class instance.
 ```
 
@@ -731,12 +731,12 @@ Point `$chromeTabz._` to the underlying class instance.
 
 ```js
 // References we'll work with below.
-var $chromeTabz = $('.chrome-tabz'); // DOM object w/ jQuery wrapper.
+var $chromeTabz = $('.chrome-tabz').chromeTabz(); // w/ jQuery wrapper.
 $chromeTabz._ = $chromeTabz.data('chromeTabz'); // ChromeTabz class instance.
 ```
 
 ```js
-var $chromeTabViewz = $chromeTabz._.$viewz; // jQuery wrapper for object `.chrome-tabz > .-viewz` in DOM.
+var $chromeTabViewz = $chromeTabz._.$viewz; // jQuery wrapper for `.chrome-tabz > .-viewz`.
 $chromeTabViewz._ = $chromeTabViewz.data('chromeTabViewz'); // ChromeTabViewz class instance.
 
 $chromeTabViewz.on('constructed', function (event, instance){ console.log('Viewz constructed.'); });
