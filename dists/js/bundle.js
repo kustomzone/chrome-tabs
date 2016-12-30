@@ -1412,8 +1412,12 @@ return Unipointer;
     factory(root, jQuery, Draggabilly);
   }
   // -------------------------------------------------------------------------------------------------------------------
-})( /* root = */ window, /* factory = */ (window, $, Draggabilly) => {
+})( /* root = */ window, /* factory = */ (window, jQuery, Draggabilly) => {
   'use strict';
+
+  // jQuery.
+
+  let $ = jQuery;
 
   // Begin statics.
 
@@ -1500,18 +1504,21 @@ return Unipointer;
 
     constructor(settings) {
       this.defaultSettings = {
+        obj: '.chrome-tabz',
+
         minWidth: 45,
         maxWidth: 243,
         rightMargin: 300,
         overlapDistance: 14,
 
-        obj: '.chrome-tabz',
         viewz: 'iframes',
         // `iframes` or `webviews`.
         // `webviews` = Electron compatibility.
         // Or leave empty to disable viewz entirely.
 
-        initialTabz: [], // Array of props.
+        allowDragNDrop: true,
+        allowDoubleClick: true,
+        initial: [], // Array of prop objs.
 
         defaultProps: {
           url: defaultTabUrl,
@@ -1527,10 +1534,47 @@ return Unipointer;
         debug: false, // Set as `false` in production please.
         // This setting enables console logging, for debugging.
       };
+      if (settings && typeof settings !== 'object') {
+        throw '`settings` is not an object.';
+      }
       this.settings = $.extend({}, this.defaultSettings, settings || {});
 
-      this.$obj = $(this.settings.obj);
-      this.$obj.data('chromeTabz', this);
+      if ($.inArray(typeof this.settings.obj, ['string', 'object']) === -1) {
+        throw '`obj` must be a string selector, jQuery, or an element in the DOM.';
+      } else if ((this.$obj = $(this.settings.obj).first()).length !== 1) {
+        throw 'Unable to locate a single `obj` in the DOM.';
+        //
+      } else if (typeof this.settings.minWidth !== 'number' || isNaN(this.settings.minWidth)) {
+        throw '`minWidth` is not a number.';
+      } else if (typeof this.settings.maxWidth !== 'number' || isNaN(this.settings.maxWidth)) {
+        throw '`maxWidth` is not a number.';
+      } else if (typeof this.settings.rightMargin !== 'number' || isNaN(this.settings.rightMargin)) {
+        throw '`rightMargin` is not a number.';
+      } else if (typeof this.settings.overlapDistance !== 'number' || isNaN(this.settings.overlapDistance)) {
+        throw '`overlapDistance` is not a number.';
+        //
+      } else if ($.inArray(this.settings.viewz, ['', 'iframes', 'webviews']) === -1) {
+        throw '`viewz` must be: iframes, webviews, or an empty string.';
+        //
+      } else if (typeof this.settings.allowDragNDrop !== 'boolean') {
+        throw '`allowDragNDrop` is not a boolean.';
+      } else if (typeof this.settings.allowDoubleClick !== 'boolean') {
+        throw '`allowDoubleClick` is not a boolean.';
+      } else if (!(this.settings.initial instanceof Array)) {
+        throw '`initial` is not an array.';
+        //
+      } else if (typeof this.settings.defaultProps !== 'object') {
+        throw '`defaultProps` is not an object.';
+        //
+      } else if ($.inArray(typeof this.settings.debug, ['number', 'boolean']) === -1) {
+        throw '`debug` is not a number or boolean.';
+      }
+      this.settings.minWidth = Math.max(1, this.settings.minWidth);
+      this.settings.maxWidth = Math.max(1, this.settings.maxWidth);
+      this.settings.rightMargin = Math.max(0, this.settings.rightMargin);
+      this.settings.overlapDistance = Math.max(0, this.settings.overlapDistance);
+
+      this.$obj.data('chromeTabz', this); // Instance reference.
 
       this.$bar = $('<div class="-bar"></div>');
       this.$content = $('<div class="-content"></div>');
@@ -1565,8 +1609,8 @@ return Unipointer;
       this.fixStackingOrder();
       this.addDraggabilly();
 
-      if (this.settings.initialTabz) {
-        this.addTabz(this.settings.initialTabz);
+      if (this.settings.initial.length) {
+        this.addTabz(this.settings.initial);
       }
       this.$obj.trigger('initialized', [this]);
     }
@@ -1655,7 +1699,10 @@ return Unipointer;
 
     addEvents() {
       $(window).on('resize.chrome-tabz.id-' + this.id, (e) => this.configureLayout());
-      this.$obj.on('dblclick.chrome-tabz', (e) => this.addTab());
+
+      if (this.settings.allowDoubleClick) {
+        this.$obj.on('dblclick.chrome-tabz', (e) => this.addTab());
+      }
       this.$obj.on('click.chrome-tabz', (e) => {
         let $target = $(e.target);
 
@@ -1678,9 +1725,11 @@ return Unipointer;
 
     configureLayout() {
       this.$tabz.width(this.tabWidth);
-      this.$tabz.removeClass('-just-dragged');
-      this.$tabz.removeClass('-currently-dragged');
 
+      if (this.settings.allowDragNDrop) {
+        this.$tabz.removeClass('-just-dragged');
+        this.$tabz.removeClass('-currently-dragged');
+      }
       requestAnimationFrame(() => {
         let styles = ''; // Initialize.
 
@@ -1709,6 +1758,9 @@ return Unipointer;
     }
 
     addDraggabilly() {
+      if (!this.settings.allowDragNDrop) {
+        return; // Not applicable.
+      }
       this.removeDraggabilly();
 
       this.$tabz.each((i, tab) => {
@@ -1727,7 +1779,7 @@ return Unipointer;
 
           this.$bar.addClass('-dragging');
           $tab.addClass('-currently-dragged');
-          this.$obj.trigger('tabDragStarted', [$tab]);
+          this.$obj.trigger('tabDragStarted', [$tab, this]);
         });
         draggabilly.on('dragMove', (event, pointer, moveVector) => {
           let $tabz = this.$tabz;
@@ -1740,7 +1792,7 @@ return Unipointer;
 
           if (prevIndex !== newIndex) {
             $tab[newIndex < prevIndex ? 'insertBefore' : 'insertAfter']($tabz.eq(newIndex));
-            this.$obj.trigger('tabDragMoved', [$tab, { prevIndex, newIndex }]);
+            this.$obj.trigger('tabDragMoved', [$tab, { prevIndex, newIndex }, this]);
           }
         });
         draggabilly.on('dragEnd', () => {
@@ -1762,7 +1814,7 @@ return Unipointer;
                 $tab.css({ transform: '' });
 
                 this.$bar.removeClass('-dragging');
-                this.$obj.trigger('tabDragStopped', [$tab]);
+                this.$obj.trigger('tabDragStopped', [$tab, $tab.index(), this]);
               });
             });
           });
@@ -1771,69 +1823,95 @@ return Unipointer;
     }
 
     removeDraggabilly() {
+      if (!this.settings.allowDragNDrop) {
+        return; // Not applicable.
+      }
       $.each(this.draggabillyInstances, (i, instance) => instance.destroy());
       this.draggabillyInstances = []; // Reset instance array.
     }
 
-    addTab(props) {
-      return this.addTabz([props]).eq(0);
+    addTab(props, setAsCurrent = true) {
+      return this.addTabz([props], setAsCurrent);
     }
 
-    addTabz(propSets) {
+    addTabz(propSets, setAsCurrent = true) {
       let $tabz = $(); // Initialize.
 
+      if (!(propSets instanceof Array) || !propSets.length) {
+        throw 'Missing or invalid property sets.';
+      }
       $.each(propSets, (i, props) => {
+        if (props && typeof props !== 'object') {
+          throw 'Invalid properties.';
+        }
         let $tab = $(tabTemplate);
         this.$content.append($tab);
 
         $tab.addClass('-just-added');
         setTimeout(() => $tab.removeClass('-just-added'), 500);
 
-        this.$obj.trigger('tabAdded', [$tab]);
+        this.$obj.trigger('tabAdded', [$tab, this]);
 
         this.updateTab($tab, props);
 
         $tabz = $tabz.add($tab);
       });
-      if ($tabz.length) {
-        this.setCurrentTab($tabz.eq(0));
-        this.configureLayout();
-        this.fixStackingOrder();
-        this.addDraggabilly();
+      if (setAsCurrent) {
+        this.setCurrentTab($tabz.first());
       }
+      this.configureLayout();
+      this.fixStackingOrder();
+      this.addDraggabilly();
+
       return $tabz;
     }
 
     removeTab($tab) {
-      if (!$tab || !$tab.length) {
-        throw 'Missing $tab.';
+      if (!($tab instanceof jQuery) || !$tab.length) {
+        throw 'Missing or invalid $tab.';
       }
-      if ($tab.hasClass('-current')) {
-        if ($tab.prev('.-tab').length) {
-          this.setCurrentTab($tab.prev('.-tab'));
-        } else if ($tab.next('.-tab').length) {
-          this.setCurrentTab($tab.next('.-tab'));
-        } else {
-          this.setCurrentTab(undefined);
+      $tab = $tab.first(); // One tab only.
+
+      return this.removeTabz($tab);
+    }
+
+    removeTabz($tabz) {
+      if (!($tabz instanceof jQuery) || !$tabz.length) {
+        throw 'Missing or invalid $tabz.';
+      }
+      $tabz.each((i, tab) => {
+        let $tab = $(tab);
+
+        if ($tab.hasClass('-current')) {
+          if ($tab.prev('.-tab').length) {
+            this.setCurrentTab($tab.prev('.-tab'));
+          } else if ($tab.next('.-tab').length) {
+            this.setCurrentTab($tab.next('.-tab'));
+          } else {
+            this.setCurrentTab(undefined);
+          }
         }
-      }
-      this.$obj.trigger('tabBeingRemoved', [$tab]);
-
-      $tab.remove(); // Now remove the tab.
-
-      this.$obj.trigger('tabRemoved', [$tab]);
-
+        this.$obj.trigger('tabBeingRemoved', [$tab, this]);
+        $tab.remove(); // Remove tab from the DOM.
+        this.$obj.trigger('tabRemoved', [$tab, this]);
+      });
       this.configureLayout();
       this.fixStackingOrder();
       this.addDraggabilly();
     }
 
     updateTab($tab, props, via) {
-      if (!$tab || !$tab.length) {
-        throw 'Missing $tab.';
+      if (!($tab instanceof jQuery) || !$tab.length) {
+        throw 'Missing or invalid $tab.';
+      } else if (props && typeof props !== 'object') {
+        throw 'Invalid properties.';
       }
-      let existingProps = $tab.data('props');
-      props = $.extend({}, this.settings.defaultProps, existingProps || {}, props || {});
+      $tab = $tab.first(); // One tab only.
+
+      let prevProps = $tab.data('props') || {};
+      let newProps = props || {};
+
+      props = $.extend({}, this.settings.defaultProps, prevProps, newProps);
       $tab.data('props', props); // Update to new props.
 
       $tab.find('.-title').text(props.title);
@@ -1842,17 +1920,20 @@ return Unipointer;
         $tab.find('.-favicon').css({ 'background-image': 'url(\'' + props.favicon + '\')' });
       } else { $tab.find('.-favicon').css({ 'background-image': 'none' }); }
 
-      this.$obj.trigger('tabUpdated', [$tab, props, via]);
+      this.$obj.trigger('tabUpdated', [$tab, props, via, prevProps, newProps, this]);
     }
 
     setCurrentTab($tab) {
-      this.$tabz.removeClass('-current');
-
-      if ($tab && $tab.length) {
-        $tab.addClass('-current');
-        this.fixStackingOrder();
+      if ($tab && (!($tab instanceof jQuery) || !$tab.length)) {
+        throw 'Missing or invalid $tab.';
       }
-      this.$obj.trigger('currentTabChanged', [$tab || $()]);
+      $tab = $tab ? $tab.first() : $(); // One tab only.
+
+      this.$tabz.removeClass('-current');
+      $tab.addClass('-current');
+      this.fixStackingOrder();
+
+      this.$obj.trigger('currentTabChanged', [$tab, this]);
     }
   } // End `ChromeTabz{}` class.
 
@@ -1870,6 +1951,7 @@ return Unipointer;
     constructor(settings) {
       this.defaultSettings = {
         parentObj: '.chrome-tabz',
+
         type: 'iframes', // or `webviews`.
         // `webviews` = Electron compatibility.
 
@@ -1887,16 +1969,31 @@ return Unipointer;
         debug: false, // Set as `false` in production please.
         // This setting enables console logging, for debugging.
       };
+      if (settings && typeof settings !== 'object') {
+        throw '`settings` is not an object.';
+      }
       this.settings = $.extend({}, this.defaultSettings, settings || {});
 
-      if ($.inArray(this.settings.type, ['iframes', 'webviews']) === -1)
-        this.settings.type = this.defaultSettings.type;
-
-      this.$parentObj = $(this.settings.parentObj);
-      this.$parentObj._ = this.$parentObj.data('chromeTabz');
-
-      this.$obj = this.$parentObj.find('> .-viewz');
-      this.$obj.data('chromeTabViewz', this);
+      if ($.inArray(typeof this.settings.parentObj, ['string', 'object']) === -1) {
+        throw '`parentObj` must be a string selector, jQuery, or an element in the DOM.';
+      } else if ((this.$parentObj = $(this.settings.parentObj).first()).length !== 1) {
+        throw 'Unable to locate a single `parentObj` in the DOM.';
+      } else if (!((this.$parentObj._ = this.$parentObj.data('chromeTabz')) instanceof ChromeTabz)) {
+        throw 'Unable to locate a `chromeTabz` instance in the `parentObj`.';
+        //
+      } else if ((this.$obj = this.$parentObj.find('> .-viewz')).length !== 1) {
+        throw 'Unable to locate a single `> .-viewz` object in the DOM.';
+        //
+      } else if ($.inArray(this.settings.type, ['iframes', 'webviews']) === -1) {
+        throw '`type` must be one of: `iframes` or `webviews`.';
+        //
+      } else if (typeof this.settings.defaultProps !== 'object') {
+        throw '`defaultProps` is not an object.';
+        //
+      } else if ($.inArray(typeof this.settings.debug, ['number', 'boolean']) === -1) {
+        throw '`debug` is not a number or boolean.';
+      }
+      this.$obj.data('chromeTabViewz', this); // Instance reference.
 
       this.viewIndex = []; // Initialize index array.
       this.$content = $('<div class="-content"></div>');
@@ -1946,64 +2043,64 @@ return Unipointer;
     }
 
     addView($tab) {
-      if (!$tab || !$tab.length) {
-        throw 'Missing $tab.';
+      if (!($tab instanceof jQuery) || !$tab.length) {
+        throw 'Missing or invalid $tab.';
       }
-      let $view; // Initialize.
+      $tab = $tab.first(); // One tab only.
 
-      if (this.settings.type === 'webviews') {
-        $view = $(webViewTemplate);
-      } else { // Default type.
-        $view = $(iframeViewTemplate);
-      }
+      let $view = $( // Template based on view type.
+        this.settings.type === 'webviews' ? webViewTemplate : iframeViewTemplate
+      );
       $view.data('urlCounter', 0); // Initialize.
       this.$content.append($view); // Add to DOM.
 
       this.setViewIndex($view, undefined, $tab.index());
-
-      this.$obj.trigger('viewAdded', [$view]);
+      this.$obj.trigger('viewAdded', [$view, this]);
 
       return $view;
     }
 
     removeView($view, $tab) {
-      if ((!$view || !$view.length) && $tab && $tab.length) {
+      if ((!($view instanceof jQuery) || !$view.length) && $tab instanceof jQuery && $tab.length) {
         $view = this.viewAtIndex($tab.index(), true);
       }
-      if (!$view || !$view.length) {
-        throw 'Missing $view.';
+      if (!($view instanceof jQuery) || !$view.length) {
+        throw 'Missing or invalid $view.';
       }
-      this.$obj.trigger('viewBeingRemoved', [$view]);
+      $view = $view.first(); // One view only.
 
-      this.removeViewFromIndex($view);
-      $view.remove(); // Now remove the view.
-
-      this.$obj.trigger('viewRemoved', [$view]);
+      this.$obj.trigger('viewBeingRemoved', [$view, this]);
+      this.removeViewFromIndex($view), $view.remove();
+      this.$obj.trigger('viewRemoved', [$view, this]);
     }
 
     removeViewFromIndex($view) {
-      if (!$view || !$view.length) {
-        throw 'Missing $view.';
+      if (!($view instanceof jQuery) || !$view.length) {
+        throw 'Missing or invalid $view.';
       }
+      $view = $view.first(); // One view only.
+
       this.viewIndex.splice(this.mapViewIndex($view, true), 1);
     }
 
     viewAtIndex(index, require) {
-      if (typeof index !== 'number') {
-        throw 'Invalid index.';
+      if (typeof index !== 'number' || isNaN(index) || index < 0) {
+        throw 'Missing or invalid index.';
       }
       let $view = this.viewIndex[index] || undefined;
 
-      if (require && (!$view || !$view.length)) {
+      if (require && (!($view instanceof jQuery) || !$view.length)) {
         throw 'No $view with that index.';
       }
-      return $view; // Otherwise return.
+      return $view instanceof jQuery && $view.length ? $view.first() : undefined;
     }
 
     mapViewIndex($view, require) {
-      if (!$view || !$view.length) {
-        throw 'Missing $view.';
+      if (!($view instanceof jQuery) || !$view.length) {
+        throw 'Missing or invalid $view.';
       }
+      $view = $view.first(); // One view only.
+
       for (let index = 0; index < this.viewIndex.length; index++) {
         if (this.viewIndex[index].is($view)) return index;
       } // This uses jQuery `.is()` to compare.
@@ -2015,27 +2112,22 @@ return Unipointer;
     }
 
     setViewIndex($view, prevIndex, newIndex) {
-      if ((!$view || !$view.length) && prevIndex !== undefined) {
-        if (typeof prevIndex !== 'number') {
-          throw 'prevIndex is not a number.';
-        } else if (isNaN(prevIndex) || prevIndex < 0) {
-          throw 'prevIndex is an invalid number.';
-        } // This is important to get right!
+      if ((!($view instanceof jQuery) || !$view.length) && prevIndex !== undefined) {
         $view = this.viewAtIndex(prevIndex, true);
       }
-      if (!$view || !$view.length) {
-        throw 'Missing $view.';
-      } else if (typeof newIndex !== 'number') {
-        throw 'newIndex is not a number.';
-      } else if (isNaN(newIndex) || newIndex < 0) {
-        throw 'newIndex is an invalid number.';
+      if (!($view instanceof jQuery) || !$view.length) {
+        throw 'Missing or invalid $view.';
+      } else if (typeof newIndex !== 'number' || isNaN(newIndex) || newIndex < 0) {
+        throw 'Missing or invalid newIndex.';
       }
+      $view = $view.first(); // One view only.
+
       if ((prevIndex = this.mapViewIndex($view)) !== -1) {
         this.viewIndex.splice(prevIndex, 1);
       } // Remove from current index (if applicable).
-      this.viewIndex.splice(newIndex, 0, $view); // New index.
 
-      this.$obj.trigger('viewIndexed', [$view, { prevIndex, newIndex }]);
+      this.viewIndex.splice(newIndex, 0, $view); // New index.
+      this.$obj.trigger('viewIndexed', [$view, { prevIndex, newIndex }, this]);
     }
 
     updateView($view, $tab, props, via) {
@@ -2043,28 +2135,34 @@ return Unipointer;
         return; // Ignore this quietly.
       } // See state-change events below.
 
-      if ((!$view || !$view.length) && $tab && $tab.length) {
+      if ((!($view instanceof jQuery) || !$view.length) && $tab instanceof jQuery && $tab.length) {
         $view = this.viewAtIndex($tab.index(), true);
       }
-      if (!$view || !$view.length) {
-        throw 'Unable to update. Missing $view.';
+      if (!($view instanceof jQuery) || !$view.length) {
+        throw 'Missing or invalid $view.';
+      } else if (props && typeof props !== 'object') {
+        throw 'Invalid properties.';
       }
-      let existingProps = $view.data('props'); // Existing props.
-      props = $.extend({}, this.settings.defaultProps, existingProps || {}, props || {});
+      $view = $view.first(); // One view only.
+
+      let prevProps = $view.data('props') || {};
+      let newProps = props || {};
+
+      props = $.extend({}, this.settings.defaultProps, prevProps, newProps);
       $view.data('props', props); // Update to new props after merging.
 
       $.each(props.viewAttrs, (key, value) => {
         if (key.toLowerCase() !== 'src') $view.attr(key, value);
       }); // Anything but `src`, which is handled below.
 
-      if (!existingProps || existingProps.url !== props.url) {
+      if (typeof prevProps.url === 'undefined' || prevProps.url !== props.url) {
         let isFirstUrl = () => { // The first URL?
           return Number($view.data('urlCounter')) === 1;
         }; // True if the first URL, based on counter.
 
         let $getTab = (require = true) => { // Tab matching view.
           let $tab = this.$parentObj._.$tabz.eq(this.mapViewIndex($view, require));
-          if (require && (!$tab || !$tab.length)) throw 'Missing $tab.';
+          if (require && (!($tab instanceof jQuery) || !$tab.length)) throw 'Missing $tab.';
           return $tab; // Otherwise, return the tab now.
         }; // Gets tab dynamically in case it was moved by a user.
 
@@ -2090,7 +2188,7 @@ return Unipointer;
               this.$parentObj._.updateTab($tab, { favicon, title }, 'view::state-change');
 
               // Trigger event after updating tab.
-              this.$obj.trigger('viewStartedLoading', [$view]);
+              this.$obj.trigger('viewStartedLoading', [$view, this]);
             });
 
           webContents.removeAllListeners('did-stop-loading'),
@@ -2106,7 +2204,7 @@ return Unipointer;
               this.$parentObj._.updateTab($tab, { favicon }, 'view::state-change');
 
               // Trigger event after updating tab.
-              this.$obj.trigger('viewStoppedLoading', [$view]);
+              this.$obj.trigger('viewStoppedLoading', [$view, this]);
             });
 
           webContents.removeAllListeners('page-favicon-updated'),
@@ -2124,7 +2222,7 @@ return Unipointer;
                 this.$parentObj._.updateTab($tab, { favicon }, 'view::state-change');
               }
               // Trigger event after updating tab.
-              this.$obj.trigger('viewFaviconUpdated', [$view, favicon]);
+              this.$obj.trigger('viewFaviconUpdated', [$view, favicon, this]);
             });
 
           webContents.removeAllListeners('page-title-updated'),
@@ -2142,7 +2240,7 @@ return Unipointer;
                 this.$parentObj._.updateTab($tab, { title }, 'view::state-change');
               }
               // Trigger event after updating tab.
-              this.$obj.trigger('viewTitleUpdated', [$view, title]);
+              this.$obj.trigger('viewTitleUpdated', [$view, title, this]);
             });
 
           webContents.loadURL(props.url); // Begin loading.
@@ -2177,7 +2275,7 @@ return Unipointer;
               let $tab = $getTab(false),
                 props = $view.data('props');
 
-              if (!$tab || !$tab.length || !$.contains(document, $tab[0])) {
+              if (!($tab instanceof jQuery) || !$tab.length || !$.contains(document, $tab[0])) {
                 return; // e.g., The tab was removed entirely.
               } // i.e., Unloading occurs on tab removals also.
 
@@ -2198,7 +2296,7 @@ return Unipointer;
               this.$parentObj._.updateTab($tab, { favicon, title }, 'view::state-change');
 
               // Trigger event after updating tab.
-              this.$obj.trigger('viewStartedLoading', [$view]);
+              this.$obj.trigger('viewStartedLoading', [$view, this]);
             }));
 
           $view.off('load.chrome-tabz').on('load.chrome-tabz', (e) => {
@@ -2228,29 +2326,32 @@ return Unipointer;
             this.$parentObj._.updateTab($tab, { favicon, title }, 'view::state-change');
 
             // Trigger these events for iframes too.
-            this.$obj.trigger('viewFaviconUpdated', [$view, favicon]);
-            this.$obj.trigger('viewTitleUpdated', [$view, title]);
+            this.$obj.trigger('viewFaviconUpdated', [$view, favicon, this]);
+            this.$obj.trigger('viewTitleUpdated', [$view, title, this]);
 
             // Trigger event after updating tab.
-            this.$obj.trigger('viewStoppedLoading', [$view]);
+            this.$obj.trigger('viewStoppedLoading', [$view, this]);
           });
 
           $view.attr('src', props.url); // Begin loading.
         }
       }
-      this.$obj.trigger('viewUpdated', [$view, props, via]);
+      this.$obj.trigger('viewUpdated', [$view, props, via, prevProps, newProps, this]);
     }
 
     setCurrentView($view, $tab) {
-      if ((!$view || !$view.length) && $tab && $tab.length) {
-        $view = this.viewAtIndex($tab.index(), false);
+      if ((!($view instanceof jQuery) || !$view.length) && $tab instanceof jQuery && $tab.length) {
+        $view = this.viewAtIndex($tab.index(), true);
       }
-      this.$viewz.removeClass('-current');
+      if ($view && (!($view instanceof jQuery) || !$view.length)) {
+        throw 'Missing or invalid $view.';
+      }
+      $view = $view ? $view.first() : $(); // One view only.
 
-      if ($view && $view.length) {
-        $view.addClass('-current');
-      }
-      this.$obj.trigger('currentViewChanged', [$view || $()]);
+      this.$viewz.removeClass('-current');
+      $view.addClass('-current');
+
+      this.$obj.trigger('currentViewChanged', [$view, this]);
     }
   } // End `ChromeTabViewz{}` class.
 

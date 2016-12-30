@@ -50,6 +50,10 @@
         // `webviews` = Electron compatibility.
         // Or leave empty to disable viewz entirely.
 
+        allowDragNDrop: true,
+        allowDoubleClick: true,
+        initial: [], // Array of prop objs.
+
         defaultProps: {
           title: 'New Tab',
           favicon: '../../../src/images/default-favicon.png',
@@ -61,7 +65,7 @@
           viewAttrs: {} // Optional `<iframe>` or `<webview>` attrs.
           // These are simply `key: value` pairs representing HTML attrs.
         },
-        debug: 1, // Set as `false` in production please.
+        debug: 3, // Set as `false` in production please.
         // The `debug` setting enables console logging, for debugging.
       };
 
@@ -112,41 +116,41 @@
         });
 
         if ($chromeTabz._.settings.debug >= 2) { // For debugging purposes.
-          $chromeTabz.on('constructed', (e, instance) => console.log('Tabs constructed.', instance));
-          $chromeTabz.on('initialized', (e, instance) => console.log('Tabs initialized.', instance));
-          $chromeTabz.on('destroyed', (e, instance) => console.log('Tabs destroyed.', instance));
+          $chromeTabz.on('constructed', (event, instance) => console.log('Tabs constructed.'));
+          $chromeTabz.on('initialized', (event, instance) => console.log('Tabs initialized.'));
+          $chromeTabz.on('destroyed', (event, instance) => console.log('Tabs destroyed.'));
 
-          $chromeTabz.on('tabAdded', (e, tab) => console.log('Tab added.', tab));
-          $chromeTabz.on('tabUpdated', (e, tab, props, via) => console.log('Tab props updated.', tab, props, via));
-          $chromeTabz.on('currentTabChanged', (e, tab) => console.log('Current tab changed to.', tab));
+          $chromeTabz.on('tabAdded', (event, tab, instance) => console.log('Tab added.', tab));
+          $chromeTabz.on('tabUpdated', (event, tab, props, via, prevProps, newProps, instance) => console.log('Tab props updated.', tab, props, via, prevProps, newProps));
+          $chromeTabz.on('currentTabChanged', (event, tab, instance) => console.log('Current tab changed to.', tab));
 
-          $chromeTabz.on('tabDragStarted', (e, tab) => console.log('Tab drag started.', tab));
-          $chromeTabz.on('tabDragMoved', (e, tab, locations) => console.log('Tab dragged to a new location.', tab, locations));
-          $chromeTabz.on('tabDragStopped', (e, tab) => console.log('Tab drag stopped.', tab));
+          $chromeTabz.on('tabDragStarted', (event, tab, instance) => console.log('Tab drag started.', tab));
+          $chromeTabz.on('tabDragMoved', (event, tab, indexes, instance) => console.log('Tab dragged to a new location.', tab, indexes));
+          $chromeTabz.on('tabDragStopped', (event, tab, newIndex, instance) => console.log('Tab drag stopped.', tab, newIndex));
 
-          $chromeTabz.on('tabBeingRemoved', (e, tab) => console.log('Tab will be removed.', tab));
-          $chromeTabz.on('tabRemoved', (e, tab) => console.log('Tab removed.', tab));
+          $chromeTabz.on('tabBeingRemoved', (event, tab, instance) => console.log('Tab will be removed.', tab));
+          $chromeTabz.on('tabRemoved', (event, tab, instance) => console.log('Tab removed.', tab));
 
           if ($chromeTabz._.settings.debug >= 3 && $chromeTabz._.settings.viewz) {
             let $chromeTabViewz = $chromeTabz._.$viewz; // jQuery & class.
             $chromeTabViewz._ = $chromeTabViewz.data('chromeTabViewz');
 
-            $chromeTabViewz.on('constructed', (e, instance) => console.log('Viewz constructed.', instance));
-            $chromeTabViewz.on('initialized', (e, instance) => console.log('Viewz initialized.', instance));
-            $chromeTabViewz.on('destroyed', (e, instance) => console.log('Viewz destroyed.', instance));
+            $chromeTabViewz.on('constructed', (event, instance) => console.log('Viewz constructed.'));
+            $chromeTabViewz.on('initialized', (event, instance) => console.log('Viewz initialized.'));
+            $chromeTabViewz.on('destroyed', (event, instance) => console.log('Viewz destroyed.'));
 
-            $chromeTabViewz.on('viewIndexed', (e, view, locations) => console.log('View indexed.', view, locations));
-            $chromeTabViewz.on('viewAdded', (e, view) => console.log('View added.', view));
-            $chromeTabViewz.on('viewUpdated', (e, view, props, via) => console.log('View props updated.', view, props, via));
-            $chromeTabViewz.on('currentViewChanged', (e, view) => console.log('Current view changed to.', view));
+            $chromeTabViewz.on('viewIndexed', (event, view, locations, instance) => console.log('View indexed.', view, locations));
+            $chromeTabViewz.on('viewAdded', (event, view, instance) => console.log('View added.', view));
+            $chromeTabViewz.on('viewUpdated', (event, view, props, via, prevProps, newProps, instance) => console.log('View props updated.', view, props, via, prevProps, newProps));
+            $chromeTabViewz.on('currentViewChanged', (event, view, instance) => console.log('Current view changed to.', view));
 
-            $chromeTabViewz.on('viewBeingRemoved', (e, view) => console.log('View will be removed.', view));
-            $chromeTabViewz.on('viewRemoved', (e, view) => console.log('View removed.', view));
+            $chromeTabViewz.on('viewBeingRemoved', (event, view, instance) => console.log('View will be removed.', view));
+            $chromeTabViewz.on('viewRemoved', (event, view, instance) => console.log('View removed.', view));
 
-            $chromeTabViewz.on('viewStartedLoading', (e, view) => console.log('View started loading.', view));
-            $chromeTabViewz.on('viewFaviconUpdated', (e, view, favicon) => console.log('View favicon updated.', view, favicon));
-            $chromeTabViewz.on('viewTitleUpdated', (e, view, title) => console.log('View title updated.', view, title));
-            $chromeTabViewz.on('viewStoppedLoading', (e, view) => console.log('View stopped loading.', view));
+            $chromeTabViewz.on('viewStartedLoading', (event, view, instance) => console.log('View started loading.', view));
+            $chromeTabViewz.on('viewFaviconUpdated', (event, view, favicon, instance) => console.log('View favicon updated.', view, favicon));
+            $chromeTabViewz.on('viewTitleUpdated', (event, view, title, instance) => console.log('View title updated.', view, title));
+            $chromeTabViewz.on('viewStoppedLoading', (event, view, instance) => console.log('View stopped loading.', view));
           }
         }
       });
