@@ -519,7 +519,7 @@ $chromeTabz._ = null; // Also kills your own instance reference.
 
 ### `ChromeTabz`: jQuery Events Documentation
 
-#### `constructed()` Event
+#### On `constructed` Event
 
 Triggered whenever the class is first being constructed, but before it has been fully initialized; i.e., all properties are set, but the DOM and event handlers have not yet been initialized.
 
@@ -536,7 +536,7 @@ $chromeTabz.on('constructed', function (event, instance) {
 
 ---
 
-#### `initialized()` Event
+#### On `initialized` Event
 
 Triggered after the class is constructed and fully initialized.
 
@@ -553,7 +553,7 @@ $chromeTabz.on('initialized', function (event, instance) {
 
 ---
 
-#### `destroyed()` Event
+#### On `destroyed` Event
 
 Triggered when the class is destroyed via `destroy()`.
 
@@ -570,7 +570,7 @@ $chromeTabz.on('destroyed', function (event, instance) {
 
 ---
 
-#### `tabAdded()` Event
+#### On `tabAdded` Event
 
 Triggered after each new tab is added to the DOM, but before its properties have been set. The object will exist in the DOM at this point, but things like `favicon:`, `title:`, `url:`, etc. will not yet be defined.
 
@@ -588,7 +588,7 @@ $chromeTabz.on('tabAdded', function (event, $tab, instance) {
 
 ---
 
-#### `tabUpdated()` Event
+#### On `tabUpdated` Event
 
 Triggered when a new tab (or any tab) is updated in some way; e.g., when things like `favicon:`, `title:`, `url:` are set initially or altered later.
 
@@ -610,7 +610,7 @@ $chromeTabz.on('tabUpdated', function (event, $tab, props, via, prevProps, newPr
 
 ---
 
-#### `currentTabChanged()` Event
+#### On `currentTabChanged` Event
 
 Triggered when the current/active tab is changed.
 
@@ -628,7 +628,7 @@ $chromeTabz.on('currentTabChanged', function (event, $tab, instance) {
 
 ---
 
-#### `tabDragStarted()` Event
+#### On `tabDragStarted` Event
 
 Triggered when a tab is being dragged (i.e., first locked onto).
 
@@ -646,7 +646,7 @@ $chromeTabz.on('tabDragStarted', function (event, $tab, instance) {
 
 ---
 
-#### `tabDragMoved()` Event
+#### On `tabDragMoved` Event
 
 Triggered when a tab is being dragged into a new location, but before it has been dropped and locked into that new location.
 
@@ -665,7 +665,7 @@ $chromeTabz.on('tabDragMoved', function (event, $tab, indexes, instance) {
 
 ---
 
-#### `tabDragStopped()` Event
+#### On `tabDragStopped` Event
 
 Triggered when a tab is dropped and locked into a new location. The location will have already been determined ahead of time and reported via the `tabDragMoved` event. Therefore, there's little reason to attach to this event. Generally speaking, it's better to use `tabDragMoved`. This `tabDragStopped` event simply indicates the end-user is done moving things around — nothing more.
 
@@ -684,7 +684,7 @@ $chromeTabz.on('tabDragStopped', function (event, $tab, newIndex, instance) {
 
 ---
 
-#### `tabBeingRemoved()` Event
+#### On `tabBeingRemoved` Event
 
 Triggered right before a tab is about to be removed from the DOM.
 
@@ -702,7 +702,7 @@ $chromeTabz.on('tabBeingRemoved', function (event, $tab, instance) {
 
 ---
 
-#### `tabRemoved()` Event
+#### On `tabRemoved` Event
 
 Triggered right after a tab is removed from the DOM.
 
