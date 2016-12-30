@@ -3,7 +3,7 @@
 <img src="https://media.githubusercontent.com/media/jaswsinc/chrome-tabz/dev/assets/images/electron-icon.png" width="128" align="right" />
 <img src="https://media.githubusercontent.com/media/jaswsinc/chrome-tabz/dev/assets/images/chrome-icon.png" width="64" align="right" />
 
-[Electron](http://electron.atom.io/) tabs and/or browser compatible HTML/CSS and JS chrome tabs, with a jQuery wrapper. Perfect for Electron `<webview>` and/or iframes.
+[Electron](http://electron.atom.io/) tabs and/or browser compatible HTML/CSS and JS chrome tabs, with a jQuery wrapper. Perfect for Electron Webviews and/or IFrames.
 
 _~ Inspired by and based on the original [Chrome Tabs](https://github.com/alanshaw/br-chrome-tabs) by [@alanshaw](https://github.com/alanshaw)._
 
