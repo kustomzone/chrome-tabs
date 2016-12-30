@@ -168,7 +168,7 @@ $('.chrome-tabz').chromeTabz({
 
 - `overlapDistance: 14` This is the amount of tab overlap, in pixels. Each tab overlaps the previous tab by this number of pixels in order to mimic Google Chrome's interface design.
 
-- `viewz: 'iframes'` This controls the underlying Chrome Tab Viewz class. In short, 'Viewz' make 'Tabz' function like they would in a typical web browser. When Viewz are enabled, a tab is associated with a `url:` tab property.
+- `viewz: 'iframes'` This controls the underlying Chrome Tab Viewz class. In short, 'Viewz' make 'Tabz' function like they would in a typical web browser. When Viewz are enabled, a tab is associated with a `url:` property.
 
   - `'iframes'` If you set this to `iframes`, when a tab is selected, the `url:` tab property is loaded automatically in an [`<iframe>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe). This makes Chrome Tabz compatible with regular web browsers.
 
