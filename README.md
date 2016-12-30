@@ -733,9 +733,7 @@ Point `$chromeTabz._` to the underlying class instance.
 // References we'll work with below.
 var $chromeTabz = $('.chrome-tabz').chromeTabz(); // w/ jQuery wrapper.
 $chromeTabz._ = $chromeTabz.data('chromeTabz'); // ChromeTabz class instance.
-```
 
-```js
 var $chromeTabViewz = $chromeTabz._.$viewz; // jQuery wrapper for `.chrome-tabz > .-viewz`.
 $chromeTabViewz._ = $chromeTabViewz.data('chromeTabViewz'); // ChromeTabViewz class instance.
 
