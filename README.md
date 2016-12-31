@@ -58,26 +58,49 @@ $ composer require jaswsinc/chrome-tabz
 
 ChromeTabz requires a `window.document` object. Generally speaking, most NodeJS projects do not incorporate a web browser. However, there are some exceptions, and Electron apps are one of those. **ChromeTabz works great as a tabbed interface for Electron apps!**
 
+#### Suggested CSS/Styles
+
+This goes in your `.html` document (the Electron Renderer Process).
+
+```html
+<style>
+  html,
+  body {
+    margin:                     0;
+    padding:                    0;
+    overflow:                   hidden;
+    background-color:           #e6e6e6;
+  }
+</style>
+```
+
 #### Required CSS/Styles
 
-This goes in your `.html` document; i.e., in an Electron Renderer Process.
+This goes in your `.html` document (the Electron Renderer Process).
 
 ```html
 <link rel="stylesheet" href="node_modules/chrome-tabz/src/css/base.min.css" />
 <link rel="stylesheet" href="node_modules/chrome-tabz/src/css/dark.min.css" />
+<!-- Actually, the dark theme is optional. If not using, feel free to exclude. -->
 ```
 
 #### Required HTML Markup
 
-Again, this goes in your `.html` document; i.e., in an Electron Renderer Process.
+Again, this goes in your `.html` document (the Electron Renderer Process).
 
 ```html
 <div class="chrome-tabz"></div>
 ```
 
+Or, if you want the dark theme, add the `-dark-theme` class.
+
+```html
+<div class="chrome-tabz -dark-theme"></div>
+```
+
 #### Required JavaScript Snippet
 
-Again, this goes in an Electron Renderer Process.
+Again, this goes in the Electron Renderer Process.
 
 ```html
 <script>
@@ -96,11 +119,26 @@ Again, this goes in an Electron Renderer Process.
 
 <img src="https://media.githubusercontent.com/media/jaswsinc/chrome-tabz/dev/assets/images/chrome-icon.png" width="128" align="right" />
 
+#### Suggested CSS/Styles
+
+```html
+<style>
+  html,
+  body {
+    margin:                     0;
+    padding:                    0;
+    overflow:                   hidden;
+    background-color:           #e6e6e6;
+  }
+</style>
+```
+
 #### Required CSS/Styles
 
 ```html
 <link rel="stylesheet" href="src/css/base.min.css" />
 <link rel="stylesheet" href="src/css/dark.min.css" />
+<!-- Actually, the dark theme is optional. If not using, feel free to exclude. -->
 ```
 
 #### Required JavaScript Files
@@ -116,6 +154,12 @@ _**Note:** Any version of jQuery >= v2.2.4 will do fine._
 
 ```html
 <div class="chrome-tabz"></div>
+```
+
+Or, if you want the dark theme, add the `-dark-theme` class.
+
+```html
+<div class="chrome-tabz -dark-theme"></div>
 ```
 
 #### Required JavaScript Snippet
