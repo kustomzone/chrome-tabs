@@ -2162,7 +2162,7 @@ return Unipointer;
       $view.data('props', props); // Update to new props after merging.
 
       $.each(props.viewAttrs, (key, value) => {
-        if (key.toLowerCase() !== 'src') $view.attr(key, value);
+        if (key.toLowerCase() !== 'src') $view.attr(key, value === null ? '' : value);
       }); // Anything but `src`, which is handled below.
 
       if (typeof prevProps.url === 'undefined' || prevProps.url !== props.url) {
