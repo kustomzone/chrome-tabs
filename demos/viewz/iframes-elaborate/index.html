@@ -50,6 +50,7 @@
       var settings = {
         minWidth: 45,
         maxWidth: 243,
+        leftMargin: 0,
         rightMargin: 300,
         overlapDistance: 14,
 
@@ -59,19 +60,6 @@
 
         allowDragNDrop: true,
         allowDoubleClick: true,
-        initial: [], // Array of prop objs.
-
-        defaultProps: {
-          title: 'New Tab',
-          favicon: '../../../src/images/default-favicon.svg',
-          url: 'https://duckduckgo.com/?kae=b&kak=-1&kao=-1&k1=-1&kt=p&kj=f5f5f5&ka=p&kf=1&kam=google-maps&km=l&ko=1',
-
-          unknownUrlTitle: 'Web Page', // e.g., cross-domain.
-          loadingFavicon: '../../../src/images/loading-favicon.svg',
-
-          viewAttrs: {} // Optional `<iframe>` or `<webview>` attrs.
-          // These are simply `key: value` pairs representing HTML attrs.
-        }
       };
       // TIP: Here's a minimal example to get chromeTabz working.
       // ... $('.chrome-tabz').chromeTabz(settings);
@@ -95,9 +83,9 @@
           { url: '../assets/frames/8.html' },
           { url: '../assets/frames/9.html' },
           {
-            title: 'New Tab',
-            favicon: '../../../src/images/default-favicon.svg',
-            url: 'https://duckduckgo.com/?kae=b&kak=-1&kao=-1&k1=-1&kt=p&kj=f5f5f5&ka=p&kf=1&kam=google-maps&km=l&ko=1',
+            title: 'DuckDuckGo.com',
+            favicon: 'https://duckduckgo.com/favicon.ico',
+            url: 'https://duckduckgo.com/?kae=b&kak=-1&kao=-1&k1=-1&kt=p&kj=f5f5f5&ka=p&kf=1&kam=google-maps&km=l&ko=1&kn=1'
           }
         ]);
         // TIP: For URLs on the same domain as your tabs (like many of those above), you only need the URL.
@@ -110,7 +98,6 @@
         $('.demo-tools > .-add-tab').on('click', function(e) {
           var url = prompt('URL (empty = default tab):');
           if (url !== null) $chromeTabz._.addTab(url ? { url: url } : {});
-          // Note: the prompt cancel button = `null`.
         });
         $('.demo-tools > .-remove-tab').on('click', function(e) {
           $chromeTabz._.removeTab($chromeTabz._.$currentTab);

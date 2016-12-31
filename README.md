@@ -138,6 +138,7 @@ _**Note:** This example represents the default option values._
 $('.chrome-tabz').chromeTabz({
   minWidth: 45,
   maxWidth: 243,
+  leftMargin: 0,
   rightMargin: 300,
   overlapDistance: 14,
 
@@ -153,11 +154,11 @@ $('.chrome-tabz').chromeTabz({
 
   defaultProps: {
     title: 'New Tab',
-    favicon: 'src/images/default-favicon.svg',
+    favicon: 'default',
     url: 'https://duckduckgo.com/?kae=b&kak=-1&kao=-1&k1=-1&kt=p&kj=f5f5f5&ka=p&kf=1&kam=google-maps&km=l&ko=1',
 
     unknownUrlTitle: 'Web Page',
-    loadingFavicon: 'src/images/loading-favicon.svg',
+    loadingFavicon: 'loading',
 
     viewAttrs: {}
   },
@@ -170,7 +171,9 @@ $('.chrome-tabz').chromeTabz({
 
 - `maxWidth: 243` The maximum width of each tab, in pixels. When old tabs are removed, or when a window is resized, the width of each tab changes automatically. This setting controls the absolute maximum width allowed for each tab.
 
-- `rightMargin: 300` This is the margin on the right-hand side of the entire tab group, in pixels. The default value gives you room to add your own custom UI elements that sit inside the tabbed interface, and your custom UI elements will have `300` pixels of space that they can consume; i.e., without being covered up by a long list of tabs created by an end-user.
+- `leftMargin: 0` Margin on the left-hand side of the entire tab group, in pixels. The default value is `0`. In Electron apps you might want to use `leftMargin: 60` to allow room for window minimize/maximize controls in inset window frames on macOS. It just depends on how you setup your Electron app.
+
+- `rightMargin: 300` Margin on the right-hand side of the entire tab group, in pixels. The default value gives you room to add your own custom UI elements that sit inside the tabbed interface, and your custom UI elements will have `300` pixels of space that they can consume; i.e., without being covered up by a long list of tabs created by an end-user.
 
 - `overlapDistance: 14` This is the amount of tab overlap, in pixels. Each tab overlaps the previous tab by this number of pixels in order to mimic Google Chrome's interface design.
 
@@ -219,7 +222,7 @@ $('.chrome-tabz').chromeTabz({
     url: 'https://duckduckgo.com/?kae=b&kak=-1&kao=-1&k1=-1&kt=p&kj=f5f5f5&ka=p&kf=1&kam=google-maps&km=l&ko=1',
 
     unknownUrlTitle: 'Web Page',
-    loadingFavicon: 'src/images/loading-favicon.svg',
+    loadingFavicon: 'src/images/loading-favicon.gif',
 
     viewAttrs: {}
   }
@@ -240,14 +243,14 @@ favicon: 'src/images/default-favicon.svg',
 url: 'https://duckduckgo.com/?kae=b&kak=-1&kao=-1&k1=-1&kt=p&kj=f5f5f5&ka=p&kf=1&kam=google-maps&km=l&ko=1',
 
 unknownUrlTitle: 'Web Page',
-loadingFavicon: 'src/images/loading-favicon.svg',
+loadingFavicon: 'src/images/loading-favicon.gif',
 
 viewAttrs: {}
 ```
 
 - `title: ''` Establishes the default title for a tab.
 
-- `favicon: ''` Establishes the favicon for a tab. This can be a `data:` URI, a relative image path (svg,png,gif,ico), or a full URL leading to an image.
+- `favicon: 'default'` Establishes the favicon for a tab. This can be the special string: `default`, a `data:` URI, a relative image path (svg,png,gif,ico), or a full URL leading to an image. The built-in default value (`default`) works well in both the light & dark themes; i.e., just as a default tab favicon.
 
 - `url: ''` This establishes the content for the tab 'view'; i.e., the location of the content that should be displayed whenever the tab is active.
 
@@ -257,7 +260,7 @@ viewAttrs: {}
 
 - `unknownUrlTitle: ''` In the case of URL loading failure, or when cross-domain restrictions prohibit automatic title detection (based on URL), this default title will be displayed instead.
 
-- `loadingFavicon: ''` Establishes the loading favicon. This can be a `data:` URI, a relative image path (svg,png,gif,ico), or a full URL leading to an image. An animated svg image is strongly recommended, which helps to convey that a tab is loading in both the lite and dark themes.
+- `loadingFavicon: 'loading'` Establishes the loading favicon. This can be the special string: `loading`, a `data:` URI, a relative image path (svg,png,gif,ico), or a full URL leading to an image. The built-in default value (`loading`) is strongly recommended, which helps to convey that a tab is loading in both the light & dark themes.
 
 - `viewAttrs: {}` A 'view' is the underlying `<iframe>` or `<webview>` tag. If you'd like to set HTML attributes on the auto-generated view for any given tab, you can use this property to do that. These are simply `key: value` pairs representing HTML attrs. Here is an example of some attributes supported by the [`<webview>`](http://electron.atom.io/docs/api/web-view-tag/) tag in Electron apps.
 
@@ -502,7 +505,7 @@ Another quick example:
 var $tab = $('.chrome-tabz .-tab').eq(1);
 $chromeTabz._.updateTab($tab, {
   title: 'Currently Loading...',
-  favicon: 'src/images/loading-favicon.svg'
+  favicon: 'src/images/loading-favicon.gif'
 }); // Second tab (index 1) gets a new favicon & title.
 ```
 

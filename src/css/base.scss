@@ -22,7 +22,7 @@ $bottom-line-box-shadow-color: rgba(0, 0, 0, 0.27);
 
 $viewz-border-color: #9a9a9a;
 
-$views-bg-color: #e6e6e6;
+$viewz-bg-color: #e6e6e6;
 
 // Styles.
 
@@ -83,7 +83,8 @@ $views-bg-color: #e6e6e6;
 
         &,
         * {
-          user-select:        none;
+          @include user-select(none);
+
           cursor:             default;
         }
 
@@ -108,6 +109,14 @@ $views-bg-color: #e6e6e6;
 
           //
           background-size:    1.6em;
+
+          &[data-favicon='loading'] {
+            background-image: url('../images/loading-favicon.gif');
+          }
+
+          &[data-favicon='default'] {
+            background-image: url('../images/default-favicon.svg');
+          }
         }
 
         > .-title {
@@ -257,7 +266,7 @@ $views-bg-color: #e6e6e6;
   }
 
   > .-viewz {
-    background-color:         $views-bg-color;
+    background-color:         $viewz-bg-color;
     height:                   calc(100vh - 4.2em);
     border-top:               1px solid $viewz-border-color;
 

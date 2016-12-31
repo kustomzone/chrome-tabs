@@ -16,7 +16,7 @@ $tab-background-svg-shadow-color: rgba(0, 0, 0, 0.5);
 $bottom-line-bg-color: #505050;
 $bottom-line-box-shadow-color: rgba(0, 0, 0, 0.5);
 
-$views-bg-color: #151515;
+$viewz-bg-color: #151515;
 
 // Styles.
 
@@ -27,6 +27,16 @@ $views-bg-color: #151515;
 
     > .-content {
       > .-tab {
+        .-favicon {
+          &[data-favicon='loading'] {
+            background-image: url('../images/loading-favicon-dark.gif');
+          }
+
+          &[data-favicon='default'] {
+            background-image: url('../images/default-favicon-dark.svg');
+          }
+        }
+
         > .-title {
           color:              $tab-title-color;
         }
@@ -66,6 +76,6 @@ $views-bg-color: #151515;
   }
 
   > .-viewz {
-    background-color:         $views-bg-color;
+    background-color:         $viewz-bg-color;
   }
 }

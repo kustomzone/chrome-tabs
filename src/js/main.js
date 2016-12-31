@@ -29,6 +29,14 @@
 
   // Begin statics.
 
+  let totalInstances = -1;
+
+  let defaultTabTitle = 'New Tab';
+  let defaultUnknownUrlTabTitle = 'Web Page';
+  let defaultTabUrl = 'https://duckduckgo.com/?kae=b&kak=-1&kao=-1&k1=-1&kt=p&kj=f5f5f5&ka=p&kf=1&kam=google-maps&km=l&ko=1';
+  let defaultLoadingTabFavicon = 'loading';
+  let defaultTabFavicon = 'default';
+
   let tabTemplate = `
     <div class="-tab">
       <div class="-background">
@@ -69,14 +77,6 @@
   `; // Note the absence of `allow-top-navigation` in this list; i.e., do not allow frames to break the tabbed interface.
   // This attribute can be altered at runtime using `defaultProps.viewAttrs.sandbox`.
 
-  let defaultTabTitle = 'New Tab';
-  let defaultUnknownUrlTabTitle = 'Web Page';
-  let defaultTabUrl = 'https://duckduckgo.com/?kae=b&kak=-1&kao=-1&k1=-1&kt=p&kj=f5f5f5&ka=p&kf=1&kam=google-maps&km=l&ko=1';
-  let defaultTabFavicon = 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMTZweCIgaGVpZ2h0PSIxNnB4IiB2aWV3Qm94PSIwIDAgMTYgMTYiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgICA8IS0tIEdlbmVyYXRvcjogU2tldGNoIDQxLjIgKDM1Mzk3KSAtIGh0dHA6Ly93d3cuYm9oZW1pYW5jb2RpbmcuY29tL3NrZXRjaCAtLT4KICAgIDx0aXRsZT5kZWZhdWx0LWZhdmljb248L3RpdGxlPgogICAgPGRlc2M+Q3JlYXRlZCB3aXRoIFNrZXRjaC48L2Rlc2M+CiAgICA8ZGVmcz48L2RlZnM+CiAgICA8ZyBpZD0iUGFnZS0xIiBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMSIgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4KICAgICAgICA8ZyBpZD0iZGVmYXVsdC1mYXZpY29uIiBmaWxsPSIjOTE5MTkxIj4KICAgICAgICAgICAgPGcgaWQ9Imljb24iIHRyYW5zZm9ybT0idHJhbnNsYXRlKDIuMDAwMDAwLCAwLjAwMDAwMCkiPgogICAgICAgICAgICAgICAgPHBhdGggZD0iTTExLjY2NDU3NDksNS42NTY4MTQzNyBMNi4wMTQwNTE5LDAuMDA2MjU5NDgxMDQgTDUuNTI4ODc4MjQsMC4wMDYyNTk0ODEwNCBMNS4zNDg5ODIwNCwwLjAwNjI1OTQ4MTA0IEwwLjAyODM1OTI4MTQsMC4wMDYyNTk0ODEwNCBMMC4wMjgzNTkyODE0LDE1Ljk2ODA2MzkgTDExLjY2NzE2MTcsMTUuOTY4MDYzOSBMMTEuNjY3MTYxNyw1LjY1NzgwNDM5IEwxMS42NjQ1NzQ5LDUuNjU2ODE0MzcgWiBNNi4wMTQwNTE5LDAuOTQ2NzQ2NTA3IEwxMC4zOTQxODc2LDUuMzI2ODUwMyBMNi4wMTQwNTE5LDUuMzI2ODUwMyBMNi4wMTQwNTE5LDAuOTQ2NzQ2NTA3IFogTTAuNjkzNDI5MTQyLDE1LjMwMjk5NCBMMC42OTM0MjkxNDIsMC42NzEzMjkzNDEgTDUuMzQ4OTgyMDQsMC42NzEzMjkzNDEgTDUuMzQ4OTgyMDQsNS45OTE5MjAxNiBMMTEuMDAyMTIzOCw1Ljk5MTkyMDE2IEwxMS4wMDIxMjM4LDE1LjMwMjk2MjEgTDAuNjkzNDI5MTQyLDE1LjMwMjk2MjEgTDAuNjkzNDI5MTQyLDE1LjMwMjk5NCBaIiBpZD0iU2hhcGUiPjwvcGF0aD4KICAgICAgICAgICAgPC9nPgogICAgICAgIDwvZz4KICAgIDwvZz4KPC9zdmc+';
-  let defaultLoadingTabFavicon = 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48c3ZnIHdpZHRoPScxNnB4JyBoZWlnaHQ9JzE2cHgnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmlld0JveD0iMCAwIDEwMCAxMDAiIHByZXNlcnZlQXNwZWN0UmF0aW89InhNaWRZTWlkIiBjbGFzcz0idWlsLXJpbmciPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiBmaWxsPSJub25lIiBjbGFzcz0iYmsiPjwvcmVjdD48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI0MyIgc3Ryb2tlLWRhc2hhcnJheT0iMTM2LjQzOTM2ODk0NTQwNDcgMTMzLjczNzU5OTI2MzMxNzUiIHN0cm9rZT0iIzM5NzNiZiIgZmlsbD0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIxNCI+PGFuaW1hdGVUcmFuc2Zvcm0gYXR0cmlidXRlTmFtZT0idHJhbnNmb3JtIiB0eXBlPSJyb3RhdGUiIHZhbHVlcz0iMCA1MCA1MDsxODAgNTAgNTA7MzYwIDUwIDUwOyIga2V5VGltZXM9IjA7MC41OzEiIGR1cj0iMXMiIHJlcGVhdENvdW50PSJpbmRlZmluaXRlIiBiZWdpbj0iMHMiPjwvYW5pbWF0ZVRyYW5zZm9ybT48L2NpcmNsZT48L3N2Zz4=';
-
-  let totalInstances = -1; // Instance counter.
-
   // Begin `ChromeTabz{}` class.
 
   class ChromeTabz {
@@ -116,6 +116,7 @@
 
         minWidth: 45,
         maxWidth: 243,
+        leftMargin: 0,
         rightMargin: 300,
         overlapDistance: 14,
 
@@ -145,7 +146,7 @@
       if (settings && typeof settings !== 'object') {
         throw '`settings` is not an object.';
       }
-      this.settings = $.extend({}, this.defaultSettings, settings || {});
+      this.settings = $.extend(true, {}, this.defaultSettings, settings || {});
 
       if ($.inArray(typeof this.settings.obj, ['string', 'object']) === -1) {
         throw '`obj` must be a string selector, jQuery, or an element in the DOM.';
@@ -156,6 +157,8 @@
         throw '`minWidth` is not a number.';
       } else if (typeof this.settings.maxWidth !== 'number' || isNaN(this.settings.maxWidth)) {
         throw '`maxWidth` is not a number.';
+      } else if (typeof this.settings.leftMargin !== 'number' || isNaN(this.settings.leftMargin)) {
+        throw '`leftMargin` is not a number.';
       } else if (typeof this.settings.rightMargin !== 'number' || isNaN(this.settings.rightMargin)) {
         throw '`rightMargin` is not a number.';
       } else if (typeof this.settings.overlapDistance !== 'number' || isNaN(this.settings.overlapDistance)) {
@@ -195,6 +198,7 @@
       this.draggabillyInstances = []; // Initialize instances.
 
       this.alwaysOnStyles = `.chrome-tabz.-id-${this.id} > .-bar > .-content {
+        margin-left: ${this.settings.leftMargin}px;
         width: calc(100% - ${this.settings.rightMargin}px);
       }`;
       this.$obj.trigger('constructed', [this]);
@@ -525,8 +529,14 @@
       $tab.find('.-title').text(props.title);
 
       if (props.favicon) {
-        $tab.find('.-favicon').css({ 'background-image': 'url(\'' + props.favicon + '\')' });
-      } else { $tab.find('.-favicon').css({ 'background-image': 'none' }); }
+        if (props.favicon === defaultLoadingTabFavicon) {
+          $tab.find('.-favicon').css({ 'background-image': '' }).attr('data-favicon', defaultLoadingTabFavicon);
+        } else if (props.favicon === defaultTabFavicon) {
+          $tab.find('.-favicon').css({ 'background-image': '' }).attr('data-favicon', defaultTabFavicon);
+        } else {
+          $tab.find('.-favicon').css({ 'background-image': 'url(\'' + props.favicon + '\')' }).attr('data-favicon', '');
+        }
+      } else { $tab.find('.-favicon').css({ 'background-image': 'none' }).attr('data-favicon', ''); }
 
       this.$obj.trigger('tabUpdated', [$tab, props, via, prevProps, newProps, this]);
     }
@@ -580,7 +590,7 @@
       if (settings && typeof settings !== 'object') {
         throw '`settings` is not an object.';
       }
-      this.settings = $.extend({}, this.defaultSettings, settings || {});
+      this.settings = $.extend(true, {}, this.defaultSettings, settings || {});
 
       if ($.inArray(typeof this.settings.parentObj, ['string', 'object']) === -1) {
         throw '`parentObj` must be a string selector, jQuery, or an element in the DOM.';
@@ -772,14 +782,13 @@
           let $tab = this.$parentObj._.$tabz.eq(this.mapViewIndex($view, require));
           if (require && (!($tab instanceof jQuery) || !$tab.length)) throw 'Missing $tab.';
           return $tab; // Otherwise, return the tab now.
-        }; // Gets tab dynamically in case it was moved by a user.
+        }; // Dynamically, in case it was moved by a user.
 
         if (this.settings.type === 'webviews') {
-          let _favicon = ''; // Held below until loading is complete.
-          let webContents = $view[0].getWebContents(); // <http://jas.xyz/2hjaozy>
+          let _favicon = ''; // Held until loading is complete.
 
-          webContents.removeAllListeners('did-start-loading'),
-            webContents.addListener('did-start-loading', (e) => {
+          $view.off('did-start-loading.chrome-tabz')
+            .on('did-start-loading.chrome-tabz', (e) => {
               let $tab = $getTab(),
                 props = $view.data('props');
 
@@ -788,8 +797,8 @@
 
               // Use fallbacks on failure.
               let favicon = props.loadingFavicon;
-              let title = webContents.getURL() || '';
-              title = !title && isFirstUrl() ? props.title : title;
+              let title = typeof $view.getTitle === 'function' ? $view.getTitle() : '';
+              title = !title && isFirstUrl() ? props.url || props.title : title;
               title = !title ? /* Loading dots. */ '...' : title;
 
               // Update the tab favicon and title.
@@ -799,8 +808,8 @@
               this.$obj.trigger('viewStartedLoading', [$view, this]);
             });
 
-          webContents.removeAllListeners('did-stop-loading'),
-            webContents.addListener('did-stop-loading', (e) => {
+          $view.off('did-stop-loading.chrome-tabz')
+            .on('did-stop-loading.chrome-tabz', (e) => {
               let $tab = $getTab(),
                 props = $view.data('props');
 
@@ -815,43 +824,42 @@
               this.$obj.trigger('viewStoppedLoading', [$view, this]);
             });
 
-          webContents.removeAllListeners('page-favicon-updated'),
-            webContents.addListener('page-favicon-updated', (e) => {
+          $view.off('page-favicon-updated.chrome-tabz')
+            .on('page-favicon-updated.chrome-tabz', (e) => {
               let $tab = $getTab(),
                 props = $view.data('props');
 
               // In the case of failure, use fallbacks.
-              _favicon = e.favicons.length ? e.favicons[0] : '';
+              _favicon = e.originalEvent.favicons.length ? e.originalEvent.favicons[0] : '';
               let favicon = !_favicon && isFirstUrl() ? props.favicon : _favicon;
               favicon = !favicon ? this.settings.defaultProps.favicon : favicon;
 
-              // If not loading, go ahead and update the favicon.
-              if (!webContents.isLoading()) { // Update; done loading.
+              // If not loading, go ahead and update favicon.
+              if (typeof $view.isLoading === 'function' && !$view.isLoading()) {
                 this.$parentObj._.updateTab($tab, { favicon }, 'view::state-change');
               }
               // Trigger event after updating tab.
               this.$obj.trigger('viewFaviconUpdated', [$view, favicon, this]);
             });
 
-          webContents.removeAllListeners('page-title-updated'),
-            webContents.addListener('page-title-updated', (e) => {
+          $view.off('page-title-updated.chrome-tabz')
+            .on('page-title-updated.chrome-tabz', (e) => {
               let $tab = $getTab(),
                 props = $view.data('props');
 
               // In the case of failure, use fallbacks.
-              let title = webContents.getTitle() || '';
-              title = !title ? webContents.getURL() : title;
+              let title = e.originalEvent.title || ''; // If not empty.
+              title = !title && typeof $view.getURL === 'function' ? $view.getURL() : title;
               title = !title ? this.settings.defaultProps.unknownUrlTitle : title;
 
               // Title can be updated immediately.
-              if (webContents.isLoading() !== 'nil') {
-                this.$parentObj._.updateTab($tab, { title }, 'view::state-change');
-              }
+              this.$parentObj._.updateTab($tab, { title }, 'view::state-change');
+
               // Trigger event after updating tab.
               this.$obj.trigger('viewTitleUpdated', [$view, title, this]);
             });
 
-          webContents.loadURL(props.url); // Begin loading.
+          $view.attr('src', props.url); // Begin loading.
 
         } else { // Handle as `<iframe>` (more difficult to work with).
           let $contentWindow = $($view[0].contentWindow); // jQuery wrapper.
