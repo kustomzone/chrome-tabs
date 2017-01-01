@@ -41,7 +41,7 @@ You can simply [**download a ZIP file**](https://github.com/jaswsinc/chrome-tabz
 #### Installing Node Module
 
 ```
-$ npm install chrome-tabz
+$ npm install --save chrome-tabz
 ```
 
 #### Installing Composer Package
@@ -259,7 +259,7 @@ $('.chrome-tabz').chromeTabz({
   ]
   ```
 
-- `defaultProps: {}` This is a set of default tab properties that each new tab will inherit from. By configuring default properties, you establish traits that every new tab will have by default, and then you can override these defaults when new tabs are being added. In short, this saves you from repeating yourself. This also establishes what a new tab will look like whenever a user double-clicks the tabbed interface.
+- `defaultProps: {}` This is a set of default [Tab Properties](#tab-properties-documentation) that each new tab will inherit from. By configuring default properties, you establish traits that every new tab will have by default, and then you can override these defaults when new tabs are being added. In short, this saves you from repeating yourself. This also establishes what a new tab will look like whenever a user double-clicks the tabbed interface.
 
   ```js
   defaultProps: {
@@ -269,6 +269,8 @@ $('.chrome-tabz').chromeTabz({
 
     unknownUrlTitle: 'Web Page',
     loadingFavicon: 'src/images/loading-favicon.gif',
+
+    allowClose: true,
 
     viewAttrs: {}
   }
@@ -290,6 +292,8 @@ url: 'https://duckduckgo.com/?kae=b&kak=-1&kao=-1&k1=-1&kt=p&kj=f5f5f5&ka=p&kf=1
 
 unknownUrlTitle: 'Web Page',
 loadingFavicon: 'src/images/loading-favicon.gif',
+
+allowClose: true,
 
 viewAttrs: {}
 ```
