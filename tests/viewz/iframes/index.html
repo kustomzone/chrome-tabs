@@ -17,6 +17,12 @@
       right: 15px;
       position: absolute;
     }
+
+    @media max-width(767px) {
+      .chrome-tab-toolz {
+        display: none;
+      }
+    }
   </style>
 
   <link rel="stylesheet" href="../../../src/css/base.min.css" />
@@ -43,8 +49,13 @@
       let settings = {
         minWidth: 45,
         maxWidth: 243,
-        leftMargin: 0,
-        rightMargin: 300,
+
+        leftPadding: 0,
+        leftPaddingMobile: 0,
+
+        rightPadding: 300,
+        rightPaddingMobile: 0,
+
         overlapDistance: 14,
 
         viewz: 'iframes', // or `webviews`.

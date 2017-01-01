@@ -116,8 +116,13 @@
 
         minWidth: 45,
         maxWidth: 243,
-        leftMargin: 0,
-        rightMargin: 300,
+
+        leftPadding: 0,
+        leftPaddingMobile: 0,
+
+        rightPadding: 300,
+        rightPaddingMobile: 45,
+
         overlapDistance: 14,
 
         viewz: 'iframes',
@@ -159,10 +164,17 @@
         throw '`minWidth` is not a number.';
       } else if (typeof this.settings.maxWidth !== 'number' || isNaN(this.settings.maxWidth)) {
         throw '`maxWidth` is not a number.';
-      } else if (typeof this.settings.leftMargin !== 'number' || isNaN(this.settings.leftMargin)) {
-        throw '`leftMargin` is not a number.';
-      } else if (typeof this.settings.rightMargin !== 'number' || isNaN(this.settings.rightMargin)) {
-        throw '`rightMargin` is not a number.';
+
+      } else if (typeof this.settings.leftPadding !== 'number' || isNaN(this.settings.leftPadding)) {
+        throw '`leftPadding` is not a number.';
+      } else if (typeof this.settings.leftPaddingMobile !== 'number' || isNaN(this.settings.leftPaddingMobile)) {
+        throw '`leftPaddingMobile` is not a number.';
+
+      } else if (typeof this.settings.rightPadding !== 'number' || isNaN(this.settings.rightPadding)) {
+        throw '`rightPadding` is not a number.';
+      } else if (typeof this.settings.rightPaddingMobile !== 'number' || isNaN(this.settings.rightPaddingMobile)) {
+        throw '`rightPaddingMobile` is not a number.';
+
       } else if (typeof this.settings.overlapDistance !== 'number' || isNaN(this.settings.overlapDistance)) {
         throw '`overlapDistance` is not a number.';
         //
@@ -184,7 +196,13 @@
       }
       this.settings.minWidth = Math.max(1, this.settings.minWidth);
       this.settings.maxWidth = Math.max(1, this.settings.maxWidth);
-      this.settings.rightMargin = Math.max(0, this.settings.rightMargin);
+
+      this.settings.leftPadding = Math.max(0, this.settings.leftPadding);
+      this.settings.leftPaddingMobile = Math.max(0, this.settings.leftPaddingMobile);
+
+      this.settings.rightPadding = Math.max(0, this.settings.rightPadding);
+      this.settings.rightPaddingMobile = Math.max(0, this.settings.rightPaddingMobile);
+
       this.settings.overlapDistance = Math.max(0, this.settings.overlapDistance);
 
       this.$obj.data('chromeTabz', this); // Instance reference.
@@ -199,10 +217,19 @@
       this.id = ++totalInstances; // Increment and assign an ID.
       this.draggabillyInstances = []; // Initialize instances.
 
-      this.alwaysOnStyles = `.chrome-tabz.-id-${this.id} > .-bar > .-content {
-        margin-left: ${this.settings.leftMargin}px;
-        width: calc(100% - ${this.settings.rightMargin}px);
-      }`;
+      this.alwaysOnStyles = `
+        @media (max-width: 767px) {
+          .chrome-tabz.-id-${this.id} > .-bar {
+            padding-left: calc(${this.settings.leftPaddingMobile}px + 1.2em);
+            padding-right: calc(${this.settings.rightPaddingMobile}px + 1.2em);
+          }
+        }
+        @media (min-width: 768px) {
+          .chrome-tabz.-id-${this.id} > .-bar {
+            padding-left: calc(${this.settings.leftPadding}px + 1.2em);
+            padding-right: calc(${this.settings.rightPadding}px + 1.2em);
+          }
+        }`;
       this.$obj.trigger('constructed', [this]);
 
       this.initialize(); // Initialize.

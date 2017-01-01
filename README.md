@@ -186,8 +186,13 @@ _**Note:** This example represents the default option values._
 $('.chrome-tabz').chromeTabz({
   minWidth: 45,
   maxWidth: 243,
-  leftMargin: 0,
-  rightMargin: 300,
+
+  leftPadding: 0,
+  leftPaddingMobile: 0,
+
+  rightPadding: 300,
+  rightPaddingMobile: 45,
+
   overlapDistance: 14,
 
   viewz: 'iframes',
@@ -221,9 +226,13 @@ $('.chrome-tabz').chromeTabz({
 
 - `maxWidth: 243` The maximum width of each tab, in pixels. When old tabs are removed, or when a window is resized, the width of each tab changes automatically. This setting controls the absolute maximum width allowed for each tab.
 
-- `leftMargin: 0` Margin on the left-hand side of the entire tab group, in pixels. The default value is `0`. In Electron apps you might want to use `leftMargin: 60` to allow room for window minimize/maximize controls in inset window frames on macOS. It just depends on how you setup your Electron app.
+- `leftPadding: 0` Padding on the left-hand side of the entire tab group, in pixels. The default value is `0`. In Electron apps you might want to use `leftPadding: 60` to allow room for window minimize/maximize controls in inset window frames on macOS. It just depends on how you setup your Electron app.
 
-- `rightMargin: 300` Margin on the right-hand side of the entire tab group, in pixels. The default value gives you room to add your own custom UI elements that sit inside the tabbed interface, and your custom UI elements will have `300` pixels of space that they can consume; i.e., without being covered up by a long list of tabs created by an end-user.
+- `leftPaddingMobile: 0` Padding on the left-hand side of the entire tab group, in pixels, whenever the viewport width is <= 767px. In Electron apps you might want to use `leftPaddingMobile: 60` to allow room for window minimize/maximize controls in inset window frames on macOS. It just depends on how you setup your Electron app.
+
+- `rightPadding: 300` Padding on the right-hand side of the entire tab group, in pixels. The default value gives you room to add your own custom UI elements that sit inside the tabbed interface, and your custom UI elements will have `300` pixels of space that they can consume; i.e., without being covered up by a long list of tabs created by an end-user.
+
+- `rightPaddingMobile: 45` Padding on the right-hand side of the entire tab group, in pixels, whenever the viewport width is <= 767px. The default value of `45` assumes that you'll hide whatever custom UI element you were showing on the right-hand side, and replace that with a hamburger icon menu, for which you'll have `45` pixels of space.
 
 - `overlapDistance: 14` This is the amount of tab overlap, in pixels. Each tab overlaps the previous tab by this number of pixels in order to mimic Google Chrome's interface design.
 
