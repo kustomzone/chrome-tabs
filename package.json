@@ -1,5 +1,5 @@
 {
-  "version": "1.0.7",
+  "version": "1.0.8",
   "name": "chrome-tabz",
   "description": "Electron and/or browser compatible HTML/CSS and JS chrome tabs — with a jQuery wrapper.",
   "license": "GPL-3.0",
