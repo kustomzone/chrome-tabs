@@ -1529,6 +1529,8 @@ return Unipointer;
           loadingFavicon: defaultLoadingTabFavicon,
           unknownUrlTitle: defaultUnknownUrlTabTitle,
 
+          allowClose: true, // Allow tab to be closed?
+
           viewAttrs: {} // Optional `<iframe>` or `<webview>` attrs.
           // These are simply `key: value` pairs representing HTML attrs.
         },
@@ -1915,20 +1917,21 @@ return Unipointer;
       let prevProps = $tab.data('props') || {};
       let newProps = props || {};
 
-      props = $.extend({}, this.settings.defaultProps, prevProps, newProps);
+      props = $.extend(true, {}, this.settings.defaultProps, prevProps, newProps);
       $tab.data('props', props); // Update to new props.
-
-      $tab.find('.-title').text(props.title);
 
       if (props.favicon) {
         if (props.favicon === defaultLoadingTabFavicon) {
-          $tab.find('.-favicon').css({ 'background-image': '' }).attr('data-favicon', defaultLoadingTabFavicon);
+          $tab.find('> .-favicon').css({ 'background-image': '' }).attr('data-favicon', defaultLoadingTabFavicon);
         } else if (props.favicon === defaultTabFavicon) {
-          $tab.find('.-favicon').css({ 'background-image': '' }).attr('data-favicon', defaultTabFavicon);
+          $tab.find('> .-favicon').css({ 'background-image': '' }).attr('data-favicon', defaultTabFavicon);
         } else {
-          $tab.find('.-favicon').css({ 'background-image': 'url(\'' + props.favicon + '\')' }).attr('data-favicon', '');
+          $tab.find('> .-favicon').css({ 'background-image': 'url(\'' + props.favicon + '\')' }).attr('data-favicon', '');
         }
-      } else { $tab.find('.-favicon').css({ 'background-image': 'none' }).attr('data-favicon', ''); }
+      } else { $tab.find('> .-favicon').css({ 'background-image': 'none' }).attr('data-favicon', ''); }
+
+      $tab.find('> .-title').text(props.title);
+      $tab.find('> .-close')[props.allowClose ? 'show' : 'hide']();
 
       this.$obj.trigger('tabUpdated', [$tab, props, via, prevProps, newProps, this]);
     }
@@ -1972,6 +1975,8 @@ return Unipointer;
 
           loadingFavicon: defaultLoadingTabFavicon,
           unknownUrlTitle: defaultUnknownUrlTabTitle,
+
+          allowClose: true, // Allow tab to be closed?
 
           viewAttrs: {} // Optional `<iframe>` or `<webview>` attrs.
           // These are simply `key: value` pairs representing HTML attrs.
@@ -2158,7 +2163,7 @@ return Unipointer;
       let prevProps = $view.data('props') || {};
       let newProps = props || {};
 
-      props = $.extend({}, this.settings.defaultProps, prevProps, newProps);
+      props = $.extend(true, {}, this.settings.defaultProps, prevProps, newProps);
       $view.data('props', props); // Update to new props after merging.
 
       $.each(props.viewAttrs, (key, value) => {

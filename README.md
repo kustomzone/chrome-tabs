@@ -204,6 +204,8 @@ $('.chrome-tabz').chromeTabz({
     unknownUrlTitle: 'Web Page',
     loadingFavicon: 'loading',
 
+    allowClose: true,
+
     viewAttrs: {}
   },
 });
@@ -294,7 +296,7 @@ viewAttrs: {}
 
 - `title: ''` Establishes the default title for a tab.
 
-- `favicon: 'default'` Establishes the favicon for a tab. This can be the special string: `default`, a `data:` URI, a relative image path (svg,png,gif,ico), or a full URL leading to an image. The built-in default value (`default`) works well in both the light & dark themes; i.e., just as a default tab favicon.
+- `favicon: 'default'` Establishes the favicon for a tab. This can be the special string: `default` (built-in default tab icon), a `data:` URI, a relative image path (svg,png,gif,ico), or a full URL leading to an image. The built-in default value (`default`) works well in both the light & dark themes; i.e., just as a default tab favicon.
 
 - `url: ''` This establishes the content for the tab 'view'; i.e., the location of the content that should be displayed whenever the tab is active.
 
@@ -304,7 +306,9 @@ viewAttrs: {}
 
 - `unknownUrlTitle: ''` In the case of URL loading failure, or when cross-domain restrictions prohibit automatic title detection (based on URL), this default title will be displayed instead.
 
-- `loadingFavicon: 'loading'` Establishes the loading favicon. This can be the special string: `loading`, a `data:` URI, a relative image path (svg,png,gif,ico), or a full URL leading to an image. The built-in default value (`loading`) is strongly recommended, which helps to convey that a tab is loading in both the light & dark themes.
+- `loadingFavicon: 'loading'` Establishes the loading favicon. This can be the special string: `loading` (built-in loading icon), a `data:` URI, a relative image path (svg,png,gif,ico), or a full URL leading to an image. The built-in default value (`loading`) is recommended, which helps to convey that a tab is loading in both the light & dark themes.
+
+- `allowClose: true` Should an end-user be allowed to close the tab? If `false`, the close icon will not be shown, making it impossible to close the tab.
 
 - `viewAttrs: {}` A 'view' is the underlying `<iframe>` or `<webview>` tag. If you'd like to set HTML attributes on the auto-generated view for any given tab, you can use this property to do that. These are simply `key: value` pairs representing HTML attrs. Here is an example of some attributes supported by the [`<webview>`](http://electron.atom.io/docs/api/web-view-tag/) tag in Electron apps.
 
