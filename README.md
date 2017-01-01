@@ -121,7 +121,7 @@ _**Note:** Any version of jQuery >= v2.2.4 will do fine._
 
 <img src="https://media.githubusercontent.com/media/jaswsinc/chrome-tabz/dev/assets/images/chrome-icon.png" width="64" align="right" />
 
-In addition to Electron, Chrome Tabz also work with [`<iframe>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe) tags in modern web browsers that support ES5+. _Note: `dists/js/bundle.min.js` is transpiled into traditional JS for web browser compatibility. Tested in Chrome, Firefox, and Safari.
+Yes, Chrome Tabz can also work with [`<iframe>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe) tags in modern web browsers that support ES5+. _Note: `dists/js/bundle.min.js` is transpiled into traditional JS for web browser compatibility. Tested in Chrome, Firefox, and Safari.
 
 #### Suggested CSS/Styles
 
