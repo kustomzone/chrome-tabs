@@ -237,7 +237,7 @@ $('.chrome-tabz').chromeTabz({
 
 - `allowDoubleClick: true` By default, double-clicking the tabbed interface will add a new default tab. If you'd like to disable this functionality, set this option to `false`; i.e., `false` = do not allow the end-user to create new tabs on their own.
 
-- `initial: []` When you want to begin with a specific set of tabs, this option comes in handy, as a convenience. You can add an array of [Tab Properties](#tab-properties-documentation); one for each tab that you want to initialize. Any properties that you don't set, for any given tab, will automatically inherit from the list of `defaultProps: {}`, which is also a configurable option.
+- `initial: []` When you want to begin with a specific set of tabs, this option comes in handy, as a convenience. You can add an array of objects ([Tab Properties](#tab-properties-documentation)); one for each tab that you want to initialize. Any properties that you don't set, for any given tab, will automatically inherit from the list of `defaultProps: {}`, which is also a configurable option.
 
   _**Warning:** Don't use this option if you're attaching custom event handlers. Why? If you do, any 'initial' tabs will not trigger your custom event handlers as expected. Simply because 'initial' tabs are initialized together as the class is being constructed; i.e., before you've had the chance to attach your custom event handlers. Therefore, the best practice, if you're attaching custom event handlers, is to use the [`addTabz()`](#addtabz-method) method instead — right **after** your custom event handlers have been attached. That way your initial tabs will also trigger your custom event handlers._
 
