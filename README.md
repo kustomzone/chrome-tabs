@@ -54,7 +54,7 @@ $ composer require jaswsinc/chrome-tabz
 
 ### [Electron](http://electron.atom.io/) Tabbed Interface Implementation
 
-<img src="https://media.githubusercontent.com/media/jaswsinc/chrome-tabz/dev/assets/images/electron-icon.png" width="128" align="right" />
+<img src="https://media.githubusercontent.com/media/jaswsinc/chrome-tabz/dev/assets/images/electron-icon.png" width="64" align="right" />
 
 ChromeTabz requires a `window.document` object. Generally speaking, most NodeJS projects do not incorporate a web browser. However, there are some exceptions, and Electron apps are one of those. **ChromeTabz works great as a tabbed interface for Electron apps!**
 
