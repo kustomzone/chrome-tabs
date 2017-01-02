@@ -517,10 +517,10 @@
     }
 
     removeCurrentTab() {
-      if (!$this.$currentTab.length) {
+      if (!this.$currentTab.length) {
         return; // No current tab.
       }
-      return this.removeTab($this.$currentTab);
+      return this.removeTab(this.$currentTab);
     }
 
     removeTabz($tabz) {
