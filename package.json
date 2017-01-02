@@ -10,7 +10,7 @@
     "tabs"
   ],
   "repository": "https://github.com/jaswsinc/chrome-tabz",
-  "main": "./src/js/main.js",
+  "main": "./src/js/index.js",
   "dependencies": {
     "jquery": "^2.2.4 || ^3.0.0",
     "draggabilly": "^2.1.1"

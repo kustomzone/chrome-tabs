@@ -11,7 +11,7 @@
   let stripComments = require('gulp-strip-comments');
 
   gulp.task('browserify', () => {
-    return browserify('./src/js/main.js').exclude('jquery')
+    return browserify('./src/js/index.js').exclude('jquery')
       .bundle().pipe(src('bundle.js'))
       .pipe(gulp.dest('./dists/js'));
   });
