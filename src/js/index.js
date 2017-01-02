@@ -516,6 +516,13 @@
       return this.removeTabz($tab);
     }
 
+    removeCurrentTab() {
+      if (!$this.$currentTab.length) {
+        return; // No current tab.
+      }
+      return this.removeTab($this.$currentTab);
+    }
+
     removeTabz($tabz) {
       if (!($tabz instanceof jQuery) || !$tabz.length) {
         throw 'Missing or invalid $tabz.';

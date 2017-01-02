@@ -522,6 +522,16 @@ $chromeTabz._.removeTab($tab0); // Remove first tab (index 0).
 
 ---
 
+#### `removeCurrentTab()` Method
+
+_**Note:** If there is no current/active tab, this fails quietly and does nothing._
+
+```js
+$chromeTabz._.removeCurrentTab(); // Removes current/active tab.
+```
+
+---
+
 #### `removeTabz()` Method
 
 ##### Parameters
