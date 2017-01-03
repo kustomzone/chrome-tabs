@@ -5,9 +5,11 @@
   "license": "GPL-3.0",
   "author": "jaswsinc",
   "keywords": [
+    "jaswsinc",
     "electron",
     "chrome",
-    "tabs"
+    "tabs",
+    "tabz"
   ],
   "repository": "https://github.com/jaswsinc/chrome-tabz",
   "main": "./src/js/index.js",

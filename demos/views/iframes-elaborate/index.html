@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8" />
-  <title>Elaborate IFrames | Chrome Tabz Demo</title>
+  <title>Elaborate IFrames | Chrome Tabs Demo</title>
 
   <!-- For demo only. -->
   <style>
@@ -34,7 +34,7 @@
 <body>
 
   <!-- Required markup. -->
-  <div class="chrome-tabz"></div>
+  <div class="chrome-tabs"></div>
 
   <!-- For demo only, but might be useful to you. -->
   <div class="demo-tools">
@@ -65,25 +65,25 @@
 
         overlapDistance: 14,
 
-        viewz: 'iframes', // or `webviews`.
+        views: 'iframes', // or `webviews`.
         // `webviews` = Electron compatibility.
-        // Or leave empty to disable viewz entirely.
+        // Or leave empty to disable views entirely.
 
         allowDragNDrop: true,
         allowDoubleClick: true,
       };
-      // TIP: Here's a minimal example to get chromeTabz working.
-      // ... $('.chrome-tabz').chromeTabz(settings);
+      // TIP: Here's a minimal example to get chromeTabs working.
+      // ... $('.chrome-tabs').chromeTabs(settings);
 
       // A more elaborate example w/ bells & whistles.
-      $('.chrome-tabz').chromeTabz(settings).each(function(i, obj) {
+      $('.chrome-tabs').chromeTabs(settings).each(function(i, obj) {
 
         // References we'll work with below.
-        var $chromeTabz = $(obj); // DOM object w/ jQuery wrapper.
-        $chromeTabz._ = $chromeTabz.data('chromeTabz'); // ChromeTabz class instance.
+        var $chromeTabs = $(obj); // DOM object w/ jQuery wrapper.
+        $chromeTabs._ = $chromeTabs.data('chromeTabs'); // ChromeTabs class instance.
 
         // Optional initial tabs.
-        var $tabz = $chromeTabz._.addTabz([
+        var $tabs = $chromeTabs._.addTabs([
           { url: '../assets/frames/1.html' },
           { url: '../assets/frames/2.html' },
           { url: '../assets/frames/3.html' },
@@ -103,18 +103,18 @@
         // i.e., Favicons/titles are automatic for same-domain iframes, and navigation changes are detected also.
 
         // Optionally set active tab.
-        $chromeTabz._.setCurrentTab($tabz.eq(1)); // Index `1` is `2.html` from above.
+        $chromeTabs._.setCurrentTab($tabs.eq(1)); // Index `1` is `2.html` from above.
 
         // Optional tools setup (for demo only).
         $('.demo-tools > .-add-tab').on('click', function(e) {
           var url = prompt('URL (empty = default tab):');
-          if (url !== null) $chromeTabz._.addTab(url ? { url: url } : {});
+          if (url !== null) $chromeTabs._.addTab(url ? { url: url } : {});
         });
         $('.demo-tools > .-remove-tab').on('click', function(e) {
-          $chromeTabz._.removeTab($chromeTabz._.$currentTab);
+          $chromeTabs._.removeTab($chromeTabs._.$currentTab);
         });
         $('.demo-tools > .-toggle-dark-theme').on('click', function(e) {
-          $chromeTabz.toggleClass('-dark-theme');
+          $chromeTabs.toggleClass('-dark-theme');
         });
       });
     });

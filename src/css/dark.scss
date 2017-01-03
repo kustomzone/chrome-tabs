@@ -16,11 +16,11 @@ $tab-background-svg-shadow-color: rgba(0, 0, 0, 0.5);
 $bottom-line-bg-color: #505050;
 $bottom-line-box-shadow-color: rgba(0, 0, 0, 0.5);
 
-$viewz-bg-color: #151515;
+$views-bg-color: #151515;
 
 // Styles.
 
-.chrome-tabz.-dark-theme {
+.chrome-tabs.-dark-theme {
   > .-bar {
     box-shadow:               0 0.05em $box-shadow-color;
     background:               linear-gradient($bg-color-1, $bg-color-2);
@@ -75,7 +75,7 @@ $viewz-bg-color: #151515;
     }
   }
 
-  > .-viewz {
-    background-color:         $viewz-bg-color;
+  > .-views {
+    background-color:         $views-bg-color;
   }
 }

@@ -2,7 +2,7 @@
   "name": "jaswsinc/chrome-tabz",
   "homepage": "https://github.com/jaswsinc/chrome-tabz",
   "description": "Electron and/or browser compatible HTML/CSS and JS chrome tabs — with a jQuery wrapper.",
-  "keywords": ["jaswsinc", "chrome", "tabs", "tabz", "viewz"],
+  "keywords": ["jaswsinc", "electron", "chrome", "tabs", "tabz"],
 
   "type": "library",
   "license": "GPL-3.0+",

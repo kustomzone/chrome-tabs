@@ -1,4 +1,4 @@
-## Chrome Tabz
+## Chrome Tabs (i.e., Electron Tabs)
 
 <img src="https://media.githubusercontent.com/media/jaswsinc/chrome-tabz/dev/assets/images/electron-icon.png" width="128" align="right" />
 <img src="https://media.githubusercontent.com/media/jaswsinc/chrome-tabz/dev/assets/images/chrome-icon.png" width="64" align="right" />
@@ -28,9 +28,9 @@ This is an ES6 project for Electron [`<webview>`](http://electron.atom.io/docs/a
 
 _**Tip:** In these demos you can 'View Page Source' for additional insight._
 
-- [Same-Domain IFrames](https://jaswsinc.github.io/chrome-tabz/demos/viewz/iframes-same-domain/index.html)
-- [Search Engine IFrames](https://jaswsinc.github.io/chrome-tabz/demos/viewz/iframes-search-engines/index.html)
-- [IFrames w/ Examples in Source](https://jaswsinc.github.io/chrome-tabz/demos/viewz/iframes-elaborate/index.html)
+- [Same-Domain IFrames](https://jaswsinc.github.io/chrome-tabz/demos/views/iframes-same-domain/index.html)
+- [Search Engine IFrames](https://jaswsinc.github.io/chrome-tabz/demos/views/iframes-search-engines/index.html)
+- [IFrames w/ Examples in Source](https://jaswsinc.github.io/chrome-tabz/demos/views/iframes-elaborate/index.html)
 
 ---
 
@@ -56,7 +56,7 @@ $ composer require jaswsinc/chrome-tabz
 
 <img src="https://media.githubusercontent.com/media/jaswsinc/chrome-tabz/dev/assets/images/electron-icon.png" width="64" align="right" />
 
-ChromeTabz requires a `window.document` object. Generally speaking, most NodeJS projects do not incorporate a web browser. However, there are some exceptions, and Electron apps are one of those. **ChromeTabz works great as a tabbed interface for Electron apps!**
+ChromeTabs requires a `window.document` object. Generally speaking, most NodeJS projects do not incorporate a web browser. However, there are some exceptions, and Electron apps are one of those. **ChromeTabs works great as a tabbed interface for Electron apps!**
 
 #### Suggested CSS/Styles
 
@@ -89,13 +89,13 @@ This goes in your `.html` document (the Electron Renderer Process).
 Again, this goes in your `.html` document (the Electron Renderer Process).
 
 ```html
-<div class="chrome-tabz"></div>
+<div class="chrome-tabs"></div>
 ```
 
 Or, if you want the dark theme, add the `-dark-theme` class.
 
 ```html
-<div class="chrome-tabz -dark-theme"></div>
+<div class="chrome-tabs -dark-theme"></div>
 ```
 
 #### Required JavaScript Snippet
@@ -107,10 +107,10 @@ _**Note:** Any version of jQuery >= v2.2.4 will do fine._
 ```html
 <script>
   let $ = require('jquery');
-  $.fn.chromeTabz = require('chrome-tabz');
+  $.fn.chromeTabs = require('chrome-tabs');
 
   $(document).ready(() => {
-    $('.chrome-tabz').chromeTabz({viewz: 'webviews'});
+    $('.chrome-tabs').chromeTabs({views: 'webviews'});
   });
 </script>
 ```
@@ -121,7 +121,7 @@ _**Note:** Any version of jQuery >= v2.2.4 will do fine._
 
 <img src="https://media.githubusercontent.com/media/jaswsinc/chrome-tabz/dev/assets/images/chrome-icon.png" width="64" align="right" />
 
-Yes, Chrome Tabz can also work with [`<iframe>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe) tags in modern web browsers that support ES5+. _Note: `dists/js/bundle.min.js` is transpiled into traditional JS for web browser compatibility. Tested in Chrome, Firefox, and Safari. May work in others too._
+Yes, Chrome Tabs can also work with [`<iframe>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe) tags in modern web browsers that support ES5+. _Note: `dists/js/bundle.min.js` is transpiled into traditional JS for web browser compatibility. Tested in Chrome, Firefox, and Safari. May work in others too._
 
 #### Suggested CSS/Styles
 
@@ -157,13 +157,13 @@ _**Note:** Any version of jQuery >= v2.2.4 will do fine._
 #### Required HTML Markup
 
 ```html
-<div class="chrome-tabz"></div>
+<div class="chrome-tabs"></div>
 ```
 
 Or, if you want the dark theme, add the `-dark-theme` class.
 
 ```html
-<div class="chrome-tabz -dark-theme"></div>
+<div class="chrome-tabs -dark-theme"></div>
 ```
 
 #### Required JavaScript Snippet
@@ -171,7 +171,7 @@ Or, if you want the dark theme, add the `-dark-theme` class.
 ```html
 <script>
   jQuery(document).ready(function($) {
-    $('.chrome-tabz').chromeTabz();
+    $('.chrome-tabs').chromeTabs();
   });
 </script>
 ```
@@ -183,7 +183,7 @@ Or, if you want the dark theme, add the `-dark-theme` class.
 _**Note:** This example represents the default option values._
 
 ```js
-$('.chrome-tabz').chromeTabz({
+$('.chrome-tabs').chromeTabs({
   minWidth: 45,
   maxWidth: 243,
 
@@ -195,14 +195,14 @@ $('.chrome-tabz').chromeTabz({
 
   overlapDistance: 14,
 
-  viewz: 'iframes',
+  views: 'iframes',
   // `iframes` or `webviews`.
   // `webviews` = Electron compatibility.
-  // Or leave empty to disable viewz entirely.
+  // Or leave empty to disable views entirely.
 
   allowDragNDrop: true,
   allowDoubleClick: true,
-  initial: [], // Initial tabz.
+  initial: [], // Initial tabs.
   // This is an array of prop objs.
 
   defaultProps: {
@@ -236,9 +236,9 @@ $('.chrome-tabz').chromeTabz({
 
 - `overlapDistance: 14` This is the amount of tab overlap, in pixels. Each tab overlaps the previous tab by this number of pixels in order to mimic Google Chrome's interface design.
 
-- `viewz: 'iframes'` This controls the underlying Chrome Tab Viewz class. In short, 'Viewz' make 'Tabz' function like they would in a typical web browser. When Viewz are enabled, a tab is associated with a `url:` property.
+- `views: 'iframes'` This controls the underlying Chrome Tab Views class. In short, 'Views' make 'Tabs' function like they would in a typical web browser. When Views are enabled, a tab is associated with a `url:` property.
 
-  - `'iframes'` If you set this to `iframes`, when a tab is selected, the `url:` tab property is loaded automatically in an [`<iframe>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe). This makes Chrome Tabz compatible with regular web browsers.
+  - `'iframes'` If you set this to `iframes`, when a tab is selected, the `url:` tab property is loaded automatically in an [`<iframe>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe). This makes Chrome Tabs compatible with regular web browsers.
 
   - `'webviews'` In Electron, you can set this to `webviews`. When a tab is selected, the `url:` tab property is loaded in a [`<webview>`](http://electron.atom.io/docs/api/web-view-tag/) tag automatically. The `<webview>` tag only works in Electron apps.
 
@@ -250,7 +250,7 @@ $('.chrome-tabz').chromeTabz({
 
 - `initial: []` When you want to begin with a specific set of tabs, this option comes in handy, as a convenience. You can add an array of objects ([Tab Properties](#tab-properties-documentation)); one for each tab that you want to initialize. Any properties that you don't set, for any given tab, will automatically inherit from the list of `defaultProps: {}`, which is also a configurable option.
 
-  _**Warning:** Don't use this option if you're attaching custom event handlers. Why? If you do, any 'initial' tabs will not trigger your custom event handlers as expected. Simply because 'initial' tabs are initialized together as the class is being constructed; i.e., before you've had the chance to attach your custom event handlers. Therefore, the best practice, if you're attaching custom event handlers, is to use the [`addTabz()`](#addtabz-method) method instead — right **after** your custom event handlers have been attached. That way your initial tabs will also trigger your custom event handlers._
+  _**Warning:** Don't use this option if you're attaching custom event handlers. Why? If you do, any 'initial' tabs will not trigger your custom event handlers as expected. Simply because 'initial' tabs are initialized together as the class is being constructed; i.e., before you've had the chance to attach your custom event handlers. Therefore, the best practice, if you're attaching custom event handlers, is to use the [`addTabs()`](#addtabs-method) method instead — right **after** your custom event handlers have been attached. That way your initial tabs will also trigger your custom event handlers._
 
   ```js
   initial: [
@@ -293,7 +293,7 @@ $('.chrome-tabz').chromeTabz({
 
   _**Notable Exception:** When a tab is given a `url:` property, its `favicon:` and `title:` properties do not inherit from any defaults. Even setting the `title:` or `favicon:` properties explicitly will have little impact. Instead, the favicon & title are automatically derived from the URL itself, as one would expect from any web browser._
 
-    _On the other hand, if you're using `viewz: 'iframes'`, and you attempt to add a tab with a URL that is not on the same domain as your tabbed interface, browser security restrictions do not allow for automatic detection. In such a case, explicit `favicon:` and `title:` properties must be set for each tab. Note also, this does not apply to Electron `<webview>` tags, which are not subjected to the same cross-domain limitations as `<iframe>` tags._
+    _On the other hand, if you're using `views: 'iframes'`, and you attempt to add a tab with a URL that is not on the same domain as your tabbed interface, browser security restrictions do not allow for automatic detection. In such a case, explicit `favicon:` and `title:` properties must be set for each tab. Note also, this does not apply to Electron `<webview>` tags, which are not subjected to the same cross-domain limitations as `<iframe>` tags._
 
 
 ---
@@ -321,7 +321,7 @@ viewAttrs: {}
 
   _**Special Note:** When a tab is given a `url:` property, its `favicon:` and `title:` properties do not inherit from any defaults. Even setting the `title:` or `favicon:` properties explicitly will have little impact. Instead, the favicon & title are automatically derived from the URL itself, as one would expect from any web browser._
 
-    _On the other hand, if you're using `viewz: 'iframes'`, and you attempt to add a tab with a URL that is not on the same domain as your tabbed interface, browser security restrictions do not allow for automatic detection. In such a case, explicit `favicon:` and `title:` properties must be set for each tab. Note also, this does not apply to Electron `<webview>` tags, which are not subjected to the same cross-domain limitations as `<iframe>` tags._
+    _On the other hand, if you're using `views: 'iframes'`, and you attempt to add a tab with a URL that is not on the same domain as your tabbed interface, browser security restrictions do not allow for automatic detection. In such a case, explicit `favicon:` and `title:` properties must be set for each tab. Note also, this does not apply to Electron `<webview>` tags, which are not subjected to the same cross-domain limitations as `<iframe>` tags._
 
 - `unknownUrlTitle: ''` In the case of URL loading failure, or when cross-domain restrictions prohibit automatic title detection (based on URL), this default title will be displayed instead.
 
@@ -344,31 +344,31 @@ viewAttrs: {}
 
 ---
 
-### `ChromeTabz` Class Property Documentation
+### `ChromeTabs` Class Property Documentation
 
 #### Underlying Class Instance via jQuery
 
 The class instance can be obtained via jQuery.
-Point `$chromeTabz._` to the underlying class instance.
+Point `$chromeTabs._` to the underlying class instance.
 
 ```js
 // References we'll work with below.
-var $chromeTabz = $('.chrome-tabz').chromeTabz(); // w/ jQuery wrapper.
-$chromeTabz._ = $chromeTabz.data('chromeTabz'); // ChromeTabz class instance.
+var $chromeTabs = $('.chrome-tabs').chromeTabs(); // w/ jQuery wrapper.
+$chromeTabs._ = $chromeTabs.data('chromeTabs'); // ChromeTabs class instance.
 ```
 
 ---
 
-#### `$tabz` Property (Read-Only)
+#### `$tabs` Property (Read-Only)
 
-_jQuery_: A jQuery object representing the current set of tabz.
+_jQuery_: A jQuery object representing the current set of tabs.
 
 _**Note:** Tab elements are indexed by jQuery and their index will always reflect the location of each tab as it appears in the UI. Remember that jQuery uses a zero-based index system. So the first tab (as seen in the UI) would be at index position `0`._
 
 ```js
-var $tabz = $chromeTabz._.$tabz; // All tabz.
-var $firstTab = $tabz.eq(0); // First tab w/ jQuery wrapper.
-var firstTab = $tabz[0]; // DOM element w/o jQuery wrapper.
+var $tabs = $chromeTabs._.$tabs; // All tabs.
+var $firstTab = $tabs.eq(0); // First tab w/ jQuery wrapper.
+var firstTab = $tabs[0]; // DOM element w/o jQuery wrapper.
 ```
 
 ---
@@ -379,7 +379,7 @@ _jQuery_: A jQuery object representing the current/active tab.
 
 
 ```js
-var $tab = $chromeTabz._.$currentTab;
+var $tab = $chromeTabs._.$currentTab;
 ```
 
 To find a tab's current index (i.e., position in the interface).
@@ -396,7 +396,7 @@ _Number_: The current width of each tab, in pixels.
 
 
 ```js
-var tabWidth = $chromeTabz._.tabWidth;
+var tabWidth = $chromeTabs._.tabWidth;
 ```
 
 ---
@@ -407,7 +407,7 @@ _Number_: The current effective width of each tab, in pixels; i.e., `tabWidth` m
 
 
 ```js
-var effectiveTabWidth = $chromeTabz._.effectiveTabWidth;
+var effectiveTabWidth = $chromeTabs._.effectiveTabWidth;
 ```
 
 ---
@@ -418,48 +418,48 @@ _Array_: The current X (left-offset) positions for each tab.
 
 
 ```js
-var tabPositions = $chromeTabz._.tabPositions;
+var tabPositions = $chromeTabs._.tabPositions;
 ```
 
 ---
 
 #### `settings` Property (Read-Only)
 
-_Object_: The currently configured settings for the ChromeTabz instance.
+_Object_: The currently configured settings for the ChromeTabs instance.
 
-_**Note:** While not enforced, this should be considered a read-only object. Please do not attempt to change settings after the ChromeTabz instance as already been initialized via jQuery._
+_**Note:** While not enforced, this should be considered a read-only object. Please do not attempt to change settings after the ChromeTabs instance as already been initialized via jQuery._
 
 
 ```js
-var settings = $chromeTabz._.settings;
+var settings = $chromeTabs._.settings;
 ```
 
 ---
 
 #### `id` Property (Read-Only)
 
-_Number_: The auto-assigned ID for the ChromeTabz instance; e.g., `0`.
+_Number_: The auto-assigned ID for the ChromeTabs instance; e.g., `0`.
 
-_**Note:** This is simply a numeric counter, starting from `0`. If you have more than a single instance of ChromeTabz in any given DOM, each new instance will then have IDs: `1`, `2`, `3`, etc._
+_**Note:** This is simply a numeric counter, starting from `0`. If you have more than a single instance of ChromeTabs in any given DOM, each new instance will then have IDs: `1`, `2`, `3`, etc._
 
 
 ```js
-var id = $chromeTabz._.id;
+var id = $chromeTabs._.id;
 ```
 
 ---
 
-### `ChromeTabz` Class Method Documentation
+### `ChromeTabs` Class Method Documentation
 
 #### Underlying Class Instance via jQuery
 
 The class instance can be obtained via jQuery.
-Point `$chromeTabz._` to the underlying class instance.
+Point `$chromeTabs._` to the underlying class instance.
 
 ```js
 // References we'll work with below.
-var $chromeTabz = $('.chrome-tabz').chromeTabz(); // w/ jQuery wrapper.
-$chromeTabz._ = $chromeTabz.data('chromeTabz'); // ChromeTabz class instance.
+var $chromeTabs = $('.chrome-tabs').chromeTabs(); // w/ jQuery wrapper.
+$chromeTabs._ = $chromeTabs.data('chromeTabs'); // ChromeTabs class instance.
 ```
 
 ---
@@ -476,7 +476,7 @@ $chromeTabz._ = $chromeTabz.data('chromeTabz'); // ChromeTabz class instance.
 A jQuery object representing the new tab object in the DOM.
 
 ```js
-var $tab = $chromeTabz._.addTab({ url: '1.html' });
+var $tab = $chromeTabs._.addTab({ url: '1.html' });
 ```
 
 ---
@@ -496,14 +496,14 @@ var $tab = $chromeTabz._.addTab({ url: '1.html' });
 A jQuery object representing the new (or existing) tab object in the DOM.
 
 ```js
-var $tab = $chromeTabz._.addTabIfNotExists({ url: '1.html' });
+var $tab = $chromeTabs._.addTabIfNotExists({ url: '1.html' });
 ```
 
 _**See also:** [`tabExists()`](#tabexists-method)_
 
 ---
 
-#### `addTabz()` Method
+#### `addTabs()` Method
 
 ##### Parameters
 
@@ -515,7 +515,7 @@ _**See also:** [`tabExists()`](#tabexists-method)_
 A jQuery object set representing each new tab object in the DOM.
 
 ```js
-var $tabz = $chromeTabz._.addTabz([
+var $tabs = $chromeTabs._.addTabs([
   { url: '1.html' },
   { url: '2.html' },
   { url: '3.html' },
@@ -538,8 +538,8 @@ var $tabz = $chromeTabz._.addTabz([
 _**Note:** If the jQuery object contains more than a single tab, only the first tab will be removed; via `$tab.first()`. Therefore, you should call `removeTab()` separately, for each tab you want to remove._
 
 ```js
-var $tab0 = $('.chrome-tabz .-tab').eq(0);
-$chromeTabz._.removeTab($tab0); // Remove first tab (index 0).
+var $tab0 = $('.chrome-tabs .-tab').eq(0);
+$chromeTabs._.removeTab($tab0); // Remove first tab (index 0).
 ```
 
 ---
@@ -549,20 +549,20 @@ $chromeTabz._.removeTab($tab0); // Remove first tab (index 0).
 _**Note:** If there is no current/active tab, this fails quietly and does nothing._
 
 ```js
-$chromeTabz._.removeCurrentTab(); // Removes current/active tab.
+$chromeTabs._.removeCurrentTab(); // Removes current/active tab.
 ```
 
 ---
 
-#### `removeTabz()` Method
+#### `removeTabs()` Method
 
 ##### Parameters
 
-- `$tabz` _jQuery_: i.e., A jQuery object representing a set of tab objects in the DOM.
+- `$tabs` _jQuery_: i.e., A jQuery object representing a set of tab objects in the DOM.
 
 ```js
-var $tabz = $('.chrome-tabz .-tab').not('.-current');
-$chromeTabz._.removeTabz($tabz); // Remove all except the current tab.
+var $tabs = $('.chrome-tabs .-tab').not('.-current');
+$chromeTabs._.removeTabs($tabs); // Remove all except the current tab.
 ```
 
 ---
@@ -576,8 +576,8 @@ $chromeTabz._.removeTabz($tabz); // Remove all except the current tab.
 _**Note:** If the jQuery object contains more than a single tab, only the first tab will be set as current; via `$tab.first()`. Only one tab can be current/active at any given time._
 
 ```js
-var $tab = $('.chrome-tabz .-tab').eq(2);
-$chromeTabz._.setCurrentTab($tab); // Third tab (index 2) is now active.
+var $tab = $('.chrome-tabs .-tab').eq(2);
+$chromeTabs._.setCurrentTab($tab); // Third tab (index 2) is now active.
 ```
 
 ---
@@ -593,16 +593,16 @@ $chromeTabz._.setCurrentTab($tab); // Third tab (index 2) is now active.
 _**Note:** If the jQuery object contains more than a single tab, only the first tab will be updated; via `$tab.first()`. If you need to update multiple tabs, build an iteration of your own._
 
 ```js
-var $tab = $('.chrome-tabz .-tab').eq(2);
-$chromeTabz._.updateTab($tab, {url: 'http://example.com'});
+var $tab = $('.chrome-tabs .-tab').eq(2);
+$chromeTabs._.updateTab($tab, {url: 'http://example.com'});
 // Third tab (index 2) changes location.
 ```
 
 Another quick example:
 
 ```js
-var $tab = $('.chrome-tabz .-tab').eq(1);
-$chromeTabz._.updateTab($tab, {
+var $tab = $('.chrome-tabs .-tab').eq(1);
+$chromeTabs._.updateTab($tab, {
   title: 'Currently Loading...',
   favicon: 'src/images/loading-favicon.gif'
 }); // Second tab (index 1) gets a new favicon & title.
@@ -623,7 +623,7 @@ $chromeTabz._.updateTab($tab, {
 A jQuery object representing the first matching tab object in the DOM; else `false` if not exists.
 
 ```js
-var $existingTab = $chromeTabz._.tabExists({url: 'http://example.com'});
+var $existingTab = $chromeTabs._.tabExists({url: 'http://example.com'});
 // If a tab with this `url:` already exists, $existingTab is a jQuery object referencing that tab.
 ```
 
@@ -636,14 +636,14 @@ _**See also:** [`addTabIfNotExists()`](#addtabifnotexists-method)_
 Optional. You can use this to cleanup the DOM and do something else.
 
 ```js
-$chromeTabz._.destroy(); // Destroys events, elements, etc.
-$chromeTabz._ = null; // Also kills your own instance reference.
+$chromeTabs._.destroy(); // Destroys events, elements, etc.
+$chromeTabs._ = null; // Also kills your own instance reference.
 // Killing your own instance reference allows the JavaScript GC to free memory.
 ```
 
 ---
 
-### `ChromeTabz`: jQuery Events Documentation
+### `ChromeTabs`: jQuery Events Documentation
 
 #### On `constructed` Event
 
@@ -652,10 +652,10 @@ Triggered whenever the class is first being constructed, but before it has been 
 ##### Callback Parameters
 
 - `event` _Object_: The event object properties passed by jQuery.
-- `instance` _ChromeTabz_: The associated ChromeTabz class instance.
+- `instance` _ChromeTabs_: The associated ChromeTabs class instance.
 
 ```js
-$chromeTabz.on('constructed', function (event, instance) {
+$chromeTabs.on('constructed', function (event, instance) {
   console.log('Tabs constructed.');
 });
 ```
@@ -669,10 +669,10 @@ Triggered after the class is constructed and fully initialized.
 ##### Callback Parameters
 
 - `event` _Object_: The event object properties passed by jQuery.
-- `instance` _ChromeTabz_: The associated ChromeTabz class instance.
+- `instance` _ChromeTabs_: The associated ChromeTabs class instance.
 
 ```js
-$chromeTabz.on('initialized', function (event, instance) {
+$chromeTabs.on('initialized', function (event, instance) {
   console.log('Tabs initialized.');
 });
 ```
@@ -686,10 +686,10 @@ Triggered when the class is destroyed via `destroy()`.
 ##### Callback Parameters
 
 - `event` _Object_: The event object properties passed by jQuery.
-- `instance` _ChromeTabz_: The associated ChromeTabz class instance.
+- `instance` _ChromeTabs_: The associated ChromeTabs class instance.
 
 ```js
-$chromeTabz.on('destroyed', function (event, instance) {
+$chromeTabs.on('destroyed', function (event, instance) {
   console.log('Tabs destroyed.');
 });
 ```
@@ -704,10 +704,10 @@ Triggered after each new tab is added to the DOM, but before its properties have
 
 - `event` _Object_: The event object properties passed by jQuery.
 - `$tab` _jQuery_: A jQuery object representing the new tab in the DOM.
-- `instance` _ChromeTabz_: The associated ChromeTabz class instance.
+- `instance` _ChromeTabs_: The associated ChromeTabs class instance.
 
 ```js
-$chromeTabz.on('tabAdded', function (event, $tab, instance) {
+$chromeTabs.on('tabAdded', function (event, $tab, instance) {
   console.log('Tab added.', $tab);
 });
 ```
@@ -726,10 +726,10 @@ Triggered when a new tab (or any tab) is updated in some way; e.g., when things 
 - `via` _String_ (or `undefined`): This is an optional identifier passed to the underlying `updateTab()` method. If the original caller defined this variable, it is passed in the event to help listeners recognize who/what originated the call to `updateTab()`. For example, if you call `updateTab()` yourself, and you are _also_ listening to the `tabUpdated` event, you can pass the `via` parameter to `updateTab()`, and then look for it in your own listener — choosing to respond or ignore.
 - `prevProps` _Object_: The previous tab properties, before the update. This is either the full & complete tab properties object prior to the update, or an empty object in the case of a new tab having its properties set/updated for the first time.
 - `newProps` _Object_: The new tab properties that were set by this update. This is not a full & complete tab properties object. It will only contain properties that were updated.
-- `instance` _ChromeTabz_: The associated ChromeTabz class instance.
+- `instance` _ChromeTabs_: The associated ChromeTabs class instance.
 
 ```js
-$chromeTabz.on('tabUpdated', function (event, $tab, props, via, prevProps, newProps, instance) {
+$chromeTabs.on('tabUpdated', function (event, $tab, props, via, prevProps, newProps, instance) {
   console.log('Tab updated.', $tab, props, via, prevProps, newProps);
 });
 ```
@@ -744,10 +744,10 @@ Triggered when the current/active tab is changed.
 
 - `event` _Object_: The event object properties passed by jQuery.
 - `$tab` _jQuery_: A jQuery object representing the current/active tab in the DOM.
-- `instance` _ChromeTabz_: The associated ChromeTabz class instance.
+- `instance` _ChromeTabs_: The associated ChromeTabs class instance.
 
 ```js
-$chromeTabz.on('currentTabChanged', function (event, $tab, instance) {
+$chromeTabs.on('currentTabChanged', function (event, $tab, instance) {
   console.log('Current tab changed to.', $tab);
 });
 ```
@@ -762,10 +762,10 @@ Triggered when a tab is being dragged (i.e., first locked onto).
 
 - `event` _Object_: The event object properties passed by jQuery.
 - `$tab` _jQuery_: A jQuery object representing the tab in the DOM.
-- `instance` _ChromeTabz_: The associated ChromeTabz class instance.
+- `instance` _ChromeTabs_: The associated ChromeTabs class instance.
 
 ```js
-$chromeTabz.on('tabDragStarted', function (event, $tab, instance) {
+$chromeTabs.on('tabDragStarted', function (event, $tab, instance) {
   console.log('Tab drag started.', $tab);
 });
 ```
@@ -781,10 +781,10 @@ Triggered when a tab is being dragged into a new location, but before it has bee
 - `event` _Object_: The event object properties passed by jQuery.
 - `$tab` _jQuery_: A jQuery object representing the tab in the DOM.
 - `indexes` _Object_: `{prevIndex: [Number], newIndex: [Number]}`. Indicating both the old and new location of the tab, based on its index position in the DOM. jQuery uses a zero-based index, so a tab that has a `newIndex` of `0` will be in the first position (first child). You can also determine the current index using `$tab.index()` — a method provided by jQuery.
-- `instance` _ChromeTabz_: The associated ChromeTabz class instance.
+- `instance` _ChromeTabs_: The associated ChromeTabs class instance.
 
 ```js
-$chromeTabz.on('tabDragMoved', function (event, $tab, indexes, instance) {
+$chromeTabs.on('tabDragMoved', function (event, $tab, indexes, instance) {
   console.log('Tab dragged to a new location.', $tab, indexes);
 });
 ```
@@ -800,10 +800,10 @@ Triggered when a tab is dropped and locked into a new location. The location wil
 - `event` _Object_: The event object properties passed by jQuery.
 - `$tab` _jQuery_: A jQuery object representing the tab in the DOM.
 - `newIndex` _Number_: jQuery uses a zero-based index, so a tab that has a `newIndex` of `0` will be in the first position (first child). You can also determine the current index using `$tab.index()` — a method provided by jQuery.
-- `instance` _ChromeTabz_: The associated ChromeTabz class instance.
+- `instance` _ChromeTabs_: The associated ChromeTabs class instance.
 
 ```js
-$chromeTabz.on('tabDragStopped', function (event, $tab, newIndex, instance) {
+$chromeTabs.on('tabDragStopped', function (event, $tab, newIndex, instance) {
   console.log('Tab drag stopped.', $tab, newIndex);
 });
 ```
@@ -818,10 +818,10 @@ Triggered right before a tab is about to be removed from the DOM.
 
 - `event` _Object_: The event object properties passed by jQuery.
 - `$tab` _jQuery_: A jQuery object representing the tab in the DOM.
-- `instance` _ChromeTabz_: The associated ChromeTabz class instance.
+- `instance` _ChromeTabs_: The associated ChromeTabs class instance.
 
 ```js
-$chromeTabz.on('tabBeingRemoved', function (event, $tab, instance) {
+$chromeTabs.on('tabBeingRemoved', function (event, $tab, instance) {
   console.log('Tab will be removed.', $tab);
 });
 ```
@@ -836,43 +836,43 @@ Triggered right after a tab is removed from the DOM.
 
 - `event` _Object_: The event object properties passed by jQuery.
 - `$tab` _jQuery_: A jQuery object representing the tab in the DOM.
-- `instance` _ChromeTabz_: The associated ChromeTabz class instance.
+- `instance` _ChromeTabs_: The associated ChromeTabs class instance.
 
 ```js
-$chromeTabz.on('tabRemoved', function (event, $tab, instance) {
+$chromeTabs.on('tabRemoved', function (event, $tab, instance) {
   console.log('Tab removed.', $tab);
 });
 ```
 
 ---
 
-### TODO: `ChromeTabViewz` Documentation
+### TODO: `ChromeTabViews` Documentation
 
-There are some other low-level properties, methods, and events associated with Viewz being altered in response to Tabz being altered. For the most part, these are for internal use only, but eventually I'd like to document everything. For now, here is a quick look at the View events that are available.
+There are some other low-level properties, methods, and events associated with Views being altered in response to Tabs being altered. For the most part, these are for internal use only, but eventually I'd like to document everything. For now, here is a quick look at the View events that are available.
 
 ```js
 // References we'll work with below.
-var $chromeTabz = $('.chrome-tabz').chromeTabz(); // w/ jQuery wrapper.
-$chromeTabz._ = $chromeTabz.data('chromeTabz'); // ChromeTabz class instance.
+var $chromeTabs = $('.chrome-tabs').chromeTabs(); // w/ jQuery wrapper.
+$chromeTabs._ = $chromeTabs.data('chromeTabs'); // ChromeTabs class instance.
 
 // Additional references we'll work with below.
-var $chromeTabViewz = $chromeTabz._.$viewz; // jQuery wrapper for `.chrome-tabz > .-viewz`.
-$chromeTabViewz._ = $chromeTabViewz.data('chromeTabViewz'); // ChromeTabViewz class instance.
+var $chromeTabViews = $chromeTabs._.$views; // jQuery wrapper for `.chrome-tabs > .-views`.
+$chromeTabViews._ = $chromeTabViews.data('chromeTabViews'); // ChromeTabViews class instance.
 
-$chromeTabViewz.on('constructed', function (event, instance){ console.log('Viewz constructed.'); });
-$chromeTabViewz.on('initialized', function (event, instance){ console.log('Viewz initialized.'); });
-$chromeTabViewz.on('destroyed', function (event, instance){ console.log('Viewz destroyed.'); });
+$chromeTabViews.on('constructed', function (event, instance){ console.log('Views constructed.'); });
+$chromeTabViews.on('initialized', function (event, instance){ console.log('Views initialized.'); });
+$chromeTabViews.on('destroyed', function (event, instance){ console.log('Views destroyed.'); });
 
-$chromeTabViewz.on('viewIndexed', function (event, view, locations, instance){ console.log('View indexed.', view, locations); });
-$chromeTabViewz.on('viewAdded', function (event, view, instance){ console.log('View added.', view); });
-$chromeTabViewz.on('viewUpdated', function (event, view, props, via, prevProps, newProps, instance){ console.log('View props updated.', view, props, via, prevProps, newProps); });
-$chromeTabViewz.on('currentViewChanged', function (event, view, instance){ console.log('Current view changed to.', view); });
+$chromeTabViews.on('viewIndexed', function (event, view, locations, instance){ console.log('View indexed.', view, locations); });
+$chromeTabViews.on('viewAdded', function (event, view, instance){ console.log('View added.', view); });
+$chromeTabViews.on('viewUpdated', function (event, view, props, via, prevProps, newProps, instance){ console.log('View props updated.', view, props, via, prevProps, newProps); });
+$chromeTabViews.on('currentViewChanged', function (event, view, instance){ console.log('Current view changed to.', view); });
 
-$chromeTabViewz.on('viewBeingRemoved', function (event, view, instance){ console.log('View will be removed.', view); });
-$chromeTabViewz.on('viewRemoved', function (event, view, instance){ console.log('View removed.', view); });
+$chromeTabViews.on('viewBeingRemoved', function (event, view, instance){ console.log('View will be removed.', view); });
+$chromeTabViews.on('viewRemoved', function (event, view, instance){ console.log('View removed.', view); });
 
-$chromeTabViewz.on('viewStartedLoading', function (event, view, instance){ console.log('View started loading.', view); });
-$chromeTabViewz.on('viewFaviconUpdated', function (event, view, favicon, instance){ console.log('View favicon updated.', view, favicon); });
-$chromeTabViewz.on('viewTitleUpdated', function (event, view, title, instance){ console.log('View title updated.', view, title); });
-$chromeTabViewz.on('viewStoppedLoading', function (event, view, instance){ console.log('View stopped loading.', view); });
+$chromeTabViews.on('viewStartedLoading', function (event, view, instance){ console.log('View started loading.', view); });
+$chromeTabViews.on('viewFaviconUpdated', function (event, view, favicon, instance){ console.log('View favicon updated.', view, favicon); });
+$chromeTabViews.on('viewTitleUpdated', function (event, view, title, instance){ console.log('View title updated.', view, title); });
+$chromeTabViews.on('viewStoppedLoading', function (event, view, instance){ console.log('View stopped loading.', view); });
 ```

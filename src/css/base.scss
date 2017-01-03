@@ -20,13 +20,13 @@ $tab-background-svg-shadow-color: rgba(0, 0, 0, 0.27);
 $bottom-line-bg-color: #f2f2f2;
 $bottom-line-box-shadow-color: rgba(0, 0, 0, 0.27);
 
-$viewz-border-color: #9a9a9a;
+$views-border-color: #9a9a9a;
 
-$viewz-bg-color: #e6e6e6;
+$views-bg-color: #e6e6e6;
 
 // Styles.
 
-.chrome-tabz {
+.chrome-tabs {
   font-size:                  10px;
   font-family:               -apple-system, BlinkMacSystemFont, sans-serif;
 
@@ -239,7 +239,7 @@ $viewz-bg-color: #e6e6e6;
 
         &.-just-added {
           top:                10px;
-          animation:          chrome-tabz-just-added 120ms forwards ease-in-out;
+          animation:          chrome-tabs-just-added 120ms forwards ease-in-out;
         }
       }
     }
@@ -265,10 +265,10 @@ $viewz-bg-color: #e6e6e6;
     }
   }
 
-  > .-viewz {
-    background-color:         $viewz-bg-color;
+  > .-views {
+    background-color:         $views-bg-color;
     height:                   calc(100vh - 4.2em);
-    border-top:               1px solid $viewz-border-color;
+    border-top:               1px solid $views-border-color;
 
     > .-content {
       height:                 100%;
@@ -302,7 +302,7 @@ $viewz-bg-color: #e6e6e6;
 
 // Animations.
 
-@include keyframes(chrome-tabz-just-added) {
+@include keyframes(chrome-tabs-just-added) {
   to {
     top:                      0;
   }

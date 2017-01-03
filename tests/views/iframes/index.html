@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>IFrames | Chrome Tabs Test</title>
+
+  <style>
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    .chrome-tab-tools {
+      top: 10px;
+      right: 15px;
+      position: absolute;
+    }
+
+    @media max-width(767px) {
+      .chrome-tab-tools {
+        display: none;
+      }
+    }
+  </style>
+
+  <link rel="stylesheet" href="../../../src/css/base.min.css" />
+  <link rel="stylesheet" href="../../../src/css/dark.min.css" />
+</head>
+
+<body>
+  <div class="chrome-tabs"></div>
+
+  <div class="chrome-tab-tools">
+    <button class="-add-tab">Add Tab</button>
+    <button class="-remove-tab">Remove Tab</button>
+    <button class="-toggle-dark-theme">Toggle Theme</button>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="../../../dists/js/bundle.min.js"></script>
+
+  <script>
+    // jshint esversion: 6
+
+    jQuery(document).ready($ => {
+
+      let settings = {
+        minWidth: 45,
+        maxWidth: 243,
+
+        leftPadding: 0,
+        leftPaddingMobile: 0,
+
+        rightPadding: 300,
+        rightPaddingMobile: 0,
+
+        overlapDistance: 14,
+
+        views: 'iframes', // or `webviews`.
+        // `webviews` = Electron compatibility.
+        // Or leave empty to disable views entirely.
+
+        allowDragNDrop: true,
+        allowDoubleClick: true,
+
+        debug: 3 // Enable debugging for tests.
+      };
+
+      $('.chrome-tabs').chromeTabs(settings).each((i, obj) => {
+
+        let $chromeTabs = $(obj); // jQuery & class.
+        $chromeTabs._ = $chromeTabs.data('chromeTabs');
+
+        let $tabs = $chromeTabs._.addTabs([
+          { url: '../../../demos/views/assets/frames/1.html' },
+          { url: '../../../demos/views/assets/frames/2.html' },
+          { url: '../../../demos/views/assets/frames/3.html' },
+          { url: '../../../demos/views/assets/frames/4.html' },
+          { url: '../../../demos/views/assets/frames/5.html' },
+          { url: '../../../demos/views/assets/frames/6.html' },
+          { url: '../../../demos/views/assets/frames/7.html' },
+          { url: '../../../demos/views/assets/frames/8.html' },
+          { url: '../../../demos/views/assets/frames/9.html' },
+          {
+            title: 'DuckDuckGo.com',
+            favicon: 'https://duckduckgo.com/favicon.ico',
+            url: 'https://duckduckgo.com/?kae=b&kak=-1&kao=-1&k1=-1&kt=p&kj=f5f5f5&ka=p&kf=1&kam=google-maps&km=l&ko=1&kn=1'
+          }, {
+            title: 'ixQuick.com',
+            url: 'https://www.ixquick.com/',
+            favicon: 'https://www.ixquick.com/favicon.ico'
+          }, {
+            title: 'Teoma.com',
+            url: 'https://www.teoma.com/',
+            favicon: 'https://www.teoma.com/favicon.ico',
+
+            viewAttrs: {
+              style: 'background:#fff'
+            }
+          }
+        ]);
+        $chromeTabs._.setCurrentTab($tabs.eq(1)); // `2.html` above.
+
+        $('.chrome-tab-tools > .-add-tab').on('click', (e) => {
+          let url = prompt('URL (empty = default tab):');
+          if (url !== null) $chromeTabs._.addTab(url ? { url } : {});
+        });
+        $('.chrome-tab-tools > .-remove-tab').on('click', (e) => {
+          $chromeTabs._.removeTab($chromeTabs._.$currentTab);
+        });
+        $('.chrome-tab-tools > .-toggle-dark-theme').on('click', (e) => {
+          $chromeTabs.toggleClass('-dark-theme');
+        });
+
+        if ($chromeTabs._.settings.debug >= 2) {
+          $chromeTabs.on('constructed', (event, instance) => console.log('Tabs constructed.'));
+          $chromeTabs.on('initialized', (event, instance) => console.log('Tabs initialized.'));
+          $chromeTabs.on('destroyed', (event, instance) => console.log('Tabs destroyed.'));
+
+          $chromeTabs.on('tabAdded', (event, tab, instance) => console.log('Tab added.', tab));
+          $chromeTabs.on('tabUpdated', (event, tab, props, via, prevProps, newProps, instance) => console.log('Tab props updated.', tab, props, via, prevProps, newProps));
+          $chromeTabs.on('currentTabChanged', (event, tab, instance) => console.log('Current tab changed to.', tab));
+
+          $chromeTabs.on('tabDragStarted', (event, tab, instance) => console.log('Tab drag started.', tab));
+          $chromeTabs.on('tabDragMoved', (event, tab, indexes, instance) => console.log('Tab dragged to a new location.', tab, indexes));
+          $chromeTabs.on('tabDragStopped', (event, tab, newIndex, instance) => console.log('Tab drag stopped.', tab, newIndex));
+
+          $chromeTabs.on('tabBeingRemoved', (event, tab, instance) => console.log('Tab will be removed.', tab));
+          $chromeTabs.on('tabRemoved', (event, tab, instance) => console.log('Tab removed.', tab));
+
+          if ($chromeTabs._.settings.debug >= 3 && $chromeTabs._.settings.views) {
+            let $chromeTabViews = $chromeTabs._.$views;
+            $chromeTabViews._ = $chromeTabViews.data('chromeTabViews');
+
+            $chromeTabViews.on('constructed', (event, instance) => console.log('Views constructed.'));
+            $chromeTabViews.on('initialized', (event, instance) => console.log('Views initialized.'));
+            $chromeTabViews.on('destroyed', (event, instance) => console.log('Views destroyed.'));
+
+            $chromeTabViews.on('viewIndexed', (event, view, locations, instance) => console.log('View indexed.', view, locations));
+            $chromeTabViews.on('viewAdded', (event, view, instance) => console.log('View added.', view));
+            $chromeTabViews.on('viewUpdated', (event, view, props, via, prevProps, newProps, instance) => console.log('View props updated.', view, props, via, prevProps, newProps));
+            $chromeTabViews.on('currentViewChanged', (event, view, instance) => console.log('Current view changed to.', view));
+
+            $chromeTabViews.on('viewBeingRemoved', (event, view, instance) => console.log('View will be removed.', view));
+            $chromeTabViews.on('viewRemoved', (event, view, instance) => console.log('View removed.', view));
+
+            $chromeTabViews.on('viewStartedLoading', (event, view, instance) => console.log('View started loading.', view));
+            $chromeTabViews.on('viewFaviconUpdated', (event, view, favicon, instance) => console.log('View favicon updated.', view, favicon));
+            $chromeTabViews.on('viewTitleUpdated', (event, view, title, instance) => console.log('View title updated.', view, title));
+            $chromeTabViews.on('viewStoppedLoading', (event, view, instance) => console.log('View stopped loading.', view));
+          }
+        }
+      });
+    });
+  </script>
+
+</body>
+
+</html>
