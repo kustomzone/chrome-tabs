@@ -32,6 +32,10 @@ _**Tip:** In these demos you can 'View Page Source' for additional insight._
 - [Search Engine IFrames](https://jaswsinc.github.io/chrome-tabs/demos/views/iframes-search-engines/index.html)
 - [IFrames w/ Examples in Source](https://jaswsinc.github.io/chrome-tabs/demos/views/iframes-elaborate/index.html)
 
+### Projects Using Chrome Tabs
+
+- [Slick (Unofficial Slack App for mac OS)](https://jaswsinc.github.io/slick/)
+
 ---
 
 ### Available Installation Options
