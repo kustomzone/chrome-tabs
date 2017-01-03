@@ -1863,6 +1863,45 @@ return Unipointer;
       this.draggabillyInstances = []; // Reset instance array.
     }
 
+    tabExists(checkProps) {
+      if (!checkProps) {
+        return this.$tabz.length > 0;
+      } else if (typeof checkProps !== 'object') {
+        throw 'Invalid properties to check.';
+      }
+      let $exists = false; // Initialize.
+
+      this.$tabz.each((i, tab) => {
+        let $tab = $(tab);
+        let matches = true;
+        let props = $tab.data('props');
+
+        for (let prop in checkProps) {
+          if (typeof props[prop] === 'undefined' || props[prop] !== checkProps[prop]) {
+            matches = false;
+            break; // Stop here.
+          } // i.e., Stop on first mismtach.
+        } // If any property is a mismatch, flag a false.
+
+        if (matches) {
+          $exists = $tab; // Flag as true.
+          return false; // Stop `.each()` loop.
+        }
+      });
+      return $exists; // The tab, else `false`.
+    }
+
+    addTabIfNotExists(props, setAsCurrent = true, checkProps = undefined) {
+      checkProps = checkProps || props;
+      let $existingTab = null; // Initialize.
+
+      if (checkProps && ($existingTab = this.tabExists(checkProps))) {
+        if (setAsCurrent) this.setCurrentTab($existingTab);
+        return $existingTab; // Tab exists.
+      }
+      return this.addTab(props, setAsCurrent);
+    }
+
     addTab(props, setAsCurrent = true) {
       return this.addTabz([props], setAsCurrent);
     }
