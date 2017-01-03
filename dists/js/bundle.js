@@ -1877,12 +1877,20 @@ return Unipointer;
         let props = $tab.data('props');
 
         for (let prop in checkProps) {
-          if (typeof props[prop] === 'undefined' || props[prop] !== checkProps[prop]) {
+          if (typeof props[prop] === 'undefined') {
+            matches = false; // Prop missing.
+            break; // Stop here.
+          }
+          if (typeof props[prop] === 'object' && typeof checkProps[prop] === 'object') {
+            if (JSON.stringify(props[prop]) !== JSON.stringify(checkProps[prop])) {
+              matches = false; // Note: properties must be in same order too.
+              break; // Stop here.
+            }
+          } else if (props[prop] !== checkProps[prop]) {
             matches = false;
             break; // Stop here.
-          } // i.e., Stop on first mismtach.
-        } // If any property is a mismatch, flag a false.
-
+          } // Stop on first mistmatch.
+        }
         if (matches) {
           $exists = $tab; // Flag as true.
           return false; // Stop `.each()` loop.
