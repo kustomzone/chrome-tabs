@@ -34,7 +34,7 @@ _**Tip:** In these demos you can 'View Page Source' for additional insight._
 
 ### Projects Using Chrome Tabs
 
-- [Slick (Unofficial Slack App for mac OS)](https://jaswsinc.github.io/slick/)
+- [Slick (Unofficial Slack App for mac OS)](https://github.com/jaswsinc/slick)
 
 ---
 
@@ -61,6 +61,8 @@ $ composer require jaswsinc/chrome-tabs
 <img src="https://media.githubusercontent.com/media/jaswsinc/chrome-tabs/dev/assets/images/electron-icon.png" width="64" align="right" />
 
 ChromeTabs requires a `window.document` object. Generally speaking, most NodeJS projects do not incorporate a web browser. However, there are some exceptions, and Electron apps are one of those. **ChromeTabs works great as a tabbed interface for Electron apps!**
+
+_**Tip:** If you're looking for more examples, check out [Slick](https://github.com/jaswsinc/slick) — it's an Electron-based app that uses Chrome Tabs._
 
 #### Suggested CSS/Styles
 
