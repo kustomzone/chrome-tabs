@@ -1,7 +1,7 @@
 {
   "name": "jaswsinc/chrome-tabs",
   "homepage": "https://github.com/jaswsinc/chrome-tabs",
-  "description": "Electron and/or browser compatible HTML/CSS and JS chrome tabs — with a jQuery wrapper.",
+  "description": "Electron and/or browser compatible HTML/CSS and JS chrome tabs — with a jQuery wrapper. Tabbed interface, creates Electron tabs.",
   "keywords": ["jaswsinc", "electron", "chrome", "tabs"],
 
   "type": "library",
