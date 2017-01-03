@@ -484,21 +484,29 @@
         let matches = true;
         let props = $tab.data('props');
 
-        for (let prop in checkProps) {
-          if (typeof props[prop] === 'undefined') {
-            matches = false; // Prop missing.
-            break; // Stop here.
-          }
-          if (typeof props[prop] === 'object' && typeof checkProps[prop] === 'object') {
-            if (JSON.stringify(props[prop]) !== JSON.stringify(checkProps[prop])) {
-              matches = false; // Note: properties must be in same order too.
-              break; // Stop here.
+        loop: // For breaks below.
+
+          for (let prop in checkProps) {
+            if (typeof props[prop] === 'undefined') {
+              matches = false;
+              break loop;
             }
-          } else if (props[prop] !== checkProps[prop]) {
-            matches = false;
-            break; // Stop here.
-          } // Stop on first mistmatch.
-        }
+            if (typeof props[prop] === 'object' && typeof checkProps[prop] === 'object') {
+              for (let _prop in checkProps[prop]) {
+                if (typeof props[prop][_prop] === 'undefined') {
+                  matches = false;
+                  break loop;
+                }
+                if (props[prop][_prop] !== checkProps[prop][_prop]) {
+                  matches = false;
+                  break loop;
+                }
+              }
+            } else if (props[prop] !== checkProps[prop]) {
+              matches = false;
+              break loop;
+            }
+          }
         if (matches) {
           $exists = $tab; // Flag as true.
           return false; // Stop `.each()` loop.
