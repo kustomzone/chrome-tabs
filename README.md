@@ -62,7 +62,7 @@ $ composer require jaswsinc/chrome-tabs
 
 ChromeTabs requires a `window.document` object. Generally speaking, most NodeJS projects do not incorporate a web browser. However, there are some exceptions, and Electron apps are one of those. **ChromeTabs works great as a tabbed interface for Electron apps!**
 
-_**Tip:** A good example = [Slick](https://github.com/jaswsinc/slick) — an Electron app that uses Chrome Tabs._
+_**Tip:** A good example is [Slick](https://github.com/jaswsinc/slick) (an Electron app that uses Chrome Tabs)._
 
 #### Suggested CSS/Styles
 
