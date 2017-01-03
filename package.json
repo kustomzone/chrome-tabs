@@ -1,5 +1,5 @@
 {
-  "version": "1.0.2",
+  "version": "1.0.1",
   "name": "x-chrome-tabs",
   "description": "Electron and/or browser compatible HTML/CSS and JS chrome tabs — with a jQuery wrapper. Tabbed interface, creates Electron tabs.",
   "license": "GPL-3.0",
