@@ -481,6 +481,28 @@ var $tab = $chromeTabz._.addTab({ url: '1.html' });
 
 ---
 
+#### `addTabIfNotExists()` Method
+
+##### Parameters
+
+- `props` _Object_: See: [Tab Properties Documentation](#tab-properties-documentation).
+- `setAsCurrent` _Boolean_: Set the new (or existing) tab as the current active tab? Default: `true`.
+- `checkProps` _Object_ (or `undefined`): Properties to check. See: [Tab Properties Documentation](#tab-properties-documentation). If this parameter is passed, the method checks for an existing tab with properties matching these. If this parameter is not passed, or is empty, the method checks for an existing tab with properties matching the `props` parameter. In other words, if not given, this defaults to the value of `props`.
+
+  _**Note:** `checkProps` can contain any number of tab properties to check for. You can check for only a matching `url:`, or you can check for a matching `favicon:`, `title:`, and `allowClose:` property as well — and there are [others](#tab-properties-documentation). It just depends on how specific you'd like to be._
+
+##### Returns
+
+A jQuery object representing the new (or existing) tab object in the DOM.
+
+```js
+var $tab = $chromeTabz._.addTabIfNotExists({ url: '1.html' });
+```
+
+_**See also:** [`tabExists()`](#tabexists-method)_
+
+---
+
 #### `addTabz()` Method
 
 ##### Parameters
@@ -585,6 +607,27 @@ $chromeTabz._.updateTab($tab, {
   favicon: 'src/images/loading-favicon.gif'
 }); // Second tab (index 1) gets a new favicon & title.
 ```
+
+---
+
+#### `tabExists()` Method
+
+##### Parameters
+
+- `props` _Object_ (or `undefined`): Properties to check. See: [Tab Properties Documentation](#tab-properties-documentation). If this parameter is passed, the method checks for an existing tab with matching properties. If this parameter is not passed, or is passed explicitly as `undefined`, the method checks if _any_ tab exists.
+
+  _**Note:** `props` can contain any number of tab properties to check for. You can check for only a matching `url:`, or you can check for a matching `favicon:`, `title:`, and `allowClose:` property as well — and there are [others](#tab-properties-documentation). It just depends on how specific you'd like to be._
+
+##### Returns
+
+A jQuery object representing the first matching tab object in the DOM; else `false` if not exists.
+
+```js
+var $existingTab = $chromeTabz._.tabExists({url: 'http://example.com'});
+// If a tab with this `url:` already exists, $existingTab is a jQuery object referencing that tab.
+```
+
+_**See also:** [`addTabIfNotExists()`](#addtabifnotexists-method)_
 
 ---
 
