@@ -1,7 +1,7 @@
 ## Chrome Tabs (i.e., Electron Tabs)
 
-<img src="https://media.githubusercontent.com/media/jaswsinc/chrome-tabz/dev/assets/images/electron-icon.png" width="128" align="right" />
-<img src="https://media.githubusercontent.com/media/jaswsinc/chrome-tabz/dev/assets/images/chrome-icon.png" width="64" align="right" />
+<img src="https://media.githubusercontent.com/media/jaswsinc/chrome-tabs/dev/assets/images/electron-icon.png" width="128" align="right" />
+<img src="https://media.githubusercontent.com/media/jaswsinc/chrome-tabs/dev/assets/images/chrome-icon.png" width="64" align="right" />
 
 [Electron](http://electron.atom.io/) tabs and/or browser compatible HTML/CSS and JS chrome tabs, with a jQuery wrapper. Perfect for Electron Webviews and/or IFrames.
 
@@ -9,7 +9,7 @@ _~ Inspired by and based on the original [Chrome Tabs](https://github.com/adamsc
 
 This is an ES6 project for Electron [`<webview>`](http://electron.atom.io/docs/api/web-view-tag/) tags. However, it also supports [`<iframe>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe) tags in modern web browsers that support ES5+. _Note: `dists/js/bundle.min.js` is transpiled into traditional JS for web browser compatibility. Tested in Chrome, Firefox, and Safari._
 
-![Demo](https://jaswsinc.github.io/chrome-tabz/demos/images/demo.gif)
+![Demo](https://jaswsinc.github.io/chrome-tabs/demos/images/demo.gif)
 
 ### Features
 
@@ -28,33 +28,33 @@ This is an ES6 project for Electron [`<webview>`](http://electron.atom.io/docs/a
 
 _**Tip:** In these demos you can 'View Page Source' for additional insight._
 
-- [Same-Domain IFrames](https://jaswsinc.github.io/chrome-tabz/demos/views/iframes-same-domain/index.html)
-- [Search Engine IFrames](https://jaswsinc.github.io/chrome-tabz/demos/views/iframes-search-engines/index.html)
-- [IFrames w/ Examples in Source](https://jaswsinc.github.io/chrome-tabz/demos/views/iframes-elaborate/index.html)
+- [Same-Domain IFrames](https://jaswsinc.github.io/chrome-tabs/demos/views/iframes-same-domain/index.html)
+- [Search Engine IFrames](https://jaswsinc.github.io/chrome-tabs/demos/views/iframes-search-engines/index.html)
+- [IFrames w/ Examples in Source](https://jaswsinc.github.io/chrome-tabs/demos/views/iframes-elaborate/index.html)
 
 ---
 
 ### Available Installation Options
 
-You can simply [**download a ZIP file**](https://github.com/jaswsinc/chrome-tabz/archive/master.zip) containing the contents of this repository. Or, you can install the [**NPM module**](https://www.npmjs.com/package/chrome-tabz) for NodeJS/Electron applications. There is also a [**Composer package**](https://packagist.org/packages/jaswsinc/chrome-tabz) available.
+You can simply [**download a ZIP file**](https://github.com/jaswsinc/chrome-tabs/archive/master.zip) containing the contents of this repository. Or, you can install the [**NPM module**](https://www.npmjs.com/package/x-chrome-tabs) for NodeJS/Electron applications. There is also a [**Composer package**](https://packagist.org/packages/jaswsinc/chrome-tabs) available.
 
 #### Installing Node Module
 
 ```
-$ npm install --save chrome-tabz
+$ npm install --save x-chrome-tabs
 ```
 
 #### Installing Composer Package
 
 ```
-$ composer require jaswsinc/chrome-tabz
+$ composer require jaswsinc/chrome-tabs
 ```
 
 ---
 
 ### [Electron](http://electron.atom.io/) Tabbed Interface Implementation
 
-<img src="https://media.githubusercontent.com/media/jaswsinc/chrome-tabz/dev/assets/images/electron-icon.png" width="64" align="right" />
+<img src="https://media.githubusercontent.com/media/jaswsinc/chrome-tabs/dev/assets/images/electron-icon.png" width="64" align="right" />
 
 ChromeTabs requires a `window.document` object. Generally speaking, most NodeJS projects do not incorporate a web browser. However, there are some exceptions, and Electron apps are one of those. **ChromeTabs works great as a tabbed interface for Electron apps!**
 
@@ -79,8 +79,8 @@ This goes in your `.html` document (the Electron Renderer Process).
 This goes in your `.html` document (the Electron Renderer Process).
 
 ```html
-<link rel="stylesheet" href="node_modules/chrome-tabz/src/css/base.min.css" />
-<link rel="stylesheet" href="node_modules/chrome-tabz/src/css/dark.min.css" />
+<link rel="stylesheet" href="node_modules/chrome-tabs/src/css/base.min.css" />
+<link rel="stylesheet" href="node_modules/chrome-tabs/src/css/dark.min.css" />
 <!-- Actually, the dark theme is optional. If not using, feel free to exclude. -->
 ```
 
@@ -107,7 +107,7 @@ _**Note:** Any version of jQuery >= v2.2.4 will do fine._
 ```html
 <script>
   let $ = require('jquery');
-  $.fn.chromeTabs = require('chrome-tabs');
+  $.fn.chromeTabs = require('x-chrome-tabs');
 
   $(document).ready(() => {
     $('.chrome-tabs').chromeTabs({views: 'webviews'});
@@ -119,7 +119,7 @@ _**Note:** Any version of jQuery >= v2.2.4 will do fine._
 
 ### Web Browser Implementation (i.e., Outside of Electron)
 
-<img src="https://media.githubusercontent.com/media/jaswsinc/chrome-tabz/dev/assets/images/chrome-icon.png" width="64" align="right" />
+<img src="https://media.githubusercontent.com/media/jaswsinc/chrome-tabs/dev/assets/images/chrome-icon.png" width="64" align="right" />
 
 Yes, Chrome Tabs can also work with [`<iframe>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe) tags in modern web browsers that support ES5+. _Note: `dists/js/bundle.min.js` is transpiled into traditional JS for web browser compatibility. Tested in Chrome, Firefox, and Safari. May work in others too._
 
@@ -150,7 +150,7 @@ Yes, Chrome Tabs can also work with [`<iframe>`](https://developer.mozilla.org/e
 _**Note:** Any version of jQuery >= v2.2.4 will do fine._
 
 ```html
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
 <script src="dists/js/bundle.min.js"></script>
 ```
 
